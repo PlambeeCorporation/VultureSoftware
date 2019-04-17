@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="304.0" prefWidth="446.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.TaskEditDialogViewController">
+   <children>
+      <Label layoutX="64.0" layoutY="37.0" text="Task" />
+      <ComboBox fx:id="cbTasks" layoutX="92.0" layoutY="32.0" prefWidth="150.0" />
+      <Label layoutX="15.0" layoutY="67.0" text="Hours Needed" />
+      <TextField fx:id="txtHoursNeeded" layoutX="93.0" layoutY="63.0" />
+      <Label layoutX="53.0" layoutY="97.0" text="Priority" />
+      <ComboBox fx:id="cbTaskPriority" layoutX="92.0" layoutY="93.0" prefWidth="150.0" />
+      <Label layoutX="60.0" layoutY="128.0" text="Notes" />
+      <TextArea fx:id="txtNotes" layoutX="93.0" layoutY="128.0" prefHeight="113.0" prefWidth="346.0" />
+      <Button layoutX="93.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleOK" prefHeight="25.0" prefWidth="149.0" text="OK" />
+      <Button layoutX="256.0" layoutY="255.0" mnemonicParsing="false" onAction="#handleCancel" prefHeight="25.0" prefWidth="149.0" text="Cancel" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<AnchorPane fx:id="AnchorPane" prefHeight="615.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.loginviews.SignupViewController">
+    <children>
+        <StackPane layoutX="184.0" layoutY="100.0" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <Pane prefHeight="246.0" prefWidth="600.0" style="-fx-background-color: #3b70a5;" />
+                        <Pane prefHeight="440.0" prefWidth="600.0" style="-fx-background-color: #EDE7F6;" />
+                    </children>
+                </VBox>
+                <AnchorPane prefHeight="780.0" prefWidth="600.0" style="-fx-background-color: transparent;">
+                    <children>
+                        <AnchorPane layoutX="66.0" layoutY="53.0" prefHeight="518.0" prefWidth="469.0" style="-fx-background-color: WHITE; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-border-radius: 4; -fx-padding: 8;">
+                            <children>
+                                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="185.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+<!--                                        <Image url="@/com/plambeeco/assets/vulture-logo.png" />-->
+                                    </image>
+                                </ImageView>
+                                    <TextField layoutX="86.0" layoutY="126.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Firstname" />
+                                    <TextField layoutX="86.0" layoutY="190.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Surname" />
+                                    <TextField layoutX="86.0" layoutY="252.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Username" />
+                                    
+                                    <PasswordField layoutX="86.0" layoutY="318.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Password" />
+                                    <PasswordField layoutX="86.0" layoutY="375.0" prefHeight="37.0" prefWidth="298.0" promptText="Re-enter Password" />
+                                    
+                                                <Button layoutX="86.0" layoutY="442.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3b70a5; -fx-text-fill: #ffffff; -fx-background-radius: 10px;" text="Signup" />
+                                    <Label layoutX="290.0" layoutY="452.0" text="Have an account?" />
+                                
+                                        </children>
+                        </AnchorPane>
+                    </children>
+                </AnchorPane>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>

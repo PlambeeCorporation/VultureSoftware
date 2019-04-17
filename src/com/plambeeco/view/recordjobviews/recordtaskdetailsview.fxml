@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="477.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordTasksDetailsViewController">
+   <children>
+      <TableView fx:id="tvTasksToDo" layoutX="25.0" layoutY="175.0" prefHeight="252.0" prefWidth="601.0">
+        <columns>
+          <TableColumn fx:id="tbTask" maxWidth="3000.0" prefWidth="141.0" text="Task" />
+            <TableColumn fx:id="tbNotes" prefWidth="75.0" text="Notes" />
+          <TableColumn fx:id="tbHours" maxWidth="1000.0" minWidth="1.0" prefWidth="146.0" text="Hours" />
+            <TableColumn fx:id="tbPriority" maxWidth="3000.0" prefWidth="75.0" text="Priority" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Label layoutX="54.0" layoutY="27.0" text="Task" />
+      <ComboBox fx:id="cbTaskNames" layoutX="82.0" layoutY="22.0" onAction="#createNewTaskName" prefWidth="150.0" />
+      <Button layoutX="26.0" layoutY="133.0" mnemonicParsing="false" onAction="#createTask" prefHeight="25.0" prefWidth="111.0" text="Create Task" />
+      <Label layoutX="5.0" layoutY="57.0" text="Hours Needed" />
+      <TextField fx:id="txtHoursNeeded" layoutX="83.0" layoutY="53.0" />
+      <Button layoutX="122.0" layoutY="437.0" mnemonicParsing="false" onAction="#editTask" prefHeight="25.0" prefWidth="118.0" text="Edit Task" />
+      <Button layoutX="402.0" layoutY="437.0" mnemonicParsing="false" onAction="#removeTask" prefHeight="25.0" prefWidth="118.0" text="Remove Task" />
+      <Label layoutX="277.0" layoutY="26.0" text="Notes" />
+      <TextArea fx:id="txtNotes" layoutX="277.0" layoutY="45.0" prefHeight="113.0" prefWidth="346.0" />
+      <Label layoutX="43.0" layoutY="87.0" text="Priority" />
+      <ComboBox fx:id="cbTaskPriority" layoutX="82.0" layoutY="83.0" prefWidth="150.0" />
+      <Button layoutX="146.0" layoutY="133.0" mnemonicParsing="false" onAction="#editTaskName" prefHeight="25.0" prefWidth="111.0" text="Edit Task Name" />
+   </children>
+</AnchorPane>

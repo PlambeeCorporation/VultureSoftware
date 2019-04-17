@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<AnchorPane prefHeight="110.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordMotorDetailsViewController">
+   <children>
+      <Label layoutX="146.0" layoutY="14.0" text="Motor" />
+      <Label layoutX="106.0" layoutY="44.0" text="Manufacturer" />
+      <Label layoutX="15.0" layoutY="75.0" text="Estimated year of manufacture" />
+      <TextField fx:id="txtMotorType" layoutX="180.0" layoutY="10.0" />
+      <TextField fx:id="txtManufacturer" layoutX="180.0" layoutY="40.0" />
+      <TextField fx:id="txtEstimatedYear" layoutX="180.0" layoutY="71.0" />
+   </children>
+</AnchorPane>
