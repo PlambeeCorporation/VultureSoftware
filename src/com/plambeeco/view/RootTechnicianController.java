@@ -46,7 +46,8 @@ public class RootTechnicianController implements Initializable {
 
     @FXML
     private void openRecordNewJobView(){
-        new RootJobRecordController(primaryStage);
+
+        new RootJobRecordController(primaryStage, rootScene);
     }
 
     @FXML

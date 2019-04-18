@@ -14,6 +14,7 @@ import java.util.List;
 
 public class RootJobRecordController {
     private Stage primaryStage;
+    private BorderPane rootJobScene;
     private BorderPane rootScene;
 
     private RecordPartsNeededController recordPartsNeededController;
@@ -21,8 +22,9 @@ public class RootJobRecordController {
     private RecordTasksDetailsViewController recordTasksDetailsViewController;
     private RecordJobDetailsViewController recordJobDetailsViewController;
 
-    public RootJobRecordController(Stage primaryStage) {
+    public RootJobRecordController(Stage primaryStage, BorderPane rootScene) {
         this.primaryStage = primaryStage;
+        this.rootScene = rootScene;
         primaryStage.setTitle("Record new Job");
 
         initRootLayout();
@@ -38,12 +40,9 @@ public class RootJobRecordController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootJobRecordController.class.getResource("rootjobrecordview.fxml"));
             loader.setController(this);
-            rootScene = loader.load();
+            rootJobScene = loader.load();
 
-            //Show the scene
-            Scene scene = new Scene(rootScene);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            rootScene.setCenter(rootJobScene);
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -55,7 +54,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordmotordetailsview.fxml"));
             AnchorPane motorModelView = loader.load();
 
-            rootScene.setCenter(motorModelView);
+            rootJobScene.setCenter(motorModelView);
 
             recordMotorDetailsViewController = loader.getController();
         }catch(IOException e){
@@ -69,7 +68,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordpartsneededview.fxml"));
             AnchorPane partsNeededView = loader.load();
 
-            rootScene.setRight(partsNeededView);
+            rootJobScene.setRight(partsNeededView);
 
             recordPartsNeededController = loader.getController();
             recordPartsNeededController.setRootScene(primaryStage);
@@ -84,7 +83,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordtaskdetailsview.fxml"));
             AnchorPane taskView = loader.load();
 
-            rootScene.setLeft(taskView);
+            rootJobScene.setLeft(taskView);
 
             recordTasksDetailsViewController = loader.getController();
             recordTasksDetailsViewController.setRootScene(primaryStage);
@@ -99,7 +98,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordjobdetailsview.fxml"));
             AnchorPane jobView = loader.load();
 
-            rootScene.setTop(jobView);
+            rootJobScene.setTop(jobView);
 
             recordJobDetailsViewController = loader.getController();
             recordJobDetailsViewController.setrootJobRecordController(this);
