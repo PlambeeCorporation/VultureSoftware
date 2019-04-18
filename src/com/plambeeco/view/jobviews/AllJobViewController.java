@@ -67,6 +67,7 @@ public class AllJobViewController {
             rootScene.setCenter(stage);
             JobViewController controller = loader.getController();
             controller.setCurrentJob(job);
+            controller.initializeView();
 
         }catch(IOException e){
             e.printStackTrace();
