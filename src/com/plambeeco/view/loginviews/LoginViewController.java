@@ -24,8 +24,6 @@ import java.io.IOException;
  */
 public class LoginViewController
 {
-    private final String signupviewfile = "SignupView.fxml";
-    private final String ROOT_TECHNICIAN_VIEW = "/com/plambeeco/view/roottechnicianview.fxml";
     private Stage primaryStage;
 
     public LoginViewController(Stage primaryStage) {
@@ -53,19 +51,6 @@ public class LoginViewController
     @FXML
     private void login(){
         new RootTechnicianController(primaryStage);
-    }
-
-    @FXML
-    private void signup(){
-        try{
-            AnchorPane fxmlLoader = (AnchorPane) FXMLLoader.load(getClass().getResource(signupviewfile));
-            Scene scene = new Scene(fxmlLoader);
-
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch(Exception err) {
-            err.printStackTrace();
-        }
     }
 }
 
