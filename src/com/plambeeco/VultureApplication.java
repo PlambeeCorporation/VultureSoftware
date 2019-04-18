@@ -1,5 +1,6 @@
 package com.plambeeco;
 
+import com.plambeeco.view.loginviews.LoginViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,10 +12,7 @@ public class VultureApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        AnchorPane fxmlLoader = (AnchorPane) FXMLLoader.load(getClass().getResource("view/loginviews/LoginView.fxml"));
-        Scene scene = new Scene(fxmlLoader);
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        new LoginViewController(primaryStage);
 
         //new ScreensFramework(primaryStage);
     }
@@ -24,7 +22,7 @@ public class VultureApplication extends Application {
 //    // Instantiates a string equal to the name of a file
 //    public static String loginviewid = "LoginView";
 //    // Instantiates a string equal to the name of a file with it's extension
-//    public static String loginviewfile = "view/loginviews/LoginView.fxml";
+//    public static String loginviewfile = "view/loginviews/loginview.fxml";
 //
 //    // Instantiates a string equal to the name of a file
 //    public static String singupviewid = "SignupView";

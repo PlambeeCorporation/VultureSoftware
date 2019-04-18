@@ -2,17 +2,21 @@ package com.plambeeco.view.jobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.models.JobModel;
+import com.plambeeco.view.RootTechnicianController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -32,10 +36,10 @@ public class AllJobViewController {
     @FXML
     TableColumn<JobModel, Boolean> tbJobApproved;
 
-    private AnchorPane stage;
+    private BorderPane rootScene;
 
-    public void setStage(AnchorPane stage) {
-        this.stage = stage;
+    public void setRootScene(BorderPane rootScene) {
+        this.rootScene = rootScene;
     }
 
     @FXML
@@ -56,5 +60,16 @@ public class AllJobViewController {
     @FXML
     private void loadJob(){
         JobModel job = tvJobs.getSelectionModel().getSelectedItem();
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource("jobviews/jobview.fxml"));
+            AnchorPane stage = loader.load();
+            rootScene.setCenter(stage);
+            JobViewController controller = loader.getController();
+            controller.setCurrentJob(job);
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 }

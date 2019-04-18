@@ -5,7 +5,6 @@
  */
 package com.plambeeco.view.loginviews;
 
-import com.plambeeco.ScreensController;
 import javafx.fxml.Initializable;
 
 import java.net.URL;
@@ -16,10 +15,8 @@ import java.util.ResourceBundle;
  *
  * @author Neville Bulmer
  */
-public class SignupViewController implements Initializable, IControlledScreen
+public class SignupViewController implements Initializable
 {
-    ScreensController myController;
-    
     /**
      * Initializes the controller class.
      */
@@ -27,11 +24,5 @@ public class SignupViewController implements Initializable, IControlledScreen
     public void initialize(URL url, ResourceBundle rb) 
     {
 
-    }
-    
-    @Override
-    public void setScreenParent(ScreensController screenParent)
-    {
-        myController = screenParent;
     }
 }

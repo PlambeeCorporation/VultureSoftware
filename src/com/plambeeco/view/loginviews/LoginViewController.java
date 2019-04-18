@@ -5,94 +5,71 @@
  */
 package com.plambeeco.view.loginviews;
 
-import com.plambeeco.ScreensController;
+
+import com.plambeeco.VultureApplication;
 import com.plambeeco.view.RootTechnicianController;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+
 
 /**
  *
  * @author Neville Bulmer
  */
-public class LoginViewController implements Initializable
+public class LoginViewController
 {
-    ScreensController myController;
+    private final String signupviewfile = "SignupView.fxml";
+    private final String ROOT_TECHNICIAN_VIEW = "/com/plambeeco/view/roottechnicianview.fxml";
+    private Stage primaryStage;
 
-    private Stage primaryStage = new Stage();
-
-    @FXML
-    private Button loginButton;
-    
-    @FXML
-    private Label goToSignup;
-
-    public static String signupviewfile = "SignupView.fxml";
-
-    public static String mainviewfile = "/com/plambeeco/view/roottechnicianview.fxml";
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) 
-    {
-        loginButton.setOnAction(new EventHandler<ActionEvent>() 
-        {
-            @Override 
-            public void handle(ActionEvent e) 
-            {
-                try{
-                    BorderPane fxmlLoader = (BorderPane) FXMLLoader.load(getClass().getResource(mainviewfile));
-                    Scene scene = new Scene(fxmlLoader);
-
-                    primaryStage.setScene(scene);
-                    primaryStage.show();
-                } catch(Exception err) {
-                    err.printStackTrace();
-                }
-            }
-        });
-
-        goToSignup.setOnMouseClicked(event ->
-        {
-            try{
-                AnchorPane fxmlLoader = (AnchorPane) FXMLLoader.load(getClass().getResource(signupviewfile));
-                Scene scene = new Scene(fxmlLoader);
-
-                primaryStage.setScene(scene);
-                primaryStage.show();
-            } catch(Exception err) {
-                err.printStackTrace();
-            }
-        });
+    public LoginViewController(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        initLoginLayout();
     }
-    
-    public void ValidateLoginInformation()
+
+    private void initLoginLayout()
     {
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(VultureApplication.class.getResource("view/loginviews/loginview.fxml"));
+            loader.setController(this);
+            AnchorPane loginScene = loader.load();
+
+            Scene scene = new Scene(loginScene);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
 
     }
-    
-//    public void ValidateSignupLinkClicked()
-//    {
-//         myController.setScreen(VultureApplication.singupviewid);
-//    }
-//
-//    @Override
-//    public void setScreenParent(ScreensController screenParent)
-//    {
-//        myController = screenParent;
-//    }
+
+    @FXML
+    private void login(){
+        new RootTechnicianController(primaryStage);
+    }
+
+    @FXML
+    private void signup(){
+        try{
+            AnchorPane fxmlLoader = (AnchorPane) FXMLLoader.load(getClass().getResource(signupviewfile));
+            Scene scene = new Scene(fxmlLoader);
+
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch(Exception err) {
+            err.printStackTrace();
+        }
+    }
 }
+
+
+
+    
+

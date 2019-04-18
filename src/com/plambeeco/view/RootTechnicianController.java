@@ -19,35 +19,36 @@ public class RootTechnicianController implements Initializable {
     private Stage primaryStage;
     private BorderPane rootScene;
 
-//    public RootTechnicianController(Stage primaryStage) {
-//        this.primaryStage = primaryStage;
-//        primaryStage.setTitle("Technician view");
-//        initRootLayout();
-//    }
+    public RootTechnicianController(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+        primaryStage.setTitle("Technician view");
+        initRootLayout();
+    }
 
-//    private void initRootLayout()
-//    {
-//        try {
-//            //Load record job layout
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(RootTechnicianController.class.getResource("roottechnicianview.fxml"));
-//            loader.setController(this);
-//            rootScene = loader.load();
-//
-//            //Show the scene
-//            Scene scene = new Scene(rootScene);
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
+    @FXML
+    private void initRootLayout()
+    {
+        try {
+            //Load record job layout
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource("roottechnicianview.fxml"));
+            loader.setController(this);
+            rootScene = loader.load();
+
+            //Show the scene
+            Scene scene = new Scene(rootScene);
+            primaryStage.setScene(scene);
+            primaryStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     private void openRecordNewJobView(){
         new RootJobRecordController(primaryStage);
     }
-//
+
     @FXML
     private void openUnassignedTasksView(){
         try{
@@ -68,6 +69,8 @@ public class RootTechnicianController implements Initializable {
             loader.setLocation(RootTechnicianController.class.getResource("jobviews/alljobview.fxml"));
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
+            AllJobViewController controller = loader.getController();
+            controller.setRootScene(rootScene);
 
         }catch(IOException e){
             e.printStackTrace();

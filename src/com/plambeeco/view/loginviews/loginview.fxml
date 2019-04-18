@@ -4,10 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<AnchorPane fx:id="AnchorPane" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.loginviews.LoginViewController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="AnchorPane" prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <StackPane layoutX="184.0" layoutY="100.0" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -29,8 +32,8 @@
                                     <TextField layoutX="86.0" layoutY="166.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Username" />
                                     <PasswordField layoutX="86.0" layoutY="245.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Password" />
                                     
-                                    <Button fx:id="loginButton" layoutX="86.0" layoutY="361.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3b70a5; -fx-text-fill: #ffffff; -fx-background-radius: 10px;" text="Login" />
-                                    <Label fx:id="goToSignup" layoutX="260.0" layoutY="371.0" text="Don't have an account?" />
+                                    <Button layoutX="86.0" layoutY="361.0" mnemonicParsing="false" onAction="#login" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3b70a5; -fx-text-fill: #ffffff; -fx-background-radius: 10px;" text="Login" />
+                                    <Label layoutX="260.0" layoutY="371.0" onDragDetected="#signup" text="Don't have an account?" />
                             </children>
                         </AnchorPane>
                     </children>
