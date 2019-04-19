@@ -13,8 +13,11 @@ import java.util.List;
 
 public class RootJobRecordController {
     private Stage primaryStage;
-    private BorderPane rootJobScene;
     private BorderPane rootScene;
+    @FXML
+    private BorderPane rootJobScene;
+    @FXML
+    private BorderPane borderPaneInsideTopBorderPane;
 
     private RecordPartsNeededController recordPartsNeededController;
     private RecordMotorDetailsViewController recordMotorDetailsViewController;
@@ -53,7 +56,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordmotordetailsview.fxml"));
             AnchorPane motorModelView = loader.load();
 
-            rootJobScene.setCenter(motorModelView);
+            borderPaneInsideTopBorderPane.setRight(motorModelView);
 
             recordMotorDetailsViewController = loader.getController();
         }catch(IOException e){
@@ -97,7 +100,7 @@ public class RootJobRecordController {
             loader.setLocation(RootJobRecordController.class.getResource("recordjobdetailsview.fxml"));
             AnchorPane jobView = loader.load();
 
-            rootJobScene.setTop(jobView);
+            borderPaneInsideTopBorderPane.setLeft(jobView);
 
             recordJobDetailsViewController = loader.getController();
             recordJobDetailsViewController.setrootJobRecordController(this);

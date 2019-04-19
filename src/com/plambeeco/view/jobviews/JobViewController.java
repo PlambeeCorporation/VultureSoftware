@@ -13,10 +13,13 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -156,6 +159,15 @@ public class JobViewController {
                 loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittask.fxml"));
                 EditTaskController controller = new EditTaskController(taskModel);
                 loader.setController(controller);
+
+//                Stage taskEditDialogView = new Stage();
+//                taskEditDialogView.setTitle("Edit Task");
+//                taskEditDialogView.initModality(Modality.WINDOW_MODAL);
+//                taskEditDialogView.initOwner(rootScene);
+//
+//                Scene scene = new Scene(taskEditDialogView);
+//                taskEditDialogView.setScene(scene);
+
                 AnchorPane stage = loader.load();
                 rootScene.setCenter(stage);
 
