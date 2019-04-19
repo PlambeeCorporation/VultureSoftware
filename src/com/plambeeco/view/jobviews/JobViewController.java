@@ -22,6 +22,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 
 public class JobViewController {
@@ -90,6 +91,15 @@ public class JobViewController {
         initializeTaskTable();
         initializeJobDetails();
         initializePartTable();
+
+        LocalDate todaysDate = LocalDate.now();
+
+        if(todaysDate.isAfter(currentJob.getJobDetails().getReturnDate())){
+            if(ckbApproved.isSelected() || ckbNotApproved.isSelected()){
+                ckbApproved.isDisable();
+                ckbNotApproved.isDisable();
+            }
+        }
     }
 
     private void initializeMotorDetails(){
@@ -156,24 +166,44 @@ public class JobViewController {
         if(taskModel != null){
             try{
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittask.fxml"));
+                loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittaskview.fxml"));
                 EditTaskController controller = new EditTaskController(taskModel);
                 loader.setController(controller);
+                AnchorPane editTaskView = loader.load();
 
-//                Stage taskEditDialogView = new Stage();
-//                taskEditDialogView.setTitle("Edit Task");
-//                taskEditDialogView.initModality(Modality.WINDOW_MODAL);
-//                taskEditDialogView.initOwner(rootScene);
-//
-//                Scene scene = new Scene(taskEditDialogView);
-//                taskEditDialogView.setScene(scene);
+                Stage taskEditView = new Stage();
+                taskEditView.setTitle("Edit Task");
+                taskEditView.initModality(Modality.WINDOW_MODAL);
 
-                AnchorPane stage = loader.load();
-                rootScene.setCenter(stage);
+                Scene scene = new Scene(editTaskView);
+                taskEditView.setScene(scene);
+                taskEditView.showAndWait();
 
             }catch(IOException e){
                 e.printStackTrace();
             }
         }
+    }
+
+    @FXML
+    private void jobApproved(){
+        ckbNotApproved.setSelected(false);
+    }
+
+    @FXML
+    private void jobNotApproved(){
+        ckbApproved.setSelected(false);
+    }
+
+
+
+    @FXML
+    private void confirmChanges(){
+
+    }
+
+    @FXML
+    private void openPreviousWindow(){
+
     }
 }
