@@ -154,7 +154,7 @@ public class JobViewController {
             try{
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittask.fxml"));
-                EditTaskController controller = new AssignTaskViewController(taskModel);
+                EditTaskController controller = new EditTaskController(taskModel);
                 loader.setController(controller);
                 AnchorPane stage = loader.load();
                 rootScene.setCenter(stage);
