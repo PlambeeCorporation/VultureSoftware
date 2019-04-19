@@ -8,19 +8,19 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="437.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="437.0" prefWidth="442.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="73.0" layoutY="49.0" text="Task Name" />
-      <Label layoutX="100.0" layoutY="79.0" text="Notes" />
-      <Label layoutX="100.0" layoutY="180.0" text="Hours" />
-      <Label layoutX="97.0" layoutY="213.0" text="Priority" />
-      <Label layoutX="101.0" layoutY="19.0" text="JobID" />
-      <Label layoutX="22.0" layoutY="242.0" text="Assigned Technicians" />
-      <TextField fx:id="txtJobId" layoutX="135.0" layoutY="15.0" />
+      <Label layoutX="66.0" layoutY="48.0" text="Task Name" />
+      <Label layoutX="93.0" layoutY="80.0" text="Notes" />
+      <Label layoutX="92.0" layoutY="180.0" text="Hours" />
+      <Label layoutX="87.0" layoutY="213.0" text="Priority" />
+      <Label layoutX="95.0" layoutY="14.0" text="JobID" />
+      <Label layoutX="12.0" layoutY="243.0" text="Assigned Technicians" />
+      <TextField fx:id="txtJobId" layoutX="135.0" layoutY="10.0" />
       <TextField fx:id="txtTaskName" layoutX="135.0" layoutY="45.0" />
       <TextField fx:id="txtHours" layoutX="135.0" layoutY="176.0" />
       <TextField fx:id="txtPriority" layoutX="135.0" layoutY="209.0" prefHeight="25.0" prefWidth="149.0" />
-      <ListView fx:id="lvTechnicians" layoutX="135.0" layoutY="242.0" prefHeight="94.0" prefWidth="236.0" />
+      <ListView fx:id="lvTechnicians" layoutX="135.0" layoutY="243.0" prefHeight="94.0" prefWidth="236.0" />
       <ButtonBar layoutX="235.0" layoutY="400.0" prefHeight="25.0" prefWidth="200.0">
         <buttons>
           <Button mnemonicParsing="false" text="OK" />

@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="530.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.AllJobViewController">
+<AnchorPane prefHeight="530.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.AllJobViewController">
    <children>
       <TableView fx:id="tvJobs" layoutX="14.0" layoutY="59.0" prefHeight="428.0" prefWidth="622.0">
         <columns>
@@ -19,8 +19,8 @@
             <TableColumn fx:id="tbJobApproved" prefWidth="111.0" text="Inspection &#10;Approved" />
         </columns>
       </TableView>
-      <Button layoutX="270.0" layoutY="491.0" mnemonicParsing="false" onAction="#loadJob" prefHeight="25.0" prefWidth="138.0" text="View Job In details" />
-      <ComboBox layoutX="483.0" layoutY="27.0" prefWidth="150.0" />
-      <Label layoutX="438.0" layoutY="31.0" text="Sort By" />
+      <Button layoutX="270.0" layoutY="498.0" mnemonicParsing="false" onAction="#loadJob" prefHeight="25.0" prefWidth="138.0" text="View Job In details" />
+      <ComboBox layoutX="483.0" layoutY="24.0" prefWidth="150.0" />
+      <Label layoutX="436.0" layoutY="28.0" text="Sort By" />
    </children>
 </AnchorPane>

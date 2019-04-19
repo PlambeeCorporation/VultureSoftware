@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="110.0" prefWidth="388.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordMotorDetailsViewController">
+
+<AnchorPane prefHeight="110.0" prefWidth="342.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordMotorDetailsViewController">
    <children>
-      <Label layoutX="146.0" layoutY="14.0" text="Motor" />
-      <Label layoutX="106.0" layoutY="44.0" text="Manufacturer" />
-      <Label layoutX="15.0" layoutY="75.0" text="Estimated year of manufacture" />
-      <TextField fx:id="txtMotorType" layoutX="180.0" layoutY="10.0" />
-      <TextField fx:id="txtManufacturer" layoutX="180.0" layoutY="40.0" />
-      <TextField fx:id="txtEstimatedYear" layoutX="180.0" layoutY="71.0" />
+      <Label layoutX="141.0" layoutY="21.0" text="Motor" />
+      <Label layoutX="101.0" layoutY="51.0" text="Manufacturer" />
+      <Label layoutX="10.0" layoutY="82.0" text="Estimated year of manufacture" />
+      <TextField fx:id="txtMotorType" layoutX="175.0" layoutY="17.0" />
+      <TextField fx:id="txtManufacturer" layoutX="175.0" layoutY="47.0" />
+      <TextField fx:id="txtEstimatedYear" layoutX="175.0" layoutY="78.0" />
    </children>
 </AnchorPane>
