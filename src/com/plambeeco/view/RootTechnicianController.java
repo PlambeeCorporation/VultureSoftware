@@ -1,6 +1,5 @@
 package com.plambeeco.view;
 
-import com.plambeeco.view.assigningtasksview.AssignTaskViewController;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
 import javafx.fxml.FXML;
@@ -54,7 +53,7 @@ public class RootTechnicianController implements Initializable {
     private void openUnassignedTasksView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource("assigningtasksview/assigntaskview.fxml"));
+            loader.setLocation(RootTechnicianController.class.getResource("tasksview/assigntaskview.fxml"));
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
 
@@ -62,7 +61,7 @@ public class RootTechnicianController implements Initializable {
             e.printStackTrace();
         }
     }
-//
+
     @FXML
     private void openAllJobsView(){
         try{

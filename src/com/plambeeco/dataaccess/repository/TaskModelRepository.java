@@ -394,6 +394,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                             PersonModelProcessor.getAssignedTechnicians(rs.getInt(ID_COLUMN)),
                             rs.getBoolean(TASK_COMPLETED_COLUMN));
                     taskModel.setTaskId(rs.getInt(ID_COLUMN));
+                    taskModel.setJobId(jobId);
                     tasksNeeded.add(taskModel);
                 }
             }

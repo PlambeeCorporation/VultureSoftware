@@ -63,11 +63,11 @@ public class AllJobViewController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource("jobviews/jobview.fxml"));
+            JobViewController controller = new JobViewController(rootScene, job);
+            loader.setController(controller);
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
-            JobViewController controller = loader.getController();
-            controller.setCurrentJob(job);
-            controller.initializeView();
+
 
         }catch(IOException e){
             e.printStackTrace();

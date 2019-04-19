@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="750.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.JobViewController">
+<AnchorPane prefHeight="750.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="145.0" layoutY="21.0" text="Job Id" />
       <TextField fx:id="txtJobId" editable="false" layoutX="184.0" layoutY="17.0" />
@@ -41,8 +41,9 @@
         <columns>
           <TableColumn fx:id="tcTaskName" prefWidth="127.0" text="Task" />
           <TableColumn fx:id="tcNotes" prefWidth="225.0" text="Notes" />
-            <TableColumn fx:id="tcHoursNeeded" prefWidth="85.0" text="Hours Needed" />
-            <TableColumn fx:id="tcAssignedTo" prefWidth="164.0" text="Assigned to" />
+            <TableColumn fx:id="tcHoursNeeded" prefWidth="53.0" text="Hours " />
+            <TableColumn prefWidth="86.0" text="Priority" />
+            <TableColumn fx:id="tcAssignedTo" prefWidth="185.0" text="Assigned to" />
             <TableColumn fx:id="tcComplete" prefWidth="74.0" text="Complete" />
         </columns>
       </TableView>
@@ -69,8 +70,8 @@
         </buttons>
       </ButtonBar>
       <ComboBox fx:id="cbInspectingTechnicians" layoutX="86.0" layoutY="657.0" prefWidth="150.0" />
-      <Button layoutX="191.0" layoutY="603.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" text="Edit Task" />
-      <Button layoutX="19.0" layoutY="603.0" mnemonicParsing="false" text="Assign Tasks to Technicians" />
-      <Button layoutX="553.0" layoutY="603.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="136.0" text="Task Completed" />
+      <Button layoutX="191.0" layoutY="603.0" mnemonicParsing="false" onAction="#openEditTaskView" prefHeight="25.0" prefWidth="136.0" text="Edit Task" />
+      <Button layoutX="19.0" layoutY="603.0" mnemonicParsing="false" onAction="#openAssignTasksToTechniciansView" text="Assign Tasks to Technicians" />
+      <Button layoutX="553.0" layoutY="603.0" mnemonicParsing="false" onAction="#completeTask" prefHeight="25.0" prefWidth="136.0" text="Task Completed" />
    </children>
 </AnchorPane>

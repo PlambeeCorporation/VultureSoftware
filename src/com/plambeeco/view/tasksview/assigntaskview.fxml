@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="594.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.assigningtasksview.AssignTaskViewController">
+<AnchorPane prefHeight="594.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TableView fx:id="tvAvailableTasks" layoutX="15.0" layoutY="86.0" onMouseClicked="#selectTask" prefHeight="179.0" prefWidth="601.0">
          <columns>

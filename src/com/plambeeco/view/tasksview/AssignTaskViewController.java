@@ -1,4 +1,4 @@
-package com.plambeeco.view.assigningtasksview;
+package com.plambeeco.view.tasksview;
 
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
@@ -47,7 +47,12 @@ public class AssignTaskViewController {
     @FXML
     private TableColumn<ITechnicianModel, String> tbTasksCurrentlyAssigned;
 
+    private ObservableList<ITaskModel> tasks;
     private ITaskModel selectedTask;
+
+    public AssignTaskViewController(ObservableList<ITaskModel> tasks) {
+        this.tasks = tasks;
+    }
 
     @FXML
     private void initialize(){
@@ -58,8 +63,6 @@ public class AssignTaskViewController {
     }
 
     private void initializeTaskTableView(){
-        ObservableList<ITaskModel> tasks =
-                FXCollections.observableArrayList(TaskModelProcessor.getAllNotCompletedTasks());
 
         tvAvailableTasks.setItems(tasks);
         tbJobId.setCellValueFactory(cellData -> cellData.getValue().jobIdProperty());
