@@ -33,9 +33,7 @@
         </columns>
       </TableView>
       <Label layoutX="113.0" layoutY="177.0" text="Checked by" />
-      <TextField fx:id="txtCheckedBy" layoutX="183.0" layoutY="173.0" />
       <Label layoutX="426.0" layoutY="177.0" text="Checking Date" />
-      <TextField fx:id="txtClient" layoutX="504.0" layoutY="17.0" />
       <TextField fx:id="txtManufacturer" layoutX="504.0" layoutY="77.0" />
       <TableView fx:id="tvJobTasks" layoutX="25.0" layoutY="420.0" prefHeight="232.0" prefWidth="752.0">
         <columns>
@@ -75,5 +73,7 @@
       <Button layoutX="145.0" layoutY="387.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Add Part" />
       <Button layoutX="337.0" layoutY="387.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Edit Part" />
       <Button layoutX="527.0" layoutY="387.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" text="Remove Part" />
+      <ComboBox fx:id="cbCheckingTechnician" layoutX="184.0" layoutY="173.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbClient" layoutX="504.0" layoutY="17.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

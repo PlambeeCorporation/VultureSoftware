@@ -113,6 +113,7 @@ public class JobViewController {
         cbClient.setValue(currentJob.getJobDetails().getClient());
 
         cbCheckingTechnician.setItems(technicians);
+        ITechnicianModel technician = currentJob.getJobDetails().getCheckedBy_Technician();
         cbCheckingTechnician.setValue(currentJob.getJobDetails().getCheckedBy_Technician());
 
         txtJobId.setText(String.valueOf(currentJob.getJobId()));

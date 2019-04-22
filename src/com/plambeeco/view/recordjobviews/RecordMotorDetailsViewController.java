@@ -48,7 +48,9 @@ public class RecordMotorDetailsViewController {
             errorMessage += "You need to enter motor estimated year production\n";
         }
 
-        AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Motor Details", errorMessage);
+        if(!isValid){
+            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Motor Details", errorMessage);
+        }
 
         return isValid;
     }

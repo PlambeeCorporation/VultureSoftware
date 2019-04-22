@@ -21,6 +21,7 @@ public class JobDetailsModel implements IJobDetailsModel {
         this.checkingDate = checkingDate;
         this.dateCollected = dateCollected;
         this.returnDate = returnDate;
+        this.estimatedLabourTime = new SimpleIntegerProperty();
     }
 
     public JobDetailsModel(IPersonModel client, ITechnicianModel checkedBy_Technician, LocalDate checkingDate,
