@@ -17,6 +17,8 @@ public class PartDetailsViewController {
         this.partDetailsStage = partDetailsStage;
     }
 
+
+
     @FXML
     private void handleOK(){
         if(isInputValid()){

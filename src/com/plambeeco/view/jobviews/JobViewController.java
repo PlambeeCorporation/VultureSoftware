@@ -308,6 +308,10 @@ public class JobViewController {
         return null;
     }
 
+    /**
+     * Checks if an attempt to add inspection details was made.
+     * @return True if any of inspection details fields have a value. False otherwise.
+     */
     private boolean wasInspected(){
         if(ckbApproved.isSelected() || ckbNotApproved.isSelected()){
             return true;
@@ -324,6 +328,10 @@ public class JobViewController {
         return false;
     }
 
+    /**
+     * Checks if the inspection details are valid.
+     * @return True if the inspection details are valid. False otherwise.
+     */
     private boolean isInspectionValid(){
         boolean inspectionValid = true;
         String errorMessage = "";
