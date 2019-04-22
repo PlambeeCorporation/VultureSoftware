@@ -38,7 +38,7 @@ public class PersonModelProcessor {
 
     public static ITechnicianModel getTechnicianById(int id){
         IPersonModel technician = getById(id);
-        return new TechnicianModel(technician, TaskModelProcessor.getTechniciansCurrentlyAssignedTasks(id));
+        return new TechnicianModel(id, technician, TaskModelProcessor.getTechniciansCurrentlyAssignedTasks(id));
     }
 
     public static List<IPersonModel> getAll() {

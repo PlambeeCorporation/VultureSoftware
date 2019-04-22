@@ -10,7 +10,7 @@ public class JobModel {
     private IJobDetailsModel jobDetails;
     private List<IPartModel> partsNeeded;
     private List<ITaskModel> jobTasks;
-    private IPersonModel inspectingTechnician;
+    private ITechnicianModel inspectingTechnician;
     private LocalDate inspectionDate;
     private boolean jobApproved;
 
@@ -49,7 +49,7 @@ public class JobModel {
         return jobTasks;
     }
 
-    public IPersonModel getInspectingTechnician() {
+    public ITechnicianModel getInspectingTechnician() {
         return inspectingTechnician;
     }
 

@@ -63,8 +63,8 @@
       <DatePicker fx:id="dpInspectionDate" editable="false" layoutX="289.0" layoutY="723.0" prefHeight="25.0" prefWidth="149.0" />
       <ButtonBar layoutX="467.0" layoutY="774.0" prefHeight="25.0" prefWidth="233.0">
         <buttons>
-            <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Confirm" />
-            <Button mnemonicParsing="false" text="Back" />
+            <Button mnemonicParsing="false" onAction="#confirmChanges" prefHeight="25.0" prefWidth="167.0" text="Confirm" />
+            <Button mnemonicParsing="false" onAction="#openPreviousWindow" text="Back" />
         </buttons>
       </ButtonBar>
       <ComboBox fx:id="cbInspectingTechnicians" layoutX="97.0" layoutY="720.0" prefWidth="150.0" />

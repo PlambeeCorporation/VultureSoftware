@@ -113,7 +113,6 @@ public class JobViewController {
         cbClient.setValue(currentJob.getJobDetails().getClient());
 
         cbCheckingTechnician.setItems(technicians);
-        ITechnicianModel technician = currentJob.getJobDetails().getCheckedBy_Technician();
         cbCheckingTechnician.setValue(currentJob.getJobDetails().getCheckedBy_Technician());
 
         txtJobId.setText(String.valueOf(currentJob.getJobId()));
@@ -123,6 +122,9 @@ public class JobViewController {
 
         dpCheckingDate.setValue(currentJob.getJobDetails().getCheckingDate());
 
+        if(currentJob.getInspectionDate() != null){
+            dpInspectionDate.setValue(currentJob.getInspectionDate());
+        }
 
     }
 
@@ -155,7 +157,14 @@ public class JobViewController {
         ITechnicianModel dummyModel = new TechnicianModel("None",  "", "", "");
         newTechnicianList.add(0, dummyModel);
         cbInspectingTechnicians.setItems(newTechnicianList);
-        cbInspectingTechnicians.setValue(dummyModel);
+
+        if(currentJob.getInspectingTechnician() == null){
+            cbInspectingTechnicians.setValue(dummyModel);
+        }else{
+            cbInspectingTechnicians.setValue(currentJob.getInspectingTechnician());
+        }
+
+
     }
 
     private void initializeApproveCheckBoxes(){
@@ -166,6 +175,12 @@ public class JobViewController {
                 ckbApproved.isDisable();
                 ckbNotApproved.isDisable();
             }
+        }
+
+        if(currentJob.isJobApproved()){
+            ckbApproved.setSelected(true);
+        }else{
+            ckbNotApproved.setSelected(true);
         }
     }
 
@@ -258,19 +273,36 @@ public class JobViewController {
 
     private JobModel jobWithUpdatedInspectionDetails(){
         if(isInspectionValid()){
-            JobModel jobModel = new JobModel.JobBuilder()
-                    .setJobId(currentJob.getJobId())
-                    .setMotor(currentJob.getMotor())
-                    .setJobDetails(currentJob.getJobDetails())
-                    .setPartsNeeded(currentJob.getPartsNeeded())
-                    .setJobTasks(currentJob.getJobTasks())
-                    .setInspectingTechnician(cbInspectingTechnicians.getValue())
-                    .setInspectionDate(dpInspectionDate.getValue())
-                    .setJobApproved(ckbApproved.isSelected())
-                    .build();
+            if(validateJobDetails()){
+                //Collect motor details.
+                IMotorModel motorModel = new MotorModel(txtMotor.getText(),
+                                                        txtManufacturer.getText(),
+                                                        Integer.valueOf(txtEstimatedYearOfManufacture.getText()));
+                motorModel.setMotorId(currentJob.getMotor().getMotorId());
 
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
-            return jobModel;
+                //Collect job details.
+                IJobDetailsModel jobDetailsModel = new JobDetailsModel(cbClient.getValue(),
+                                                                        cbCheckingTechnician.getValue(),
+                                                                        dpCheckingDate.getValue(),
+                                                                        dpDateCollected.getValue(),
+                                                                        JobDetailsModel.calculateEstimatedLabourTime(tvJobTasks.getItems()),
+                                                                        dpReturnDate.getValue());
+                jobDetailsModel.setJobDetailsId(currentJob.getJobId());
+
+                JobModel jobModel = new JobModel.JobBuilder()
+                        .setJobId(currentJob.getJobId())
+                        .setMotor(motorModel)
+                        .setJobDetails(jobDetailsModel)
+                        .setPartsNeeded(tvJobParts.getItems())
+                        .setJobTasks(tvJobTasks.getItems())
+                        .setInspectingTechnician(cbInspectingTechnicians.getValue())
+                        .setInspectionDate(dpInspectionDate.getValue())
+                        .setJobApproved(ckbApproved.isSelected())
+                        .build();
+
+                AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
+                return jobModel;
+            }
         }
 
         return null;

@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class JobDetailsModel implements IJobDetailsModel {
     private int jobDetailsId;
@@ -97,6 +98,17 @@ public class JobDetailsModel implements IJobDetailsModel {
     @Override
     public void setEstimatedLabourTime(int estimatedLabourTime) {
         this.estimatedLabourTime.set(estimatedLabourTime);
+    }
+
+
+    public static int calculateEstimatedLabourTime(List<ITaskModel> tasksNeeded){
+        int estimatedLabourTime = 0;
+
+        for(ITaskModel taskModel : tasksNeeded){
+            estimatedLabourTime += taskModel.getHoursNeeded();
+        }
+
+        return estimatedLabourTime;
     }
 
     @Override

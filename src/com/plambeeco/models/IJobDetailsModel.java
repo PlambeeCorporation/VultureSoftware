@@ -3,6 +3,7 @@ package com.plambeeco.models;
 import javafx.beans.property.IntegerProperty;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public interface IJobDetailsModel {
     int getJobDetailsId();

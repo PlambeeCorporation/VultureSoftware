@@ -114,7 +114,7 @@ public class RootJobRecordController {
         List<IPartModel> partsNeeded = recordPartsNeededController.getPartsNeeded();
         List<ITaskModel> tasksNeeded = recordTasksDetailsViewController.getTasksNeeded();
         IJobDetailsModel jobDetails = recordJobDetailsViewController.getJobDetails();
-        jobDetails.setEstimatedLabourTime(getEstimatedLabourTime(tasksNeeded));
+        jobDetails.setEstimatedLabourTime(JobDetailsModel.calculateEstimatedLabourTime(tasksNeeded));
 
         JobModel job = new JobModel.JobBuilder()
                 .setMotor(motor)
@@ -127,16 +127,6 @@ public class RootJobRecordController {
                 .build();
 
         addJobToDatabase(job);
-    }
-
-    private int getEstimatedLabourTime(List<ITaskModel> tasksNeeded){
-        int estimatedLabourTime = 0;
-
-        for(ITaskModel taskModel : tasksNeeded){
-            estimatedLabourTime += taskModel.getHoursNeeded();
-        }
-
-        return estimatedLabourTime;
     }
 
     private void addJobToDatabase(JobModel job){

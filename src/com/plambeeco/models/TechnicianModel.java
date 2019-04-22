@@ -25,8 +25,9 @@ public class TechnicianModel extends PersonModel implements ITechnicianModel {
         this.currentTasks = currentTasks;
     }
 
-    public TechnicianModel(IPersonModel technician, List<ITaskModel> currentTasks) {
+    public TechnicianModel(int id, IPersonModel technician, List<ITaskModel> currentTasks) {
         super(technician.getForename(), technician.getSurname(), technician.getEmailAddress(), technician.getPhoneNumber());
+        this.personId = id;
         this.currentTasks = currentTasks;
     }
 

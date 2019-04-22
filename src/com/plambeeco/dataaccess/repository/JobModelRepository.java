@@ -138,13 +138,17 @@ public class JobModelRepository implements IJobModelRepository {
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
-                    ITechnicianModel inspectingTechnician;
+                    ITechnicianModel inspectingTechnician = null;
+                    LocalDate inspectionDate = null;
 
                     if(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN) > 0){
                         inspectingTechnician = PersonModelProcessor.getTechnicianById(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN));
-                    }else{
-                        inspectingTechnician = null;
                     }
+
+                    if(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate() != null){
+                        inspectionDate = rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate();
+                    }
+
 
                       JobModel job = new JobModel.JobBuilder()
                             .setJobId(rs.getInt(ID_COLUMN))
@@ -153,7 +157,7 @@ public class JobModelRepository implements IJobModelRepository {
                             .setPartsNeeded(PartModelProcessor.getJobPartsNeeded(rs.getInt(ID_COLUMN)))
                             .setJobTasks(TaskModelProcessor.getJobTasksNeeded(rs.getInt(ID_COLUMN)))
                             .setInspectingTechnician(inspectingTechnician)
-                            //.setInspectionDate(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate())
+                            .setInspectionDate(inspectionDate)
                             .setJobApproved(rs.getBoolean(JOB_APPROVED_COLUMN))
                             .build();
                       jobs.add(job);
