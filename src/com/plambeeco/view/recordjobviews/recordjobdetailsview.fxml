@@ -5,17 +5,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="148.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordJobDetailsViewController">
+<AnchorPane prefHeight="148.0" prefWidth="462.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.recordjobviews.RecordJobDetailsViewController">
    <children>
       <Label layoutX="65.0" layoutY="20.0" text="Client" />
       <Label layoutX="19.0" layoutY="54.0" text="Date Collected" />
-      <Label layoutX="34.0" layoutY="88.0" text="Return Date" />
+      <Label layoutX="265.0" layoutY="54.0" text="Return Date" />
       <DatePicker fx:id="dpDateCollected" layoutX="107.0" layoutY="50.0" prefHeight="25.0" prefWidth="149.0" />
-      <DatePicker fx:id="dpReturnDate" layoutX="108.0" layoutY="84.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="dpReturnDate" layoutX="339.0" layoutY="50.0" prefHeight="25.0" prefWidth="149.0" />
       <ComboBox fx:id="cbClient" layoutX="107.0" layoutY="16.0" prefWidth="150.0" />
-      <Label layoutX="35.0" layoutY="123.0" text="Checked By" />
-      <ComboBox fx:id="cbTechnicians" layoutX="107.0" layoutY="119.0" prefWidth="150.0" />
-      <Label layoutX="268.0" layoutY="123.0" text="Date" />
-      <DatePicker fx:id="dpCheckingDate" layoutX="302.0" layoutY="119.0" prefHeight="25.0" prefWidth="149.0" />
+      <Label layoutX="35.0" layoutY="86.0" text="Checked By" />
+      <ComboBox fx:id="cbTechnicians" layoutX="107.0" layoutY="82.0" prefWidth="150.0" />
+      <Label layoutX="305.0" layoutY="86.0" text="Date" />
+      <DatePicker fx:id="dpCheckingDate" layoutX="339.0" layoutY="82.0" prefHeight="25.0" prefWidth="149.0" />
    </children>
 </AnchorPane>

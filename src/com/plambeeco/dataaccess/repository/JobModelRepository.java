@@ -59,11 +59,11 @@ public class JobModelRepository implements IJobModelRepository {
     public void update(JobModel jobModel) {
         final String sql =
                 "Update " + TABLE_NAME +
-                        " SET( " +  MOTOR_ID_COLUMN + JOB_DETAILS_ID_COLUMN + ", " +
+                        " SET( " +  MOTOR_ID_COLUMN + "," + JOB_DETAILS_ID_COLUMN + ", " +
                         INSPECTING_TECHNICIAN_ID_COLUMN + ", " + INSPECTION_DATE_COLUMN + ", " + JOB_APPROVED_COLUMN +
                         ")=" + "(?,?,?,?,?)" +
                         " WHERE " +
-                        ID_COLUMN + " =?;";
+                        ID_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){

@@ -2,6 +2,7 @@ package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.PartModelProcessor;
 import com.plambeeco.helper.AlertHelper;
+import com.plambeeco.helper.TextFieldHelper;
 import com.plambeeco.models.IPartModel;
 import com.plambeeco.models.PartModel;
 import javafx.collections.FXCollections;
@@ -47,12 +48,7 @@ public class RecordPartsNeededController {
     private void initialize(){
         initializeTableViewAndColumns();
         initializeCBPartsNeeded();
-
-        txtPartsQuantity.textProperty().addListener((observable, oldValue, newValue) -> {
-            if(!newValue.matches("\\d*")){
-                txtPartsQuantity.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
+        TextFieldHelper.allowNumbersOnly(txtPartsQuantity);
     }
 
     private void initializeCBPartsNeeded(){

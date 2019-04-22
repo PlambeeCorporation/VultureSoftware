@@ -1,7 +1,9 @@
 package com.plambeeco.view.recordjobviews;
 
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.IMotorModel;
 import com.plambeeco.models.MotorModel;
+import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -46,7 +48,7 @@ public class RecordMotorDetailsViewController {
             errorMessage += "You need to enter motor estimated year production\n";
         }
 
-        System.out.println(errorMessage);
+        AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Motor Details", errorMessage);
 
         return isValid;
     }

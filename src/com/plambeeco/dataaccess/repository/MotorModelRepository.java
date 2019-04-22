@@ -63,7 +63,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                 " SET( " + MOTOR_TYPE_COLUMN + ", " + MANUFACTURER_COLUMN + ", " + ESTIMATED_YEAR_OF_MANUFACTURER_COLUMN +
                 ")=" + "(?,?,?)" +
                 " WHERE " +
-                ID_COLUMN + " =?;";
+                ID_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){

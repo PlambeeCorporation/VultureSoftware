@@ -2,15 +2,24 @@ package com.plambeeco.view.tasksview;
 
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
+import com.plambeeco.view.RootTechnicianController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AssignTaskViewController {
     //TODO - Add sorting, editing and removing functionality.
@@ -84,7 +93,6 @@ public class AssignTaskViewController {
 
     private void initializeSortByTaskComboBox(){
         ObservableList<String> sortByTaskOptions = FXCollections.observableArrayList();
-        sortByTaskOptions.add("Job Id");
         sortByTaskOptions.add("Task Name");
         sortByTaskOptions.add("Hours Needed");
         sortByTaskOptions.add("Priority");
@@ -103,8 +111,30 @@ public class AssignTaskViewController {
     @FXML
     private void editTask(){
         ITaskModel selectedTask = tvAvailableTasks.getSelectionModel().getSelectedItem();
+
         if(selectedTask != null){
-            //createTaskEditDialogView(selectedTask);
+            try{
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittaskview.fxml"));
+                EditTaskController controller = new EditTaskController(selectedTask);
+                loader.setController(controller);
+                AnchorPane editTaskView = loader.load();
+
+                Stage taskEditView = new Stage();
+                taskEditView.setTitle("Edit Task");
+                taskEditView.initModality(Modality.WINDOW_MODAL);
+                taskEditView.initOwner(RootTechnicianController.getPrimaryStage());
+                controller.setEditTaskStage(taskEditView);
+
+                Scene scene = new Scene(editTaskView);
+                taskEditView.setScene(scene);
+                taskEditView.showAndWait();
+
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        }else{
+            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Task not selected", "Select a task!");
         }
     }
 
@@ -133,5 +163,10 @@ public class AssignTaskViewController {
             selectedTask = taskModel;
             txtSelectedTask.setText(selectedTask.getTaskName());
         }
+    }
+
+    @FXML
+    private void back(){
+
     }
 }

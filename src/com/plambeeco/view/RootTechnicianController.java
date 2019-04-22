@@ -14,14 +14,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class RootTechnicianController implements Initializable {
-    private Stage primaryStage;
+public class RootTechnicianController {
+    private static Stage primaryStage;
     private BorderPane rootScene;
 
     public RootTechnicianController(Stage primaryStage) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Technician view");
         initRootLayout();
+    }
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     @FXML
@@ -45,7 +49,7 @@ public class RootTechnicianController implements Initializable {
 
     @FXML
     private void openRecordNewJobView(){
-        new RootJobRecordController(primaryStage, rootScene);
+        new RootJobRecordController(rootScene);
     }
 
     @FXML
@@ -55,7 +59,6 @@ public class RootTechnicianController implements Initializable {
             loader.setLocation(RootTechnicianController.class.getResource("tasksview/assigntaskview.fxml"));
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
-
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -70,14 +73,8 @@ public class RootTechnicianController implements Initializable {
             rootScene.setCenter(stage);
             AllJobViewController controller = loader.getController();
             controller.setRootScene(rootScene);
-
         }catch(IOException e){
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 }

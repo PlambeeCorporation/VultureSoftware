@@ -2,7 +2,9 @@ package com.plambeeco.dataaccess.dataprocessor;
 
 import com.plambeeco.dataaccess.repository.IJobModelRepository;
 import com.plambeeco.dataaccess.repository.JobModelRepository;
+import com.plambeeco.models.JobDetailsModel;
 import com.plambeeco.models.JobModel;
+import com.plambeeco.models.PartModel;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,9 +22,12 @@ public class JobModelProcessor {
 
     public static void update(JobModel jobModel) {
         IJobModelRepository jobModelRepository = new JobModelRepository();
-        jobModelRepository.add(jobModel);
+        jobModelRepository.update(jobModel);
+        MotorModelProcessor.update(jobModel.getMotor());
+        JobDetailsModelProcessor.update(jobModel.getJobDetails());
+        jobModel.getPartsNeeded().forEach(PartModelProcessor::update);
+        jobModel.getJobTasks().forEach(TaskModelProcessor::update);
     }
-
 
     public static void remove(JobModel jobModel) {
         IJobModelRepository jobModelRepository = new JobModelRepository();

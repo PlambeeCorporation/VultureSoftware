@@ -170,10 +170,10 @@ public class TaskModelRepository implements ITaskModelRepository {
         final String sql =
                 "Update " + TABLE_NAME +
                         " SET( " + TASK_NAME_COLUMN + ", " + TASK_PRIORITY_COLUMN + ", " +
-                        TASK_NOTES_COLUMN + ", " + HOURS_NEEDED_COLUMN + TASK_COMPLETED_COLUMN +
-                        ")=" + "(?,?,?,?, ?)" +
+                        TASK_NOTES_COLUMN + ", " + HOURS_NEEDED_COLUMN + "," + TASK_COMPLETED_COLUMN +
+                        ")=" + "(?,?,?,?,?)" +
                         " WHERE " +
-                        ID_COLUMN + " =?;";
+                        ID_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){

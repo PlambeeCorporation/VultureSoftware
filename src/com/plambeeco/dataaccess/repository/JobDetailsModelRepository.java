@@ -63,8 +63,8 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
         final String sql =
                 "Update " + TABLE_NAME +
                         " SET( " + CLIENT_ID_COLUMN + ", " + CHECK_BY_TECHNICIAN_ID_COLUMN + ", " +
-                        CHECKING_DATE_COLUMN + ", " + DATE_COLLECTED_COLUMN + ESTIMATED_LABOUR_TIME_COLUMN +
-                        RETURN_DATE_COLUMN +
+                        CHECKING_DATE_COLUMN + ", " + DATE_COLLECTED_COLUMN + "," + ESTIMATED_LABOUR_TIME_COLUMN +
+                         "," + RETURN_DATE_COLUMN +
                         ")=" + "(?,?,?,?,?,?)" +
                         " WHERE " +
                         ID_COLUMN + " =?;";
@@ -77,7 +77,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
             ps.setDate(4, Date.valueOf(jobDetails.getDateCollected()));
             ps.setFloat(5, jobDetails.getEstimatedLabourTime());
             ps.setDate(6, Date.valueOf(jobDetails.getReturnDate()));
-            ps.setInt(6, jobDetails.getJobDetailsId());
+            ps.setInt(7, jobDetails.getJobDetailsId());
 
             ps.execute();
 
