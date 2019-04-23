@@ -7,16 +7,16 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="139.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.partsview.Addnewpartview">
+<AnchorPane prefHeight="139.0" prefWidth="266.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="34.0" layoutY="32.0" text="Part Name" />
-      <ComboBox layoutX="102.0" layoutY="28.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbPartNames" layoutX="102.0" layoutY="28.0" onAction="#loadAddNewPartNameView" prefWidth="150.0" />
       <Label layoutX="34.0" layoutY="64.0" text="Quantity" />
-      <TextField layoutX="103.0" layoutY="60.0" />
+      <TextField fx:id="txtQuantity" layoutX="103.0" layoutY="60.0" />
       <ButtonBar layoutX="57.0" layoutY="97.0" prefHeight="32.0" prefWidth="200.0">
         <buttons>
-          <Button mnemonicParsing="false" text="OK" />
-            <Button mnemonicParsing="false" text="Cancel" />
+          <Button mnemonicParsing="false" onAction="#handleOK" text="OK" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         </buttons>
       </ButtonBar>
    </children>

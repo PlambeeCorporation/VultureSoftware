@@ -140,7 +140,8 @@ public class AssignTaskViewController {
 
     @FXML
     private void removeTask(){
-
+        ITaskModel selectedTask = tvAvailableTasks.getSelectionModel().getSelectedItem();
+        tvAvailableTasks.getItems().remove(selectedTask);
     }
 
     @FXML
@@ -150,7 +151,6 @@ public class AssignTaskViewController {
 
         if(technicianModel != null && selectedTask != null){
             selectedTask.addTechnician(technicianModel);
-            TaskModelProcessor.addTaskAssignedTechnician(selectedTask, technicianModel.getPersonId());
             initializeTaskTableView();
         }
     }
@@ -163,6 +163,11 @@ public class AssignTaskViewController {
             selectedTask = taskModel;
             txtSelectedTask.setText(selectedTask.getTaskName());
         }
+    }
+
+    @FXML
+    private void Confirm(){
+
     }
 
     @FXML

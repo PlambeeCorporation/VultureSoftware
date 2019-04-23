@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -25,7 +24,6 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <ComboBox fx:id="cbSortTaskBy" layoutX="466.0" layoutY="52.0" prefWidth="150.0" />
       <TableView fx:id="tvTechnicians" layoutX="11.0" layoutY="365.0" prefHeight="182.0" prefWidth="608.0">
          <columns>
             <TableColumn fx:id="tbTechnicianName" prefWidth="190.0" text="Technician" />
@@ -37,15 +35,12 @@
          <font>
             <Font size="18.0" />
          </font></Label>
-      <Label layoutX="385.0" layoutY="56.0" text="Sort Tasks By" />
       <Label layoutX="15.0" layoutY="14.0" prefHeight="17.0" prefWidth="56.0" />
       <Button layoutX="233.0" layoutY="556.0" mnemonicParsing="false" onAction="#assignTechnician" prefHeight="25.0" prefWidth="165.0" text="Assign Technician" />
       <Label layoutX="15.0" layoutY="331.0" text="Select Technician">
          <font>
             <Font size="18.0" />
          </font></Label>
-      <ComboBox fx:id="cbSortTechnicianBy" layoutX="466.0" layoutY="332.0" prefWidth="150.0" />
-      <Label layoutX="356.0" layoutY="336.0" text="Sort Technicians By" />
       <TextField fx:id="txtSelectedTask" editable="false" layoutX="15.0" layoutY="294.0" prefHeight="25.0" prefWidth="221.0" />
       <Label layoutX="15.0" layoutY="273.0" text="Selected Task" />
       <ButtonBar layoutX="250.0" layoutY="286.0" prefHeight="40.0" prefWidth="366.0">

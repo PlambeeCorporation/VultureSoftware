@@ -6,6 +6,7 @@ import com.plambeeco.dataaccess.repository.ITaskModelRepository;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.*;
 import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.jobviews.partsview.PartDetailsViewController;
 import com.plambeeco.view.tasksview.AssignTaskViewController;
 import com.plambeeco.view.tasksview.EditTaskController;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -101,12 +102,18 @@ public class JobViewController {
         initializeInspectingTechniciansCheckBox();
     }
 
+    /**
+     * Initializes motor details/
+     */
     private void initializeMotorDetails(){
         txtMotor.setText(currentJob.getMotor().getMotorType());
         txtEstimatedYearOfManufacture.setText(String.valueOf(currentJob.getMotor().getEstimatedYearOfManufacture()));
         txtManufacturer.setText(currentJob.getMotor().getManufacturer());
     }
 
+    /**
+     * Initializes core job details.
+     */
     private void initializeJobDetails(){
         ObservableList<IPersonModel> clients = FXCollections.observableArrayList(PersonModelProcessor.getAllClients());
         cbClient.setItems(clients);
@@ -128,12 +135,18 @@ public class JobViewController {
 
     }
 
+    /**
+     * Initializes part details in a table view.
+     */
     private void initializePartTable(){
         tvJobParts.setItems(FXCollections.observableArrayList(currentJob.getPartsNeeded()));
         tcPartName.setCellValueFactory(cellData -> cellData.getValue().partNameProperty());
         tcQuantity.setCellValueFactory(cellData -> cellData.getValue().partQuantityProperty());
     }
 
+    /**
+     * Initializes task details in a table view.
+     */
     private void initializeTaskTable(){
         tvJobTasks.setItems(FXCollections.observableArrayList(currentJob.getJobTasks()));
         tcTaskName.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
@@ -152,6 +165,9 @@ public class JobViewController {
         });
     }
 
+    /**
+     * Initializes inspecting technicians check box.
+     */
     private void initializeInspectingTechniciansCheckBox(){
         ObservableList<ITechnicianModel> newTechnicianList = FXCollections.observableArrayList(technicians);
         ITechnicianModel dummyModel = new TechnicianModel("None",  "", "", "");
@@ -167,6 +183,9 @@ public class JobViewController {
 
     }
 
+    /**
+     * Initializes job approved checkbox.
+     */
     private void initializeApproveCheckBoxes(){
         LocalDate todaysDate = LocalDate.now();
 
@@ -184,6 +203,9 @@ public class JobViewController {
         }
     }
 
+    /**
+     * Sets the task as complete or not complete.
+     */
     @FXML
     private void completeTask(){
         ITaskModel taskModel = tvJobTasks.getSelectionModel().getSelectedItem();
@@ -195,6 +217,9 @@ public class JobViewController {
         initializeTaskTable();
     }
 
+    /**
+     * Opens assign task view.
+     */
     @FXML
     private void openAssignTaskView(){
         try{
@@ -211,19 +236,75 @@ public class JobViewController {
     }
 
     @FXML
+    private void addPart(){
+        openPartOrEditView("Add new Part", null);
+    }
+
+    @FXML
+    private void editPart(){
+        IPartModel partModel = tvJobParts.getSelectionModel().getSelectedItem();
+        openPartOrEditView("Edit Part", partModel);
+    }
+
+    /**
+     * Opens view that allows to add new part or edit current one.
+     * @param sceneTitle name of the view.
+     * @param partModel part model to edit.
+     */
+    private void openPartOrEditView(String sceneTitle, IPartModel partModel){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(JobViewController.class.getResource("partsview/addoreditpartdetailsview.fxml"));
+
+            Stage partStage = new Stage();
+            partStage.setTitle(sceneTitle);
+            partStage.initModality(Modality.WINDOW_MODAL);
+            partStage.initOwner(RootTechnicianController.getPrimaryStage());
+
+            PartDetailsViewController partDetailsViewController =
+                    new PartDetailsViewController(partStage, partModel, currentJob);
+            loader.setController(partDetailsViewController);
+            AnchorPane partDialogStage = loader.load();
+
+            Scene scene = new Scene(partDialogStage);
+            partStage.setScene(scene);
+
+
+            partStage.showAndWait();
+            initializePartTable();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Removes the part from the table.
+     */
+    @FXML
+    private void removePart(){
+        IPartModel part = tvJobParts.getSelectionModel().getSelectedItem();
+        currentJob.getPartsNeeded().remove(part);
+        initializePartTable();
+    }
+
+    /**
+     * Approves the job.
+     */
+    @FXML
     private void jobApproved(){
         ckbNotApproved.setSelected(false);
     }
 
+    /**
+     * Disapproves the job.
+     */
     @FXML
     private void jobNotApproved(){
         ckbApproved.setSelected(false);
     }
 
     /**
-     * Checks if the job was inspected. If it wasn't, calls normal job update query.
-     * If it was inspected, checks if the inspection details are valid, and if they are
-     * call update inspection details query.
+     * Confirms the changes made in the form if the input validation is valid.
      */
     @FXML
     private void confirmChanges(){
@@ -238,6 +319,9 @@ public class JobViewController {
         }
     }
 
+    /**
+     * Opens previous view.
+     */
     @FXML
     private void openPreviousWindow(){
         try{
@@ -253,6 +337,9 @@ public class JobViewController {
         }
     }
 
+    /**
+     * Updates current job model. This method is called if no attempt for inspection was made.
+     */
     private void updateJobModel(){
         if(validateJobDetails()){
             //Update Job Details
@@ -271,22 +358,26 @@ public class JobViewController {
         }
     }
 
+    /**
+     * Updates current job model with the inspection details.
+     * @return Job model with inspection details.
+     */
     private JobModel jobWithUpdatedInspectionDetails(){
         if(isInspectionValid()){
             if(validateJobDetails()){
                 //Collect motor details.
                 IMotorModel motorModel = new MotorModel(txtMotor.getText(),
-                                                        txtManufacturer.getText(),
-                                                        Integer.valueOf(txtEstimatedYearOfManufacture.getText()));
+                        txtManufacturer.getText(),
+                        Integer.valueOf(txtEstimatedYearOfManufacture.getText()));
                 motorModel.setMotorId(currentJob.getMotor().getMotorId());
 
                 //Collect job details.
                 IJobDetailsModel jobDetailsModel = new JobDetailsModel(cbClient.getValue(),
-                                                                        cbCheckingTechnician.getValue(),
-                                                                        dpCheckingDate.getValue(),
-                                                                        dpDateCollected.getValue(),
-                                                                        JobDetailsModel.calculateEstimatedLabourTime(tvJobTasks.getItems()),
-                                                                        dpReturnDate.getValue());
+                        cbCheckingTechnician.getValue(),
+                        dpCheckingDate.getValue(),
+                        dpDateCollected.getValue(),
+                        JobDetailsModel.calculateEstimatedLabourTime(tvJobTasks.getItems()),
+                        dpReturnDate.getValue());
                 jobDetailsModel.setJobDetailsId(currentJob.getJobId());
 
                 JobModel jobModel = new JobModel.JobBuilder()
@@ -357,6 +448,10 @@ public class JobViewController {
         return inspectionValid;
     }
 
+    /**
+     * Validates job details input.
+     * @return True if valid, false otherwise.
+     */
     private boolean validateJobDetails(){
         boolean isValid = true;
         String errorMessage = "";
@@ -400,8 +495,6 @@ public class JobViewController {
             isValid = false;
             errorMessage += "You need to enter motor estimated year production\n";
         }
-
-
 
         if(!isValid){
             AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Job Details", errorMessage);

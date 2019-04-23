@@ -31,6 +31,7 @@ public class PartEditDialogViewController {
         this.partNames = partNames;
     }
 
+
     /**
      * When OK button is pressed, checks if the input data is valid, then asks
      * ListOfPartNames class to create new part with the name written in the
