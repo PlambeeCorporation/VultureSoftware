@@ -79,9 +79,9 @@ public class TaskModelRepository implements ITaskModelRepository {
             psInsert.setInt(1, jobId);
             for (ITaskModel taskModel : tasks){
                 psCheck.setInt(2, taskModel.getTaskId());
-                boolean resultAlreadyExists = psCheck.execute();
+                ResultSet resultAlreadyExists = psCheck.executeQuery();
 
-                if(!resultAlreadyExists){
+                if(!resultAlreadyExists.next()){
                     psInsert.setInt(2, taskModel.getTaskId());
 
                     int affectedRows = psInsert.executeUpdate();
@@ -204,12 +204,6 @@ public class TaskModelRepository implements ITaskModelRepository {
             ps.setInt(4, taskModel.getHoursNeeded());
             ps.setBoolean(5, taskModel.isTaskCompleted());
             ps.setInt(6, taskModel.getTaskId());
-
-            boolean updated = ps.execute();
-
-            if(!updated){
-                TaskModelProcessor.add(taskModel);
-            }
 
         }catch(SQLException e){
             System.out.println("Failed to update the Task: " + e.getMessage());

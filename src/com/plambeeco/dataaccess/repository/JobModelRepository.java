@@ -113,9 +113,6 @@ public class JobModelRepository implements IJobModelRepository {
 
                     if(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN) > 0){
                         inspectingTechnician = PersonModelProcessor.getTechnicianById(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN));
-                    }
-
-                    if(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate() != null){
                         inspectionDate = rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate();
                     }
 
@@ -154,12 +151,8 @@ public class JobModelRepository implements IJobModelRepository {
 
                     if(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN) > 0){
                         inspectingTechnician = PersonModelProcessor.getTechnicianById(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN));
-                    }
-
-                    if(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate() != null){
                         inspectionDate = rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate();
                     }
-
 
                       JobModel job = new JobModel.JobBuilder()
                             .setJobId(rs.getInt(ID_COLUMN))

@@ -192,10 +192,7 @@ public class AssignTaskViewController {
     }
 
     private void updateTasksInDatabase(){
-        tvAvailableTasks.getItems().forEach(task -> {
-            TaskModelProcessor.update(task);
-            task.getAssignedTechnicians().forEach(technician -> TaskModelProcessor.addTaskAssignedTechnician(task, technician.getPersonId()));
-        });
+
     }
 
     @FXML
