@@ -58,6 +58,7 @@ public class TaskModelProcessor {
         if(validateTaskModel(taskModel)){
             ITaskModelRepository taskModelRepository = new TaskModelRepository();
             taskModelRepository.update(taskModel);
+
         }
     }
 
@@ -72,6 +73,20 @@ public class TaskModelProcessor {
         if(validateTaskModel(taskModel)){
             ITaskModelRepository taskModelRepository = new TaskModelRepository();
             taskModelRepository.remove(taskModel);
+        }
+    }
+
+    public static void removeJobTask(int jobId, int taskId){
+        if(jobId > 0 && taskId > 0){
+            ITaskModelRepository taskModelRepository = new TaskModelRepository();
+            taskModelRepository.removeJobTask(jobId, taskId);
+        }
+    }
+
+    public static void removeTaskAssignedTechnician(int taskId, int technicianId){
+        if(taskId > 0 && technicianId > 0){
+            ITaskModelRepository taskModelRepository = new TaskModelRepository();
+            taskModelRepository.removeTaskAssignedTechnician(taskId, technicianId);
         }
     }
 

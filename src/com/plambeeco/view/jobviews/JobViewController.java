@@ -87,7 +87,7 @@ public class JobViewController {
 
     private ObservableList<ITechnicianModel> technicians = FXCollections.observableArrayList(PersonModelProcessor.getAllTechnicians());
 
-    JobViewController(BorderPane rootScene, JobModel currentJob) {
+    public JobViewController(BorderPane rootScene, JobModel currentJob) {
         this.rootScene = rootScene;
         this.currentJob = currentJob;
     }
@@ -225,12 +225,13 @@ public class JobViewController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource("tasksview/assigntaskview.fxml"));
-            AssignTaskViewController controller = new AssignTaskViewController(FXCollections.observableArrayList(currentJob.getJobTasks()));
+            AssignTaskViewController controller = new AssignTaskViewController(currentJob, rootScene);
             loader.setController(controller);
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
 
         }catch(IOException e){
+            e.getMessage();
             e.printStackTrace();
         }
     }

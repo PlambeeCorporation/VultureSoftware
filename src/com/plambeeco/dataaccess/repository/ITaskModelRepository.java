@@ -13,6 +13,8 @@ public interface ITaskModelRepository extends IRepository<ITaskModel> {
     void addAll(Collection<ITaskModel> tasks);
     void addTaskName(String taskName);
     void updateTaskName(String oldTaskName, String newTaskName);
+    void removeJobTask(int jobId, int taskId);
+    void removeTaskAssignedTechnician(int taskId, int technicianId);
     List<ITaskModel> getAllCompletedTasks();
     List<ITaskModel> getAllNotCompletedTasks();
     Set<String> getAllTaskNames();

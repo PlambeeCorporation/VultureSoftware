@@ -23,8 +23,8 @@
       <ListView fx:id="lvTechnicians" layoutX="135.0" layoutY="242.0" prefHeight="94.0" prefWidth="236.0" />
       <ButtonBar layoutX="235.0" layoutY="400.0" prefHeight="25.0" prefWidth="200.0">
         <buttons>
-          <Button fx:id="ok" mnemonicParsing="false" text="OK" />
-            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+          <Button fx:id="ok" mnemonicParsing="false" onAction="#handleOK" text="OK" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
         </buttons>
       </ButtonBar>
       <Button layoutX="173.0" layoutY="348.0" mnemonicParsing="false" onAction="#removeTechnician" prefHeight="25.0" prefWidth="160.0" text="Remove Technician" />

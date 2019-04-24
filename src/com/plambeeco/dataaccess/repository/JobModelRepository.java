@@ -108,14 +108,25 @@ public class JobModelRepository implements IJobModelRepository {
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
+                    ITechnicianModel inspectingTechnician = null;
+                    LocalDate inspectionDate = null;
+
+                    if(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN) > 0){
+                        inspectingTechnician = PersonModelProcessor.getTechnicianById(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN));
+                    }
+
+                    if(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate() != null){
+                        inspectionDate = rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate();
+                    }
+
                     return new JobModel.JobBuilder()
                             .setJobId(rs.getInt(ID_COLUMN))
                             .setMotor(MotorModelProcessor.getById(rs.getInt(MOTOR_ID_COLUMN)))
                             .setJobDetails(JobDetailsModelProcessor.getById(rs.getInt(JOB_DETAILS_ID_COLUMN)))
                             .setPartsNeeded(PartModelProcessor.getJobPartsNeeded(rs.getInt(ID_COLUMN)))
                             .setJobTasks(TaskModelProcessor.getJobTasksNeeded(rs.getInt(ID_COLUMN)))
-                            .setInspectingTechnician((ITechnicianModel)PersonModelProcessor.getById(rs.getInt(INSPECTING_TECHNICIAN_ID_COLUMN)))
-                            .setInspectionDate(rs.getDate(INSPECTION_DATE_COLUMN).toLocalDate())
+                            .setInspectingTechnician(inspectingTechnician)
+                            .setInspectionDate(inspectionDate)
                             .setJobApproved(rs.getBoolean(JOB_APPROVED_COLUMN))
                             .build();
                 }

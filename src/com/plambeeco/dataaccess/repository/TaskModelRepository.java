@@ -65,19 +65,30 @@ public class TaskModelRepository implements ITaskModelRepository {
 
     @Override
     public void addTasksNeeded(int jobId, Collection<ITaskModel> tasks) {
-        final String sql =
+        final String checkSQL = "SELECT * FROM " + JOB_TASKS_TABLE_NAME +
+                " WHERE " + JOB_ID_COLUMN + " =?" + " AND " +
+                TASK_ID_FOREIGN_KEY + " =?";
+        final String insertSQL =
                 "INSERT INTO " + JOB_TASKS_TABLE_NAME + "(" + JOB_ID_COLUMN + "," + TASK_ID_FOREIGN_KEY + ")" +
                         "VALUES(?,?)";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
-            ps.setInt(1, jobId);
+            PreparedStatement psCheck = con.prepareStatement(checkSQL);
+            PreparedStatement psInsert = con.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)){
+            psCheck.setInt(1, jobId);
+            psInsert.setInt(1, jobId);
             for (ITaskModel taskModel : tasks){
-                ps.setInt(2, taskModel.getTaskId());
-                int affectedRows = ps.executeUpdate();
+                psCheck.setInt(2, taskModel.getTaskId());
+                boolean resultAlreadyExists = psCheck.execute();
 
-                if(affectedRows == 0){
-                    throw new SQLException("Adding task failed, no rows affected");
+                if(!resultAlreadyExists){
+                    psInsert.setInt(2, taskModel.getTaskId());
+
+                    int affectedRows = psInsert.executeUpdate();
+
+                    if(affectedRows == 0){
+                        throw new SQLException("Adding task failed, no rows affected");
+                    }
                 }
             }
 
@@ -88,20 +99,30 @@ public class TaskModelRepository implements ITaskModelRepository {
 
     @Override
     public void addTaskAssignedTechnician(ITaskModel task, int technicianId) {
+        final String checkSQL = "SELECT * FROM " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME +
+                " WHERE " + TASK_ID_FOREIGN_KEY + " =?" + " AND " +
+                TECHNICIAN_ID + " =?";
+
         final String sql =
-                "INSERT INTO " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "(" + TASK_ID_FOREIGN_KEY + "," + TECHNICIAN_ID + ")" +
+                "INSERT INTO " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " (" + TASK_ID_FOREIGN_KEY + "," + TECHNICIAN_ID + ") " +
                         "VALUES(?,?)";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            PreparedStatement psCheck = con.prepareStatement(checkSQL);
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            psCheck.setInt(1, task.getTaskId());
+            psCheck.setInt(2, technicianId);
+            ResultSet checkResult = psCheck.executeQuery();
 
-            ps.setInt(1, task.getTaskId());
-            ps.setInt(2, technicianId);
+            if(!checkResult.next()){
+                ps.setInt(1, task.getTaskId());
+                ps.setInt(2, technicianId);
 
-            int affectedRows = ps.executeUpdate();
+                int affectedRows = ps.executeUpdate();
 
-            if(affectedRows == 0){
-                throw new SQLException("Adding task failed, no rows affected");
+                if(affectedRows == 0){
+                    throw new SQLException("Adding task failed, no rows affected");
+                }
             }
         }catch(SQLException e){
             System.out.println("Failed to add to database: " + e.getMessage());
@@ -176,7 +197,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         ID_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-             PreparedStatement ps = con.prepareStatement(sql)){
+           PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, taskModel.getTaskName());
             ps.setString(2, taskModel.getTaskPriority());
             ps.setString(3, taskModel.getTaskNotes());
@@ -184,7 +205,11 @@ public class TaskModelRepository implements ITaskModelRepository {
             ps.setBoolean(5, taskModel.isTaskCompleted());
             ps.setInt(6, taskModel.getTaskId());
 
-            ps.execute();
+            boolean updated = ps.execute();
+
+            if(!updated){
+                TaskModelProcessor.add(taskModel);
+            }
 
         }catch(SQLException e){
             System.out.println("Failed to update the Task: " + e.getMessage());
@@ -223,6 +248,42 @@ public class TaskModelRepository implements ITaskModelRepository {
             ps.execute();
 
         }catch(SQLException e){
+            System.out.println("Failed to delete task from the database: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeJobTask(int jobId, int taskId) {
+        final String sql = "DELETE FROM " + JOB_TASKS_TABLE_NAME +
+                    " WHERE " + JOB_ID_COLUMN + " =?" + " AND " +
+                TASK_ID_FOREIGN_KEY + " =?";
+
+        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, jobId);
+            ps.setInt(2, taskId);
+
+            ps.execute();
+
+        }catch(SQLException e){
+            System.out.println("Failed to delete task from the database: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeTaskAssignedTechnician(int taskId, int technicianId) {
+        final String sql = "DELETE FROM " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME +
+                " WHERE " + TASK_ID_FOREIGN_KEY + " =?" + " AND " +
+                TECHNICIAN_ID + " =?";
+
+        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+            ps.setInt(1, taskId);
+            ps.setInt(2, technicianId);
+
+            ps.execute();
+
+        }catch(SQLException e) {
             System.out.println("Failed to delete task from the database: " + e.getMessage());
         }
     }

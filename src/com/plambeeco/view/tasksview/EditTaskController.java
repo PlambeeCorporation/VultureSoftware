@@ -1,6 +1,5 @@
 package com.plambeeco.view.tasksview;
 
-import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
 import javafx.collections.FXCollections;
@@ -11,6 +10,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
+import java.util.List;
+import java.util.Map;
 
 public class EditTaskController {
     @FXML
@@ -29,13 +32,15 @@ public class EditTaskController {
     private ITaskModel taskToEdit;
 
     private Stage editTaskStage;
+    private Map<ITechnicianModel, Integer> techniciansToRemove;
 
     public void setEditTaskStage(Stage editTaskStage) {
         this.editTaskStage = editTaskStage;
     }
 
-    public EditTaskController(ITaskModel taskToEdit) {
+    public EditTaskController(ITaskModel taskToEdit, Map<ITechnicianModel, Integer> techniciansToRemove) {
         this.taskToEdit = taskToEdit;
+        this.techniciansToRemove = techniciansToRemove;
     }
 
     @FXML
@@ -44,8 +49,12 @@ public class EditTaskController {
         txtTaskName.setText(taskToEdit.getTaskName());
         txtareaNotes.setText(taskToEdit.getTaskNotes());
         txtHours.setText(String.valueOf(taskToEdit.getHoursNeeded()));
-        lvTechnicians.setItems(FXCollections.observableList(taskToEdit.getAssignedTechnicians()));
         initializeCBTaskPriority();
+        intializeListBox();
+    }
+
+    private void intializeListBox(){
+        lvTechnicians.setItems(FXCollections.observableList(taskToEdit.getAssignedTechnicians()));
     }
 
     private void initializeCBTaskPriority(){
@@ -61,24 +70,25 @@ public class EditTaskController {
     @FXML
     private void removeTechnician(){
         ITechnicianModel selectedTechnician = lvTechnicians.getSelectionModel().getSelectedItem();
+        techniciansToRemove.put(selectedTechnician, taskToEdit.getTaskId());
         taskToEdit.getAssignedTechnicians().remove(selectedTechnician);
+        intializeListBox();
     }
 
     @FXML
-    private void ok(){
+    private void handleOK(){
         if(validateTaskDetails()){
             taskToEdit.setTaskName(txtTaskName.getText());
             taskToEdit.setTaskNotes(txtareaNotes.getText());
             taskToEdit.setHoursNeeded(Integer.valueOf(txtHours.getText()));
             taskToEdit.setTaskPriority(cbTaskPriority.getValue());
             taskToEdit.setAssignedTechnicians(lvTechnicians.getItems());
-            TaskModelProcessor.update(taskToEdit);
             editTaskStage.close();
         }
     }
 
     @FXML
-    private void cancel(){
+    private void handleCancel(){
         editTaskStage.close();
     }
 
