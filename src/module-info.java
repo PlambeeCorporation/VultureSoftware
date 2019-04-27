@@ -4,6 +4,7 @@ module Vulture {
     requires java.sql;
     requires javafx.base;
     requires javafx.graphics;
+    requires jdk.rmic;
 
     opens com.plambeeco;
     opens com.plambeeco.view;

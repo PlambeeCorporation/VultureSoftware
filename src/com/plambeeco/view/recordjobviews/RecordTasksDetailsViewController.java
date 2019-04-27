@@ -1,6 +1,7 @@
 package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.TaskModel;
 import javafx.collections.FXCollections;
@@ -18,7 +19,6 @@ import java.io.IOException;
 import java.util.List;
 
 public class RecordTasksDetailsViewController {
-    private final String ADD_NEW_TASK_NAME = "Add new Task Name";
     @FXML
     private ComboBox<String> cbTaskNames;
     @FXML
@@ -78,7 +78,7 @@ public class RecordTasksDetailsViewController {
     private ObservableList<String> getSortedTaskNames(){
         ObservableList<String> sortedTaskNames = FXCollections.observableArrayList(TaskModelProcessor.getAllTaskNames());
         sortedTaskNames.sort(String::compareTo);
-        sortedTaskNames.add(0, ADD_NEW_TASK_NAME);
+        sortedTaskNames.add(0, ConstantValuesHelper.ADD_NEW_TASK_NAME);
         return sortedTaskNames;
     }
 
@@ -109,8 +109,8 @@ public class RecordTasksDetailsViewController {
 
     @FXML
     private void createNewTaskName(){
-        if(cbTaskNames.getValue().equals(ADD_NEW_TASK_NAME)){
-            createTaskNameEditDialogView(ADD_NEW_TASK_NAME, null);
+        if(cbTaskNames.getValue().equals(ConstantValuesHelper.ADD_NEW_TASK_NAME)){
+            createTaskNameEditDialogView(ConstantValuesHelper.ADD_NEW_TASK_NAME, null);
             initializeCBTaskNames();
             cbTaskNames.getSelectionModel().selectLast();
         }
@@ -120,7 +120,7 @@ public class RecordTasksDetailsViewController {
     private void editTaskName(){
         String taskName = cbTaskNames.getValue();
         int index = cbTaskNames.getSelectionModel().getSelectedIndex();
-        if(!taskName.equals(ADD_NEW_TASK_NAME)){
+        if(!taskName.equals(ConstantValuesHelper.ADD_NEW_TASK_NAME)){
             createTaskNameEditDialogView("Edit Part", taskName);
             initializeCBTaskNames();
             cbTaskNames.getSelectionModel().select(index);

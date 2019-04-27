@@ -1,12 +1,11 @@
 package com.plambeeco.view.tasksview;
 
+import com.plambeeco.dataaccess.dataprocessor.JobDetailsModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.AlertHelper;
-import com.plambeeco.models.ITaskModel;
-import com.plambeeco.models.ITechnicianModel;
-import com.plambeeco.models.JobModel;
+import com.plambeeco.models.*;
 import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.jobviews.JobViewController;
 import javafx.collections.FXCollections;
@@ -19,13 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class AssignTaskViewController {
     //TODO - Add sorting, editing and removing functionality.
@@ -68,15 +63,16 @@ public class AssignTaskViewController {
     private ITaskModel selectedTask;
     private List<ITaskModel> tasksToRemove = new ArrayList<>();
     private Map<ITechnicianModel, Integer> techniciansToRemove = new HashMap<>();
+    private List<ITaskModel> tasksToUpdate = new ArrayList<>();
 
     public AssignTaskViewController(JobModel currentJob, BorderPane rootScene) {
         this.currentJob = currentJob;
         this.rootScene = rootScene;
+        tasksToUpdate.addAll(currentJob.getJobTasks());
     }
 
     @FXML
     private void initialize(){
-
         initializeTaskTableView();
         initializeTechnicianTableView();
     }
@@ -89,12 +85,42 @@ public class AssignTaskViewController {
         tcHours.setCellValueFactory(cellData -> cellData.getValue().hoursNeededProperty());
         tcPriority.setCellValueFactory(cellData -> cellData.getValue().taskPriorityProperty());
         tcAssignedTechnicians.setCellValueFactory(cellData -> cellData.getValue().getFullNamesOfAssignedTechnicians());
+        //Work around javafx being retarded. Used for refreshing tcAssignedTechnicians column.
+        tvAvailableTasks.getColumns().get(5).setVisible(false);
+        tvAvailableTasks.getColumns().get(5).setVisible(true);
     }
 
     private void initializeTechnicianTableView(){
         tvTechnicians.setItems(technicians);
         tcTechnicianName.setCellValueFactory(cellData -> cellData.getValue().getFullName());
         tcTasksCurrentlyAssigned.setCellValueFactory(cellData -> cellData.getValue().getNamesOfCurrentlyAssignedTasks());
+        //Work around javafx being retarded. Used for refreshing tcTasksCurrentlyAssigned column.
+        tvTechnicians.getColumns().get(1).setVisible(false);
+        tvTechnicians.getColumns().get(1).setVisible(true);
+    }
+
+    @FXML
+    private void addTask(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource("tasksview/addnewtaskview.fxml"));
+            AddNewTaskViewController controller = new AddNewTaskViewController(currentJob);
+            loader.setController(controller);
+            AnchorPane editTaskView = loader.load();
+
+            Stage taskAddView = new Stage();
+            taskAddView.setTitle("Add Task");
+            taskAddView.initModality(Modality.WINDOW_MODAL);
+            taskAddView.initOwner(RootTechnicianController.getPrimaryStage());
+            controller.setAddTaskStage(taskAddView);
+
+            Scene scene = new Scene(editTaskView);
+            taskAddView.setScene(scene);
+            taskAddView.showAndWait();
+            initializeTaskTableView();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -103,9 +129,10 @@ public class AssignTaskViewController {
 
         if(selectedTask != null){
             try{
+                Map<ITechnicianModel, Integer> removeMap = new HashMap<>();
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittaskview.fxml"));
-                EditTaskController controller = new EditTaskController(selectedTask, techniciansToRemove);
+                EditTaskViewController controller = new EditTaskViewController(selectedTask, removeMap);
                 loader.setController(controller);
                 AnchorPane editTaskView = loader.load();
 
@@ -118,6 +145,16 @@ public class AssignTaskViewController {
                 Scene scene = new Scene(editTaskView);
                 taskEditView.setScene(scene);
                 taskEditView.showAndWait();
+                techniciansToRemove.putAll(removeMap);
+                //This loops is used to update the assigned tasks in technicians table view.
+                for (ITechnicianModel technician : technicians) {
+                    for (ITechnicianModel technicianToRemove : removeMap.keySet()) {
+                        if (technician.getPersonId() == technicianToRemove.getPersonId()) {
+                            technicians.remove(technician);
+                            technicians.add(technicianToRemove);
+                        }
+                    }
+                }
                 initializeTaskTableView();
                 initializeTechnicianTableView();
             }catch(IOException e){
@@ -134,7 +171,13 @@ public class AssignTaskViewController {
         if(selectedTask.getTaskId() > 0){
             tasksToRemove.add(selectedTask);
         }
+
+        tasksToUpdate.removeIf(taskModel -> taskModel.equals(selectedTask));
+
         tvAvailableTasks.getItems().remove(selectedTask);
+        technicians.forEach(technician ->
+                technician.getCurrentTasks().removeIf(taskModel -> taskModel.equals(selectedTask)));
+        initializeTechnicianTableView();
     }
 
     @FXML
@@ -175,8 +218,10 @@ public class AssignTaskViewController {
     @FXML
     private void confirm(){
         removeTasksFromDatabase();
+        removeAssignedTechniciansFromDatabase();
         updateTasksInDatabase();
-
+        addNewTasksToDatabase();
+        updateJobDetails();
         AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Updating Tasks successfull", "Tasks have been updated!");
     }
 
@@ -186,12 +231,46 @@ public class AssignTaskViewController {
             task.getAssignedTechnicians().forEach(technician ->
                     TaskModelProcessor.removeTaskAssignedTechnician(task.getTaskId(), technician.getPersonId()));
         });
+    }
 
+    private void removeAssignedTechniciansFromDatabase(){
         techniciansToRemove.keySet().forEach(technician ->
                 TaskModelProcessor.removeTaskAssignedTechnician(techniciansToRemove.get(technician), technician.getPersonId()));
     }
 
     private void updateTasksInDatabase(){
+        tasksToUpdate.forEach(task -> {
+            TaskModelProcessor.update(task);
+            task.getAssignedTechnicians().forEach(technician ->
+                    TaskModelProcessor.addTaskAssignedTechnician(task, technician.getPersonId()));
+        });
+    }
+
+    private void updateJobDetails(){
+        currentJob.getJobDetails().setEstimatedLabourTime(JobDetailsModel.calculateEstimatedLabourTime(tvAvailableTasks.getItems()));
+        JobDetailsModelProcessor.update(currentJob.getJobDetails());
+    }
+
+    private void addNewTasksToDatabase(){
+       List<ITaskModel> tasksToAdd = new ArrayList<>();
+
+        tvAvailableTasks.getItems().forEach(task ->{
+            if(tasksToUpdate.size() > 0){
+                tasksToUpdate.forEach(taskToUpdate -> {
+                    if(task.getTaskId() != taskToUpdate.getTaskId()) {
+                        tasksToAdd.add(task);
+                    }
+                });
+            }else {
+                tasksToAdd.addAll(tvAvailableTasks.getItems());
+            }
+        });
+
+        TaskModelProcessor.addAll(currentJob.getJobId(), tasksToAdd);
+        tasksToAdd.forEach(task ->
+                task.getAssignedTechnicians().forEach(technician ->
+                    TaskModelProcessor.addTaskAssignedTechnician(task, technician.getPersonId())));
+
 
     }
 

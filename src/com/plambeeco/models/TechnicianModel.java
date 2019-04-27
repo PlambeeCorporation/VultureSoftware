@@ -3,6 +3,7 @@ package com.plambeeco.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TechnicianModel extends PersonModel implements ITechnicianModel {
@@ -17,6 +18,7 @@ public class TechnicianModel extends PersonModel implements ITechnicianModel {
      */
     public TechnicianModel(String forename, String surname, String emailAddress, String phoneNumber) {
         super(forename, surname, emailAddress, phoneNumber);
+        this.currentTasks = new ArrayList<>();
     }
 
     public TechnicianModel(String forename, String surname, String emailAddress, String phoneNumber,

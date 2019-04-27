@@ -45,7 +45,7 @@
       <Label layoutX="15.0" layoutY="273.0" text="Selected Task" />
       <ButtonBar layoutX="250.0" layoutY="286.0" prefHeight="40.0" prefWidth="366.0">
         <buttons>
-          <Button mnemonicParsing="false" text="Add Task" />
+          <Button mnemonicParsing="false" onAction="#addTask" text="Add Task" />
             <Button mnemonicParsing="false" onAction="#editTask" prefHeight="25.0" prefWidth="118.0" text="Edit Task" />
             <Button mnemonicParsing="false" onAction="#removeTask" prefHeight="25.0" prefWidth="118.0" text="Remove Task" />
         </buttons>

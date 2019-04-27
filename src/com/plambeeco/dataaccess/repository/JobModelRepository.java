@@ -3,6 +3,7 @@ package com.plambeeco.dataaccess.repository;
 import com.plambeeco.dataaccess.dataprocessor.*;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.JobModel;
+import sun.tools.java.Type;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -67,10 +68,16 @@ public class JobModelRepository implements IJobModelRepository {
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
+
             ps.setInt(1, jobModel.getMotor().getMotorId());
             ps.setInt(2, jobModel.getJobDetails().getJobDetailsId());
-            ps.setInt(3, jobModel.getInspectingTechnician().getPersonId());
-            ps.setDate(4, Date.valueOf(jobModel.getInspectionDate()));
+            if(jobModel.getInspectingTechnician() == null){
+                ps.setNull(3, Type.NULL);
+                ps.setNull(4, Type.NULL);
+            }else{
+                ps.setInt(3, jobModel.getInspectingTechnician().getPersonId());
+                ps.setDate(4,  Date.valueOf(jobModel.getInspectionDate()));
+            }
             ps.setBoolean(5, jobModel.isJobApproved());
             ps.setInt(6, jobModel.getJobId());
 

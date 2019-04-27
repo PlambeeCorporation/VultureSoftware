@@ -1,6 +1,7 @@
 package com.plambeeco.view.jobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
+import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.models.JobModel;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -8,6 +9,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TableColumn;
@@ -60,6 +62,7 @@ public class AllJobViewController {
     @FXML
     private void loadJob(){
         JobModel job = tvJobs.getSelectionModel().getSelectedItem();
+
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource("jobviews/jobview.fxml"));

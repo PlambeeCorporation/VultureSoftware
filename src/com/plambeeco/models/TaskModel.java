@@ -7,6 +7,7 @@ import javafx.beans.property.StringProperty;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TaskModel implements ITaskModel {
     private int taskId;
@@ -25,6 +26,17 @@ public class TaskModel implements ITaskModel {
         this.taskNotes = new SimpleStringProperty(taskNotes);
         this.assignedTechnicians = new ArrayList<>();
         this.taskCompleted = false;
+        this.jobId = new SimpleIntegerProperty();
+    }
+
+    public TaskModel(String taskName, String taskPriority, String taskNotes, int hoursNeeded, boolean taskCompleted){
+        this.taskName = new SimpleStringProperty(taskName);
+        this.taskPriority = new SimpleStringProperty(taskPriority);
+        this.hoursNeeded = new SimpleIntegerProperty(hoursNeeded);
+        this.taskNotes = new SimpleStringProperty(taskNotes);
+        this.assignedTechnicians = new ArrayList<>();
+        this.taskCompleted = taskCompleted;
+        this.jobId = new SimpleIntegerProperty();
     }
 
     public TaskModel(String taskName, String taskPriority, String taskNotes, int hoursNeeded,
@@ -35,7 +47,7 @@ public class TaskModel implements ITaskModel {
         this.hoursNeeded = new SimpleIntegerProperty(hoursNeeded);
         this.assignedTechnicians = assignedTechnicians;
         this.taskCompleted = taskCompleted;
-        jobId = new SimpleIntegerProperty();
+        this.jobId = new SimpleIntegerProperty();
     }
 
     @Override
@@ -162,6 +174,19 @@ public class TaskModel implements ITaskModel {
     @Override
     public void setTaskCompleted(boolean taskCompleted) {
         this.taskCompleted = taskCompleted;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TaskModel taskModel = (TaskModel) o;
+        return taskId == taskModel.taskId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(taskId);
     }
 
     @Override

@@ -25,6 +25,7 @@ public class JobModelProcessor {
         jobModelRepository.update(jobModel);
         MotorModelProcessor.update(jobModel.getMotor());
         JobDetailsModelProcessor.update(jobModel.getJobDetails());
+        TaskModelProcessor.updateAll(jobModel.getJobTasks());
         jobModel.getPartsNeeded().forEach(PartModelProcessor::update);
         jobModel.getJobTasks().forEach(TaskModelProcessor::update);
     }

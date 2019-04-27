@@ -2,15 +2,12 @@ package com.plambeeco.view.jobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
-import com.plambeeco.dataaccess.repository.ITaskModelRepository;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.*;
 import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.jobviews.partsview.PartDetailsViewController;
 import com.plambeeco.view.tasksview.AssignTaskViewController;
-import com.plambeeco.view.tasksview.EditTaskController;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,11 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 
 
 public class JobViewController {
@@ -353,7 +348,7 @@ public class JobViewController {
             //Update Motor Details
             currentJob.getMotor().setMotorType(txtMotor.getText());
             currentJob.getMotor().setManufacturer(txtManufacturer.getText());
-            currentJob.getMotor().setEstimatedYearOfManufacture(Integer.valueOf(txtEstimatedYearOfManufacture.getText()));
+
 
             AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
         }
@@ -405,10 +400,6 @@ public class JobViewController {
      * @return True if any of inspection details fields have a value. False otherwise.
      */
     private boolean wasInspected(){
-        if(ckbApproved.isSelected() || ckbNotApproved.isSelected()){
-            return true;
-        }
-
         if(!cbInspectingTechnicians.getSelectionModel().getSelectedItem().getForename().equals("None")){
             return true;
         }

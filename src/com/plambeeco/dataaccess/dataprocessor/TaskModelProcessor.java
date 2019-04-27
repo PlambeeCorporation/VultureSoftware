@@ -29,7 +29,15 @@ public class TaskModelProcessor {
     }
 
     public static void addTasksNeeded(int jobId, Collection<ITaskModel> tasks){
-        //taskModelRepository.addTaskAssignedTechnicians(tasks);
+        if(jobId > 0) {
+            for (ITaskModel taskModel : tasks) {
+                if (!validateTaskModel(taskModel)) {
+                    return;
+                }
+            }
+        }
+        ITaskModelRepository taskModelRepository = new TaskModelRepository();
+        taskModelRepository.addTasksNeeded(jobId, tasks);
     }
 
     public static void addAll(int jobId, final Collection<ITaskModel> tasks){
@@ -60,6 +68,15 @@ public class TaskModelProcessor {
             taskModelRepository.update(taskModel);
 
         }
+    }
+
+    public static void updateAll(List<ITaskModel> tasks){
+        ITaskModelRepository taskModelRepository = new TaskModelRepository();
+        tasks.forEach(task ->{
+            if(validateTaskModel(task)){
+                taskModelRepository.update(task);
+            }
+        });
     }
 
     public static void updateTaskName(String oldTaskName, String newTaskName){
@@ -168,6 +185,11 @@ public class TaskModelProcessor {
         return tasks;
     }
 
+    /**
+     * Returns List of tasks that are currently assigned to an technician.
+     * @param technicianId technicianId
+     * @return list of tasks
+     */
     public static List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getTechniciansCurrentlyAssignedTasks(technicianId);

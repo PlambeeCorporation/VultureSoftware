@@ -1,10 +1,7 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
-import com.plambeeco.models.IPersonModel;
-import com.plambeeco.models.ITechnicianModel;
-import com.plambeeco.models.PersonModel;
-import com.plambeeco.models.TechnicianModel;
+import com.plambeeco.models.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -244,7 +241,8 @@ public class PersonModelRepository implements IPersonModelRepository {
                     ITechnicianModel technicianModel = new TechnicianModel(rs.getString(FORENAME_COLUMN),
                             rs.getString(SURNAME_COLUMN),
                             rs.getString(EMAIL_ADDRESS_COLUMN),
-                            rs.getString(PHONE_NUMBER_COLUMN));
+                            rs.getString(PHONE_NUMBER_COLUMN),
+                            new ArrayList<>(TaskModelProcessor.getTechniciansCurrentlyAssignedTasks(rs.getInt(ID_COLUMN))));
                     technicianModel.setPersonId(rs.getInt(ID_COLUMN));
                     assignedTechnicians.add(technicianModel);
                 }

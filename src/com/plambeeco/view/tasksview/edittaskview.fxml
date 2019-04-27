@@ -18,7 +18,6 @@
       <Label layoutX="101.0" layoutY="19.0" text="JobID" />
       <Label layoutX="22.0" layoutY="242.0" text="Assigned Technicians" />
       <TextField fx:id="txtJobId" editable="false" layoutX="135.0" layoutY="15.0" />
-      <TextField fx:id="txtTaskName" layoutX="135.0" layoutY="45.0" />
       <TextField fx:id="txtHours" layoutX="135.0" layoutY="176.0" />
       <ListView fx:id="lvTechnicians" layoutX="135.0" layoutY="242.0" prefHeight="94.0" prefWidth="236.0" />
       <ButtonBar layoutX="235.0" layoutY="400.0" prefHeight="25.0" prefWidth="200.0">
@@ -30,5 +29,6 @@
       <Button layoutX="173.0" layoutY="348.0" mnemonicParsing="false" onAction="#removeTechnician" prefHeight="25.0" prefWidth="160.0" text="Remove Technician" />
       <TextArea fx:id="txtareaNotes" layoutX="135.0" layoutY="79.0" prefHeight="88.0" prefWidth="236.0" />
       <ComboBox fx:id="cbTaskPriority" layoutX="135.0" layoutY="209.0" prefWidth="150.0" />
+      <ComboBox fx:id="cbTaskNames" layoutX="135.0" layoutY="45.0" onAction="#addNewTaskName" prefWidth="150.0" />
    </children>
 </AnchorPane>

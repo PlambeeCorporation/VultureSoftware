@@ -30,34 +30,42 @@ public class TaskModelRepository implements ITaskModelRepository {
 
     @Override
     public void add(ITaskModel taskModel) {
+        final String checkSQL = "SELECT * FROM " + TABLE_NAME +
+                " WHERE " + ID_COLUMN + " =?";
+
         final String sql =
                 "INSERT INTO " + TABLE_NAME + "(" + TASK_NAME_COLUMN + "," + TASK_PRIORITY_COLUMN + ", " +
                         TASK_NOTES_COLUMN + ", " + HOURS_NEEDED_COLUMN +  ", " + TASK_COMPLETED_COLUMN + ") " +
                         "VALUES(?, ?, ?, ?, ?)";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+             PreparedStatement psCheck = con.prepareStatement(checkSQL);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            psCheck.setInt(1, taskModel.getTaskId());
 
-            ps.setString(1, taskModel.getTaskName());
-            ps.setString(2, taskModel.getTaskPriority());
-            ps.setString(3, taskModel.getTaskNotes());
-            ps.setInt(4, taskModel.getHoursNeeded());
-            ps.setBoolean(5, taskModel.isTaskCompleted());
+            ResultSet resultAlreadyExists = psCheck.executeQuery();
 
-            int affectedRows = ps.executeUpdate();
+            if(!resultAlreadyExists.next()) {
+                ps.setString(1, taskModel.getTaskName());
+                ps.setString(2, taskModel.getTaskPriority());
+                ps.setString(3, taskModel.getTaskNotes());
+                ps.setInt(4, taskModel.getHoursNeeded());
+                ps.setBoolean(5, taskModel.isTaskCompleted());
 
-            if(affectedRows == 0){
-                throw new SQLException("Adding task failed, no rows affected");
-            }
+                int affectedRows = ps.executeUpdate();
 
-            try(ResultSet generatedKeys = ps.getGeneratedKeys()){
-                if(generatedKeys.next()){
-                    taskModel.setTaskId(generatedKeys.getInt(1));
-                }else{
-                    throw new SQLException("Adding task failed, no ID obtained");
+                if(affectedRows == 0){
+                    throw new SQLException("Adding task failed, no rows affected");
+                }
+
+                try(ResultSet generatedKeys = ps.getGeneratedKeys()){
+                    if(generatedKeys.next()){
+                        taskModel.setTaskId(generatedKeys.getInt(1));
+                    }else{
+                        throw new SQLException("Adding task failed, no ID obtained");
+                    }
                 }
             }
-
         }catch(SQLException e){
             System.out.println("Failed to add to database: " + e.getMessage());
         }
@@ -65,33 +73,21 @@ public class TaskModelRepository implements ITaskModelRepository {
 
     @Override
     public void addTasksNeeded(int jobId, Collection<ITaskModel> tasks) {
-        final String checkSQL = "SELECT * FROM " + JOB_TASKS_TABLE_NAME +
-                " WHERE " + JOB_ID_COLUMN + " =?" + " AND " +
-                TASK_ID_FOREIGN_KEY + " =?";
         final String insertSQL =
                 "INSERT INTO " + JOB_TASKS_TABLE_NAME + "(" + JOB_ID_COLUMN + "," + TASK_ID_FOREIGN_KEY + ")" +
                         "VALUES(?,?)";
 
         try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
-            PreparedStatement psCheck = con.prepareStatement(checkSQL);
-            PreparedStatement psInsert = con.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)){
-            psCheck.setInt(1, jobId);
+             PreparedStatement psInsert = con.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)){
             psInsert.setInt(1, jobId);
             for (ITaskModel taskModel : tasks){
-                psCheck.setInt(2, taskModel.getTaskId());
-                ResultSet resultAlreadyExists = psCheck.executeQuery();
+                psInsert.setInt(2, taskModel.getTaskId());
+                int affectedRows = psInsert.executeUpdate();
 
-                if(!resultAlreadyExists.next()){
-                    psInsert.setInt(2, taskModel.getTaskId());
-
-                    int affectedRows = psInsert.executeUpdate();
-
-                    if(affectedRows == 0){
-                        throw new SQLException("Adding task failed, no rows affected");
-                    }
+                if(affectedRows == 0){
+                    throw new SQLException("Adding task failed, no rows affected");
                 }
             }
-
         }catch(SQLException e){
             System.out.println("Failed to add to database: " + e.getMessage());
         }
@@ -204,6 +200,7 @@ public class TaskModelRepository implements ITaskModelRepository {
             ps.setInt(4, taskModel.getHoursNeeded());
             ps.setBoolean(5, taskModel.isTaskCompleted());
             ps.setInt(6, taskModel.getTaskId());
+            ps.execute();
 
         }catch(SQLException e){
             System.out.println("Failed to update the Task: " + e.getMessage());
@@ -463,15 +460,21 @@ public class TaskModelRepository implements ITaskModelRepository {
     @Override
     public List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId) {
         List<ITaskModel> tasks = new ArrayList<>();
-
+//        "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
+//                "FROM " + JOB_TASKS_TABLE_NAME +
+//                " LEFT JOIN " + TABLE_NAME + " on " + TASK_ID_FOREIGN_KEY + " = " +
+//                TABLE_NAME + "." + ID_COLUMN +
+//                " WHERE " + TASK_COMPLETED_COLUMN + " = False";
         final String sql =
-                "SELECT " + TABLE_NAME + ".* " +
-                        "FROM " + TABLE_NAME +
+                "SELECT " + TABLE_NAME + ".*, " + JOB_TASKS_TABLE_NAME + "." + JOB_ID_COLUMN +
+                        " FROM " + TABLE_NAME +
                         " LEFT JOIN " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " on " +
                         TABLE_NAME + "." + ID_COLUMN + " = " +
                         TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
+                        " LEFT JOIN " + JOB_TASKS_TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
+                        " = " +      TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
                         " WHERE " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TECHNICIAN_ID +
-                        "=?";
+                        "=? " + "AND " + TASK_COMPLETED_COLUMN + " = false";
 
 
 
@@ -484,9 +487,9 @@ public class TaskModelRepository implements ITaskModelRepository {
                             rs.getString(TASK_PRIORITY_COLUMN),
                             rs.getString(TASK_NOTES_COLUMN),
                             rs.getInt(HOURS_NEEDED_COLUMN),
-                            PersonModelProcessor.getAssignedTechnicians(rs.getInt(ID_COLUMN)),
                             rs.getBoolean(TASK_COMPLETED_COLUMN));
                     taskModel.setTaskId(rs.getInt(ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_COLUMN));
                     tasks.add(taskModel);
                 }
             }

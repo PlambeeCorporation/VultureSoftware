@@ -3,6 +3,8 @@ package com.plambeeco.models;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.Objects;
+
 public class PersonModel implements IPersonModel {
     protected int personId;
     protected StringProperty forename;
@@ -91,6 +93,19 @@ public class PersonModel implements IPersonModel {
     public StringProperty getFullName(){
          String fullname = forename.get() + " " + surname.get();
          return new SimpleStringProperty(fullname);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonModel that = (PersonModel) o;
+        return personId == that.personId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(personId);
     }
 
     @Override
