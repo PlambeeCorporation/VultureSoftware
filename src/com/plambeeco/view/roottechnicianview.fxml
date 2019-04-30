@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="290.0" BorderPane.alignment="CENTER">
          <children>
@@ -76,7 +76,7 @@
                </font>
             </Label>
             <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="648.0" prefWidth="13.0" />
-            <Label layoutX="70.0" layoutY="614.0" onMouseClicked="#openUnassignedTasksView" text="Logout">
+            <Label layoutX="70.0" layoutY="614.0" onMouseClicked="#logOut" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>

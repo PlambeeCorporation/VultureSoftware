@@ -2,6 +2,7 @@ package com.plambeeco.view;
 
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.jobviews.AllJobViewController;
+import com.plambeeco.view.loginviews.LoginViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,8 @@ public class RootTechnicianController {
 
     public RootTechnicianController(Stage primaryStage, IAccountModel loggedInTechnician) {
         this.primaryStage = primaryStage;
-        primaryStage.setTitle("Technician view");
+        this.loggedInTechnician = loggedInTechnician;
+        primaryStage.setTitle(loggedInTechnician.getAccountOwner().getFullName().get());
         initRootLayout();
     }
 
@@ -78,5 +80,10 @@ public class RootTechnicianController {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void logOut(){
+        new LoginViewController(primaryStage);
     }
 }
