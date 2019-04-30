@@ -16,7 +16,7 @@ public class PersonModelRepository implements IPersonModelRepository {
     private static final String EMAIL_ADDRESS_COLUMN = "EmailAddress";
     private static final String PHONE_NUMBER_COLUMN = "PhoneNumber";
 
-    private static final String ACCOUNT_TABLE_NAME = "AccountModel";
+    private static final String ACCOUNT_TABLE_NAME = "Account";
     private static final String ACCOUNT_PEOPLE_FOREIGN_KEY_COLUMN = "AccountOwnerId";
     private static final String ACCOUNT_TYPE_COLUMN = "AccountType";
 

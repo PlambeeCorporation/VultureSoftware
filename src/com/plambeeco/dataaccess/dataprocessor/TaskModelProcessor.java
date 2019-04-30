@@ -171,6 +171,20 @@ public class TaskModelProcessor {
         return tasks;
     }
 
+    public static List<ITaskModel> getAllUnassignedTasks(){
+        ITaskModelRepository taskModelRepository = new TaskModelRepository();
+        List<ITaskModel> tasks = taskModelRepository.getAllUnassignedTasks();
+
+        for(ITaskModel task : tasks){
+            if(!validateTaskModel(task)){
+                System.out.println("Invalid task was loaded, when loading all parts.");
+                return null;
+            }
+        }
+
+        return tasks;
+    }
+
     public static List<ITaskModel> getJobTasksNeeded(int jobId){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getJobTasksNeeded(jobId);

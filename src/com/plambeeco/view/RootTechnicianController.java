@@ -4,6 +4,7 @@ import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.loginviews.LoginViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
+import com.plambeeco.view.tasksview.TechnicianTaskViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -50,6 +51,19 @@ public class RootTechnicianController {
             e.printStackTrace();
         }
     }
+    @FXML
+    private void openTechnicianTasksView(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource("tasksview/techniciantasksview.fxml"));
+            TechnicianTaskViewController technicianTaskViewController = new TechnicianTaskViewController(loggedInTechnician);
+            loader.setController(technicianTaskViewController);
+            AnchorPane stage = loader.load();
+            rootScene.setCenter(stage);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     private void openRecordNewJobView(){
@@ -60,7 +74,7 @@ public class RootTechnicianController {
     private void openUnassignedTasksView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource("tasksview/assigntaskview.fxml"));
+            loader.setLocation(RootTechnicianController.class.getResource("tasksview/unassignedtasksview.fxml"));
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
         }catch(IOException e){

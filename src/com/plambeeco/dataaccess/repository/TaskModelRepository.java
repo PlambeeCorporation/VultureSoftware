@@ -402,6 +402,40 @@ public class TaskModelRepository implements ITaskModelRepository {
     }
 
     @Override
+    public List<ITaskModel> getAllUnassignedTasks() {
+        List<ITaskModel> tasks = new ArrayList<>();
+        final String sql =
+                "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
+                        "FROM " + JOB_TASKS_TABLE_NAME +
+                        " INNER JOIN " + TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY + " = " +
+                        TABLE_NAME + "." + ID_COLUMN +
+                        " INNER JOIN " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " on " + TABLE_NAME + "." + ID_COLUMN +
+                        " = " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
+                        " WHERE " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "."  + TECHNICIAN_ID + " IS NULL";
+
+
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    ITaskModel taskModel = new TaskModel(rs.getString(TASK_NAME_COLUMN),
+                            rs.getString(TASK_PRIORITY_COLUMN),
+                            rs.getString(TASK_NOTES_COLUMN),
+                            rs.getInt(HOURS_NEEDED_COLUMN),
+                            rs.getBoolean(TASK_COMPLETED_COLUMN));
+                    taskModel.setTaskId(rs.getInt(ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_COLUMN));
+                    tasks.add(taskModel);
+                }
+            }
+        }catch(SQLException e){
+            System.out.println("Failed to retrieve from the database: " + e.getMessage());
+        }
+
+        return tasks;
+    }
+
+    @Override
     public Set<String> getAllTaskNames() {
         Set<String> taskNames = new HashSet<>();
 
@@ -460,11 +494,6 @@ public class TaskModelRepository implements ITaskModelRepository {
     @Override
     public List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId) {
         List<ITaskModel> tasks = new ArrayList<>();
-//        "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
-//                "FROM " + JOB_TASKS_TABLE_NAME +
-//                " LEFT JOIN " + TABLE_NAME + " on " + TASK_ID_FOREIGN_KEY + " = " +
-//                TABLE_NAME + "." + ID_COLUMN +
-//                " WHERE " + TASK_COMPLETED_COLUMN + " = False";
         final String sql =
                 "SELECT " + TABLE_NAME + ".*, " + JOB_TASKS_TABLE_NAME + "." + JOB_ID_COLUMN +
                         " FROM " + TABLE_NAME +
@@ -474,7 +503,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " LEFT JOIN " + JOB_TASKS_TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
                         " = " +      TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
                         " WHERE " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TECHNICIAN_ID +
-                        "=? " + "AND " + TASK_COMPLETED_COLUMN + " = false";
+                        "=? ";
 
 
 

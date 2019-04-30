@@ -5,7 +5,6 @@ import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.AccountModel;
 import com.plambeeco.models.IAccountModel;
-import com.plambeeco.models.PersonModel;
 import com.plambeeco.view.RootTechnicianController;
 
 import java.sql.*;
