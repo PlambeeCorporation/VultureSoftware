@@ -1,6 +1,7 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.*;
 
 import java.sql.*;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonModelRepository implements IPersonModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "People";
     private static final String ID_COLUMN = "Id";
     private static final String FORENAME_COLUMN = "Forename";
@@ -16,7 +16,7 @@ public class PersonModelRepository implements IPersonModelRepository {
     private static final String EMAIL_ADDRESS_COLUMN = "EmailAddress";
     private static final String PHONE_NUMBER_COLUMN = "PhoneNumber";
 
-    private static final String ACCOUNT_TABLE_NAME = "Account";
+    private static final String ACCOUNT_TABLE_NAME = "AccountModel";
     private static final String ACCOUNT_PEOPLE_FOREIGN_KEY_COLUMN = "AccountOwnerId";
     private static final String ACCOUNT_TYPE_COLUMN = "AccountType";
 
@@ -36,7 +36,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         PHONE_NUMBER_COLUMN + ")" +
                         "VALUES(?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setString(1, personModel.getForename());
@@ -73,7 +73,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         " WHERE " +
                         ID_COLUMN + " =?;";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, personModel.getForename());
             ps.setString(2, personModel.getSurname());
@@ -94,7 +94,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                 "DELETE FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "=? ";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, personModel.getPersonId());
 
@@ -113,7 +113,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "=?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -139,7 +139,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                 "SELECT * FROM " + TABLE_NAME;
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -170,7 +170,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         ACCOUNT_TABLE_NAME + "." + ACCOUNT_PEOPLE_FOREIGN_KEY_COLUMN +
                         " WHERE " + ACCOUNT_TABLE_NAME + "." + ACCOUNT_TYPE_COLUMN + " = " + "\"Technician\"";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -201,7 +201,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         " WHERE " + ACCOUNT_TABLE_NAME + "." + ACCOUNT_TYPE_COLUMN + " = " + "\"Client\"";
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -233,7 +233,7 @@ public class PersonModelRepository implements IPersonModelRepository {
                         " WHERE " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID +
                         " = ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, taskId);
             try(ResultSet rs = ps.executeQuery()){

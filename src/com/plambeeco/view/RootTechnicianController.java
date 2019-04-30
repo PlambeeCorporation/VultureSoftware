@@ -1,5 +1,6 @@
 package com.plambeeco.view;
 
+import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
 import javafx.fxml.FXML;
@@ -17,8 +18,9 @@ import java.util.ResourceBundle;
 public class RootTechnicianController {
     private static Stage primaryStage;
     private BorderPane rootScene;
+    private IAccountModel loggedInTechnician;
 
-    public RootTechnicianController(Stage primaryStage) {
+    public RootTechnicianController(Stage primaryStage, IAccountModel loggedInTechnician) {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Technician view");
         initRootLayout();

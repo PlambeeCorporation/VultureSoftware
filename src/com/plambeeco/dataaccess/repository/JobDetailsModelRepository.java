@@ -1,6 +1,7 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.IJobDetailsModel;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.JobDetailsModel;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobDetailsModelRepository implements IJobDetailsModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "JobDetails";
     private static final String ID_COLUMN = "Id";
     private static final String CLIENT_ID_COLUMN = "ClientId";
@@ -29,7 +29,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
                         ", " + RETURN_DATE_COLUMN + ") " +
                         "VALUES(?, ?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setInt(1, jobDetails.getClient().getPersonId());
@@ -69,7 +69,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
                         " WHERE " +
                         ID_COLUMN + " =?;";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobDetails.getClient().getPersonId());
             ps.setInt(2, jobDetails.getCheckedBy_Technician().getPersonId());
@@ -92,7 +92,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
                 "DELETE FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "=? ";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobDetails.getJobDetailsId());
 
@@ -110,7 +110,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "= ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -151,7 +151,7 @@ public class JobDetailsModelRepository implements IJobDetailsModelRepository {
                         "FROM " +
                         TABLE_NAME;
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){

@@ -2,6 +2,7 @@ package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.TaskModel;
@@ -11,7 +12,6 @@ import java.sql.*;
 import java.util.*;
 
 public class TaskModelRepository implements ITaskModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "Tasks";
     private static final String ID_COLUMN = "Id";
     private static final String TASK_NAME_COLUMN = "TaskName";
@@ -38,7 +38,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         TASK_NOTES_COLUMN + ", " + HOURS_NEEDED_COLUMN +  ", " + TASK_COMPLETED_COLUMN + ") " +
                         "VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement psCheck = con.prepareStatement(checkSQL);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             psCheck.setInt(1, taskModel.getTaskId());
@@ -77,7 +77,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                 "INSERT INTO " + JOB_TASKS_TABLE_NAME + "(" + JOB_ID_COLUMN + "," + TASK_ID_FOREIGN_KEY + ")" +
                         "VALUES(?,?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement psInsert = con.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)){
             psInsert.setInt(1, jobId);
             for (ITaskModel taskModel : tasks){
@@ -103,7 +103,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                 "INSERT INTO " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " (" + TASK_ID_FOREIGN_KEY + "," + TECHNICIAN_ID + ") " +
                         "VALUES(?,?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
             PreparedStatement psCheck = con.prepareStatement(checkSQL);
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
             psCheck.setInt(1, task.getTaskId());
@@ -132,7 +132,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         TASK_NOTES_COLUMN + ", " + HOURS_NEEDED_COLUMN +  ", " + TASK_COMPLETED_COLUMN + ") " +
                         "VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             for (ITaskModel taskModel : tasks){
@@ -168,7 +168,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                 "INSERT INTO " + TABLE_NAME + "(" + TASK_NAME_COLUMN + ")"  +
                         "VALUES(?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setString(1, taskName);
@@ -192,7 +192,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " WHERE " +
                         ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
            PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, taskModel.getTaskName());
             ps.setString(2, taskModel.getTaskPriority());
@@ -216,7 +216,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " WHERE " +
                         TASK_NAME_COLUMN + " =?;";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, newTaskName);
             ps.setString(2, oldTaskName);
@@ -232,7 +232,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     public void remove(ITaskModel taskModel) {
         final String sql = "DELETE FROM " + TABLE_NAME + " WHERE Id=? ";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, taskModel.getTaskId());
 
@@ -249,7 +249,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                     " WHERE " + JOB_ID_COLUMN + " =?" + " AND " +
                 TASK_ID_FOREIGN_KEY + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobId);
             ps.setInt(2, taskId);
@@ -267,7 +267,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                 " WHERE " + TASK_ID_FOREIGN_KEY + " =?" + " AND " +
                 TECHNICIAN_ID + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, taskId);
             ps.setInt(2, technicianId);
@@ -286,7 +286,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "= ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -316,7 +316,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         TABLE_NAME +
                         " WHERE " + TASK_COMPLETED_COLUMN + " != NULL";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -347,7 +347,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         TABLE_NAME + "." + ID_COLUMN +
                         " WHERE " + TASK_COMPLETED_COLUMN + " = True";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -379,7 +379,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " WHERE " + TASK_COMPLETED_COLUMN + " = False";
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -409,7 +409,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                 "SELECT DISTINCT " + TASK_NAME_COLUMN +
                         " FROM " + TABLE_NAME;
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -434,7 +434,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " = " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
                         " WHERE "  + JOB_ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobId);
             try(ResultSet rs = ps.executeQuery()){
@@ -478,7 +478,7 @@ public class TaskModelRepository implements ITaskModelRepository {
 
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
              ps.setInt(1, technicianId);
             try(ResultSet rs = ps.executeQuery()){

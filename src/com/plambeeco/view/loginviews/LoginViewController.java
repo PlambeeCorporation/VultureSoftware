@@ -7,10 +7,17 @@ package com.plambeeco.view.loginviews;
 
 
 import com.plambeeco.VultureApplication;
+import com.plambeeco.dataaccess.dataprocessor.AccountModelProcessor;
+import com.plambeeco.helper.AlertHelper;
+import com.plambeeco.models.AccountModel;
+import com.plambeeco.models.AccountModel.AccountType;
+import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -24,6 +31,11 @@ import java.io.IOException;
  */
 public class LoginViewController
 {
+    @FXML
+    private TextField txtLogin;
+    @FXML
+    private PasswordField pfPassword;
+
     private Stage primaryStage;
 
     public LoginViewController(Stage primaryStage) {
@@ -50,7 +62,30 @@ public class LoginViewController
 
     @FXML
     private void login(){
-        new RootTechnicianController(primaryStage);
+        String username = txtLogin.getText();
+        String password = pfPassword.getText();
+
+        if(validateLogin(username, password)){
+            IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);
+
+            if(currentAccount != null){
+                switch(currentAccount.getAccountType()){
+                    case Technician:
+                        new RootTechnicianController(primaryStage, currentAccount);
+                        break;
+                }
+            }else{
+                AlertHelper.showAlert(primaryStage, "Wrong login details", "You have entered wrong username or password!");
+            }
+        }
+
+
+    }
+
+    private boolean validateLogin(String username, String password){
+        boolean isValid = true;
+
+        return isValid;
     }
 }
 

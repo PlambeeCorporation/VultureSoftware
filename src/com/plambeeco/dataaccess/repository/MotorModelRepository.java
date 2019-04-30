@@ -1,5 +1,6 @@
 package com.plambeeco.dataaccess.repository;
 
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.IMotorModel;
 import com.plambeeco.models.MotorModel;
 
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MotorModelRepository implements IMotorModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "MotorDetails";
     private static final String ID_COLUMN = "Id";
     private static final String MOTOR_TYPE_COLUMN = "MotorType";
@@ -26,7 +26,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                 "(" + MOTOR_TYPE_COLUMN + "," + MANUFACTURER_COLUMN + "," + ESTIMATED_YEAR_OF_MANUFACTURER_COLUMN + ")" +
                 "VALUES(?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setString(1, motorModel.getMotorType());
@@ -65,7 +65,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                 " WHERE " +
                 ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, motorModel.getMotorType());
             ps.setString(2, motorModel.getManufacturer());
@@ -89,7 +89,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                 "DELETE FROM " + TABLE_NAME +
                 " WHERE " + ID_COLUMN + "=? ";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, motorModel.getMotorId());
 
@@ -112,7 +112,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "= ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -141,7 +141,7 @@ public class MotorModelRepository implements IMotorModelRepository {
                 "SELECT * FROM " + TABLE_NAME;
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){

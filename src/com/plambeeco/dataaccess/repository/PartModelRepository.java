@@ -1,5 +1,6 @@
 package com.plambeeco.dataaccess.repository;
 
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.IPartModel;
 import com.plambeeco.models.PartModel;
 
@@ -7,7 +8,6 @@ import java.sql.*;
 import java.util.*;
 
 public class PartModelRepository implements IPartModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "Parts";
     private static final String ID_COLUMN = "Id";
     private static final String PART_NAME_COLUMN = "PartName";
@@ -27,7 +27,7 @@ public class PartModelRepository implements IPartModelRepository {
                 "INSERT INTO " + TABLE_NAME + "(" + PART_NAME_COLUMN + "," + QUANTITY_COLUMN + ") " +
                 "VALUES(?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
              ps.setString(1, partModel.getPartName());
@@ -57,7 +57,7 @@ public class PartModelRepository implements IPartModelRepository {
                 "INSERT INTO " + PARTS_NEEDED_TABLE_NAME + "(" + JOB_ID_COLUMN + "," + PartNeeded_ID_COLUMN + ")" +
                 "VALUES(?,?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
              ps.setInt(1, jobId);
             for (IPartModel partModel : parts){
@@ -81,7 +81,7 @@ public class PartModelRepository implements IPartModelRepository {
                 "INSERT INTO " + TABLE_NAME + "(" + PART_NAME_COLUMN + "," + QUANTITY_COLUMN + ") " +
                 "VALUES(?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             for (IPartModel partModel : parts){
@@ -113,7 +113,7 @@ public class PartModelRepository implements IPartModelRepository {
                 "INSERT INTO " + TABLE_NAME + "(" + PART_NAME_COLUMN + ")"  +
                         "VALUES(?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setString(1, partName);
@@ -136,7 +136,7 @@ public class PartModelRepository implements IPartModelRepository {
                         " WHERE " +
                         ID_COLUMN + " =?;";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
                 ps.setString(1, partModel.getPartName());
                 ps.setInt(2, partModel.getPartQuantity());
@@ -158,7 +158,7 @@ public class PartModelRepository implements IPartModelRepository {
                         " WHERE " +
                         PART_NAME_COLUMN + " =?;";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setString(1, newPartName);
             ps.setString(2, oldPartName);
@@ -174,7 +174,7 @@ public class PartModelRepository implements IPartModelRepository {
     public void remove(final IPartModel partModel) {
         final String sql = "DELETE FROM " + TABLE_NAME + " WHERE " + ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, partModel.getPartId());
 
@@ -192,7 +192,7 @@ public class PartModelRepository implements IPartModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "= ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -218,7 +218,7 @@ public class PartModelRepository implements IPartModelRepository {
                 " WHERE " + QUANTITY_COLUMN + " != NULL";
 
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -243,7 +243,7 @@ public class PartModelRepository implements IPartModelRepository {
                 "SELECT DISTINCT " + PART_NAME_COLUMN +
                 " FROM " + TABLE_NAME;
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -268,7 +268,7 @@ public class PartModelRepository implements IPartModelRepository {
                 " = " + PARTS_NEEDED_TABLE_NAME + "." + PartNeeded_ID_COLUMN +
                 " WHERE "  + JOB_ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobId);
             try(ResultSet rs = ps.executeQuery()){

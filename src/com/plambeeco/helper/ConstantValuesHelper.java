@@ -10,4 +10,5 @@ public class ConstantValuesHelper {
     public static final String ADD_NEW_TASK_NAME = "Add new Task Name";
     public static final String ADD_NEW_PART_NAME = "Add new Part Name";
     public static final ObservableList<String> TASK_PRIORITIES = FXCollections.observableArrayList("Low", "Medium", "High", "Very High");
+    public static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
 }

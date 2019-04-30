@@ -1,6 +1,7 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.*;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.JobModel;
 import sun.tools.java.Type;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JobModelRepository implements IJobModelRepository {
-    private static final String CONNECTION_STRING = "jdbc:sqlite:vulture.sqlite";
     private static final String TABLE_NAME = "Job";
     private static final String ID_COLUMN = "Id";
     private static final String MOTOR_ID_COLUMN = "MotorId";
@@ -27,7 +27,7 @@ public class JobModelRepository implements IJobModelRepository {
                         INSPECTING_TECHNICIAN_ID_COLUMN + ", " + INSPECTION_DATE_COLUMN + ", " + JOB_APPROVED_COLUMN + ")" +
                         "VALUES(?, ?, ?, ?, ?)";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
 
             ps.setInt(1, jobModel.getMotor().getMotorId());
@@ -66,7 +66,7 @@ public class JobModelRepository implements IJobModelRepository {
                         " WHERE " +
                         ID_COLUMN + " =?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
 
             ps.setInt(1, jobModel.getMotor().getMotorId());
@@ -92,7 +92,7 @@ public class JobModelRepository implements IJobModelRepository {
     public void remove(JobModel jobModel) {
         final String sql = "DELETE FROM " + TABLE_NAME + " WHERE Id=? ";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, jobModel.getJobId());
 
@@ -110,7 +110,7 @@ public class JobModelRepository implements IJobModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + ID_COLUMN + "= ?";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             ps.setInt(1, id);
             try(ResultSet rs = ps.executeQuery()){
@@ -149,7 +149,7 @@ public class JobModelRepository implements IJobModelRepository {
                 "SELECT *"  +
                         " FROM " + TABLE_NAME;
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -190,7 +190,7 @@ public class JobModelRepository implements IJobModelRepository {
                     " FROM " + TABLE_NAME +
                     " WHERE " + JOB_APPROVED_COLUMN + " == True";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){
@@ -223,7 +223,7 @@ public class JobModelRepository implements IJobModelRepository {
                         " FROM " + TABLE_NAME +
                         " WHERE " + JOB_APPROVED_COLUMN + " == FALSE";
 
-        try (Connection con = DriverManager.getConnection(CONNECTION_STRING);
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
             try(ResultSet rs = ps.executeQuery()){
                 while(rs.next()){

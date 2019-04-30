@@ -15,6 +15,14 @@ public class JobDetailsModel implements IJobDetailsModel {
     private IntegerProperty estimatedLabourTime;
     private LocalDate returnDate;
 
+    /**
+     * Creates new JobDetailModel object.
+     * @param client reference to the client object.
+     * @param checkedBy_Technician referecence to the checking technician object.
+     * @param checkingDate checking date.
+     * @param dateCollected date collected.
+     * @param returnDate return date.
+     */
     public JobDetailsModel(IPersonModel client, ITechnicianModel checkedBy_Technician, LocalDate checkingDate,
                            LocalDate dateCollected, LocalDate returnDate) {
         this.client = client;
@@ -25,6 +33,15 @@ public class JobDetailsModel implements IJobDetailsModel {
         this.estimatedLabourTime = new SimpleIntegerProperty();
     }
 
+    /**
+     * Creates new JobDetailModel object.
+     * @param client reference to the client object.
+     * @param checkedBy_Technician referecence to the checking technician object.
+     * @param checkingDate checking date.
+     * @param dateCollected date collected.
+     * @param estimatedLabourTime estimated labour time.
+     * @param returnDate return date.
+     */
     public JobDetailsModel(IPersonModel client, ITechnicianModel checkedBy_Technician, LocalDate checkingDate,
                            LocalDate dateCollected, int estimatedLabourTime, LocalDate returnDate) {
         this.client = client;
@@ -35,21 +52,37 @@ public class JobDetailsModel implements IJobDetailsModel {
         this.returnDate = returnDate;
     }
 
+    /**
+     * Get job details unique identification.
+     * @return unique identification.
+     */
     @Override
     public int getJobDetailsId() {
         return jobDetailsId;
     }
 
+    /**
+     * Set job details unique identification.
+     * @param jobDetailsId unique identification.
+     */
     @Override
     public void setJobDetailsId(int jobDetailsId) {
         this.jobDetailsId = jobDetailsId;
     }
 
+    /**
+     * Get client reference object.
+     * @return client reference object.
+     */
     @Override
     public IPersonModel getClient() {
         return client;
     }
 
+    /**
+     * Set client reference object.
+     * @param client new client object.
+     */
     @Override
     public void setClient(IPersonModel client) {
         this.client = client;

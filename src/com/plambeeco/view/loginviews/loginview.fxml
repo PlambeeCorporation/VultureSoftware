@@ -28,8 +28,8 @@
 <!--                                        <Image url="@/com/plambeeco/assets/vulture-logo.png" />-->
                                     </image>
                                 </ImageView>
-                                    <TextField layoutX="86.0" layoutY="166.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Username" />
-                                    <PasswordField layoutX="86.0" layoutY="245.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Password" />
+                                    <TextField fx:id="txtLogin" layoutX="86.0" layoutY="166.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Username" />
+                                    <PasswordField fx:id="pfPassword" layoutX="86.0" layoutY="245.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Password" />
                                     
                                     <Button layoutX="174.0" layoutY="360.0" mnemonicParsing="false" onAction="#login" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3b70a5; -fx-text-fill: #ffffff; -fx-background-radius: 10px;" text="Login" />
                             </children>
