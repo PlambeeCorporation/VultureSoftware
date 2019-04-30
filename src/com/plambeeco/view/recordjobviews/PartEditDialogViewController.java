@@ -19,14 +19,26 @@ public class PartEditDialogViewController {
     private Stage dialogStage;
     private String oldPartName;
 
+    /**
+     * Current part name that will be updated.
+     * @param oldPartName current part name that will be updated.
+     */
     public void setOldPartName(String oldPartName){
         this.oldPartName = oldPartName;
     }
 
+    /**
+     * Sets reference to its self.
+     * @param dialogStage reference to its self.
+     */
     public void setDialogStage(Stage dialogStage){
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Sets list of all current part names.
+     * @param partNames list of all current part names
+     */
     public void setPartNames(ObservableSet<String> partNames){
         this.partNames = partNames;
     }

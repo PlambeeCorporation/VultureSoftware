@@ -2,6 +2,7 @@ package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.PartModelProcessor;
 import com.plambeeco.helper.AlertHelper;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.helper.TextFieldHelper;
 import com.plambeeco.models.IPartModel;
 import com.plambeeco.models.PartModel;
@@ -40,10 +41,25 @@ public class RecordPartsNeededController {
 
     private Stage primaryStage;
 
+    /**
+     * Parts needed for the job.
+     * @return parts needed for the job.
+     */
     public List<IPartModel> getPartsNeeded(){
         return partsNeeded;
     }
 
+    /**
+     * Sets the primary stage.
+     * @param primaryStage
+     */
+    public void setPrimaryStage(Stage primaryStage){
+        this.primaryStage = primaryStage;
+    }
+
+    /**
+     * Initializes the view.
+     */
     @FXML
     private void initialize(){
         initializeTableViewAndColumns();
@@ -51,6 +67,9 @@ public class RecordPartsNeededController {
         TextFieldHelper.allowNumbersOnly(txtPartsQuantity);
     }
 
+    /**
+     * Initializes the combo box with part names.
+     */
     private void initializeCBPartsNeeded(){
         if(!cbPartsNeeded.getItems().isEmpty()){
             cbPartsNeeded.getItems().clear();
@@ -71,6 +90,9 @@ public class RecordPartsNeededController {
         return sortedPartNames;
     }
 
+    /**
+     * Initializes the parts needed table view.
+     */
     private void initializeTableViewAndColumns(){
         partsNeeded = FXCollections.observableArrayList();
         tvPartsView.setItems(partsNeeded);
@@ -78,10 +100,9 @@ public class RecordPartsNeededController {
         partQuantityColumn.setCellValueFactory(cellData -> cellData.getValue().partQuantityProperty());
     }
 
-    public void setRootScene(Stage primaryStage){
-        this.primaryStage = primaryStage;
-    }
-
+    /**
+     * Creates new part model.
+     */
     @FXML
     private void createPart(){
         if(validatePartModelInput()){
@@ -91,31 +112,9 @@ public class RecordPartsNeededController {
         }
     }
 
-    private boolean validatePartModelInput(){
-        boolean isValid = true;
-        String errorMessage = "";
-
-        if(cbPartsNeeded.getSelectionModel().isEmpty() || cbPartsNeeded.getValue().equals("Create new Part")){
-            isValid = false;
-            errorMessage += "You need to choose a part!\n";
-        }
-
-        if(txtPartsQuantity.getText() == null || txtPartsQuantity.getLength() <= 0){
-            isValid = false;
-            errorMessage += "You need to enter part quantity!\n";
-
-        }else if(Integer.valueOf(txtPartsQuantity.getText()) <= 0){
-            isValid = false;
-            errorMessage += "The part quantity must be bigger than 0!\n";
-        }
-
-        if(!isValid){
-            AlertHelper.showAlert(primaryStage, "Error Adding New Part!", errorMessage);
-        }
-
-        return isValid;
-    }
-
+    /**
+     * Removes selected part model.
+     */
     @FXML
     private void removePart(){
         int selectedIndex = tvPartsView.getSelectionModel().getSelectedIndex();
@@ -127,8 +126,15 @@ public class RecordPartsNeededController {
         }
     }
 
+    /**
+     * Creates new part name.
+     */
     @FXML
     private void createNewPartName(){
+        if(cbPartsNeeded.getValue() == null){
+            return;
+        }
+
         if(cbPartsNeeded.getValue().equals(ADD_NEW_PART)){
             createPartEditDialogView(ADD_NEW_PART, null);
             initializeCBPartsNeeded();
@@ -136,6 +142,9 @@ public class RecordPartsNeededController {
         }
     }
 
+    /**
+     * Edits current part name.
+     */
     @FXML
     private void editPartName(){
         String partName = cbPartsNeeded.getValue();
@@ -147,6 +156,11 @@ public class RecordPartsNeededController {
         }
     }
 
+    /**
+     * Creates new view that allows to either add new part name of edit current one.
+     * @param title view title.
+     * @param partName part name to edit.
+     */
     private void createPartEditDialogView(String title, String partName){
         try{
             FXMLLoader loader = new FXMLLoader();
@@ -172,5 +186,43 @@ public class RecordPartsNeededController {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    /**
+     * Validates part model details.
+     * @return true if part model details are valid, false otherwise.
+     */
+    private boolean validatePartModelInput(){
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(cbPartsNeeded.getSelectionModel().isEmpty() || cbPartsNeeded.getValue().equals(ConstantValuesHelper.ADD_NEW_PART_NAME)){
+            isValid = false;
+            errorMessage += "You need to choose a part!\n";
+        }
+
+        if(txtPartsQuantity.getText() == null || txtPartsQuantity.getLength() <= 0){
+            isValid = false;
+            errorMessage += "You need to enter part quantity!\n";
+
+        }else if(Integer.valueOf(txtPartsQuantity.getText()) <= 0){
+            isValid = false;
+            errorMessage += "The part quantity must be bigger than 0!\n";
+        }
+
+        for (IPartModel part : partsNeeded) {
+            if(cbPartsNeeded.getValue().equals(part.getPartName())){
+                isValid = false;
+                errorMessage += cbPartsNeeded.getValue() + " has been already added!";
+                break;
+            }
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(primaryStage, "Error Adding New Part!", errorMessage);
+        }
+
+
+        return isValid;
     }
 }

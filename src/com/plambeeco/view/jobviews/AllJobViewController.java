@@ -1,7 +1,6 @@
 package com.plambeeco.view.jobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
-import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.models.JobModel;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -9,34 +8,32 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
 public class AllJobViewController {
     @FXML
     TableView<JobModel> tvJobs;
     @FXML
-    TableColumn<JobModel, Number> tbJobId;
+    TableColumn<JobModel, Number> tcJobId;
     @FXML
-    TableColumn<JobModel, String> tbClient;
+    TableColumn<JobModel, String> tcClient;
     @FXML
-    TableColumn<JobModel, Number> tbEstimatedLabourTime;
+    TableColumn<JobModel, Number> tcEstimatedLabourTime;
     @FXML
-    TableColumn<JobModel, LocalDate> tbCollectedDate;
+    TableColumn<JobModel, LocalDate> tcCollectedDate;
     @FXML
-    TableColumn<JobModel, LocalDate> tbReturnDate;
+    TableColumn<JobModel, LocalDate> tcReturnDate;
     @FXML
-    TableColumn<JobModel, Boolean> tbJobApproved;
+    TableColumn<JobModel, Boolean> tcJobApproved;
 
     private BorderPane rootScene;
 
@@ -48,15 +45,23 @@ public class AllJobViewController {
     private void initialize(){
         ObservableList<JobModel> jobs = FXCollections.observableArrayList(JobModelProcessor.getAll());
         tvJobs.setItems(jobs);
-        tbJobId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJobId()));
-        tbClient.setCellValueFactory(cellData -> cellData.getValue().getJobDetails().getClient().getFullName());
-        tbEstimatedLabourTime.setCellValueFactory(cellData ->
+        tcJobId.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getJobId()));
+        tcClient.setCellValueFactory(cellData -> cellData.getValue().getJobDetails().getClient().getFullName());
+        tcEstimatedLabourTime.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getJobDetails().getEstimatedLabourTime()));
-        tbCollectedDate.setCellValueFactory(cellData ->
+        tcCollectedDate.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getJobDetails().getDateCollected()));
-        tbReturnDate.setCellValueFactory(cellData ->
+        tcReturnDate.setCellValueFactory(cellData ->
                 new SimpleObjectProperty<>(cellData.getValue().getJobDetails().getReturnDate()));
-        tbJobApproved.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isJobApproved()));
+        tcJobApproved.setCellValueFactory(cellData -> new SimpleBooleanProperty(cellData.getValue().isJobApproved()));
+        tcJobApproved.setCellFactory(cellData -> new TableCell<>() {
+            @Override
+            protected void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null :
+                        item ? "Approved" : "Not Approved");
+            }
+        });
     }
 
     @FXML

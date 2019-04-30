@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class AssignTaskViewController {
-    //TODO - Add sorting, editing and removing functionality.
     @FXML
     private TextField txtSelectedTask;
 

@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -72,7 +71,7 @@ public class RootJobRecordController {
             rootJobScene.setRight(partsNeededView);
 
             recordPartsNeededController = loader.getController();
-            recordPartsNeededController.setRootScene(RootTechnicianController.getPrimaryStage());
+            recordPartsNeededController.setPrimaryStage(RootTechnicianController.getPrimaryStage());
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -116,17 +115,19 @@ public class RootJobRecordController {
         IJobDetailsModel jobDetails = recordJobDetailsViewController.getJobDetails();
         jobDetails.setEstimatedLabourTime(JobDetailsModel.calculateEstimatedLabourTime(tasksNeeded));
 
-        JobModel job = new JobModel.JobBuilder()
-                .setMotor(motor)
-                .setJobDetails(jobDetails)
-                .setPartsNeeded(partsNeeded)
-                .setJobTasks(tasksNeeded)
-                .setInspectingTechnician(null)
-                .setInspectionDate(null)
-                .setJobApproved(false)
-                .build();
+        if(motor != null && jobDetails != null){
+            JobModel job = new JobModel.JobBuilder()
+                    .setMotor(motor)
+                    .setJobDetails(jobDetails)
+                    .setPartsNeeded(partsNeeded)
+                    .setJobTasks(tasksNeeded)
+                    .setInspectingTechnician(null)
+                    .setInspectionDate(null)
+                    .setJobApproved(false)
+                    .build();
 
-        addJobToDatabase(job);
+            addJobToDatabase(job);
+        }
     }
 
     private void addJobToDatabase(JobModel job){

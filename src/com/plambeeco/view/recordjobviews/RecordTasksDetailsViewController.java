@@ -1,6 +1,7 @@
 package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.TaskModel;
@@ -56,8 +57,8 @@ public class RecordTasksDetailsViewController {
     @FXML
     private void initialize(){
         initializeCBTaskNames();
-        initializeCBTaskPriority();
         initializeTableViewAndColumns();
+        cbTaskPriority.setItems(ConstantValuesHelper.TASK_PRIORITIES);
     }
 
     /**
@@ -80,19 +81,6 @@ public class RecordTasksDetailsViewController {
         sortedTaskNames.sort(String::compareTo);
         sortedTaskNames.add(0, ConstantValuesHelper.ADD_NEW_TASK_NAME);
         return sortedTaskNames;
-    }
-
-    /**
-     * Initializes combo box containing task priority description.
-     */
-    private void initializeCBTaskPriority(){
-        ObservableList<String> taskPriority = FXCollections.observableArrayList();
-        taskPriority.add("Low");
-        taskPriority.add("Medium");
-        taskPriority.add("High");
-        taskPriority.add("Very High");
-
-        cbTaskPriority.getItems().addAll(taskPriority);
     }
 
     /**
@@ -132,11 +120,13 @@ public class RecordTasksDetailsViewController {
      */
     @FXML
     private void createTask(){
-        String taskName = cbTaskNames.getValue();
-        String taskPriority = cbTaskPriority.getValue();
-        String taskNotes = txtNotes.getText();
-        int hoursNeeded = Integer.valueOf(txtHoursNeeded.getText());
-        tasksNeeded.add(new TaskModel(taskName, taskPriority, taskNotes, hoursNeeded));
+        if(validateTaskDetails()){
+            String taskName = cbTaskNames.getValue();
+            String taskPriority = cbTaskPriority.getValue();
+            String taskNotes = txtNotes.getText();
+            int hoursNeeded = Integer.valueOf(txtHoursNeeded.getText());
+            tasksNeeded.add(new TaskModel(taskName, taskPriority, taskNotes, hoursNeeded));
+        }
     }
 
     /**
@@ -146,9 +136,7 @@ public class RecordTasksDetailsViewController {
     private void editTask(){
         ITaskModel selectedTask = tvTasksToDo.getSelectionModel().getSelectedItem();
         if(selectedTask != null){
-            ObservableList<String> taskPriorityList;
-            taskPriorityList = cbTaskPriority.getItems();
-            createTaskEditDialogView(selectedTask, taskPriorityList);
+            createTaskEditDialogView(selectedTask);
         }
     }
 
@@ -165,9 +153,8 @@ public class RecordTasksDetailsViewController {
     /**
      * Creates a new scene, in which the user can edit the task details.
      * @param selectedPart  Task to edit.
-     * @param taskPriorityList List of task priorities.
      */
-    private void createTaskEditDialogView(ITaskModel selectedPart, ObservableList<String> taskPriorityList){
+    private void createTaskEditDialogView(ITaskModel selectedPart){
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RecordTasksDetailsViewController.class.getResource("taskeditdialogview.fxml"));
@@ -184,7 +171,7 @@ public class RecordTasksDetailsViewController {
             TaskEditDialogViewController taskEditDialogViewController = loader.getController();
             taskEditDialogViewController.setTaskToEdit(selectedPart);
             taskEditDialogViewController.setDialogStage(dialogStage);
-            taskEditDialogViewController.initializeTaskToEdit(taskPriorityList);
+            taskEditDialogViewController.initializeTaskToEdit();
 
 
             dialogStage.showAndWait();
@@ -218,5 +205,40 @@ public class RecordTasksDetailsViewController {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    private boolean validateTaskDetails(){
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(cbTaskNames.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a task name!\n";
+        }
+
+        if(cbTaskPriority.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a priority!\n";
+        }
+
+        if(txtHoursNeeded.getLength() < 1){
+            isValid = false;
+            errorMessage += "Enter hours needed!\n";
+        }
+
+        for (ITaskModel task: tasksNeeded) {
+            if(cbTaskNames.getValue() != null &&
+                    cbTaskNames.getValue().equals(task.getTaskName())){
+                isValid = false;
+                errorMessage = cbTaskNames.getValue() + " has been already added!\n";
+                break;
+            }
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(primaryStage, "Incorrrect Task Details", errorMessage);
+        }
+
+        return isValid;
     }
 }

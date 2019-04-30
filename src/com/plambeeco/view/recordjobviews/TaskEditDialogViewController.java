@@ -2,6 +2,7 @@ package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.AlertHelper;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,21 +25,36 @@ public class TaskEditDialogViewController {
     private ITaskModel taskToEdit;
     private Stage dialogStage;
 
+    /**
+     * Set task to edit.
+     * @param taskToEdit task to edit.
+     */
     public void setTaskToEdit(ITaskModel taskToEdit){
         this.taskToEdit = taskToEdit;
     }
+
+    /**
+     * Set view reference to its self.
+     * @param dialogStage reference to its self.
+     */
     public void setDialogStage(Stage dialogStage){
         this.dialogStage = dialogStage;
     }
 
-    public void initializeTaskToEdit(ObservableList<String> taskPriorityList){
+    /**
+     * Initializes the view with the task to edit details.
+     */
+    public void initializeTaskToEdit(){
         initializeCBTasks();
         txtHoursNeeded.setText(taskToEdit.hoursNeededProperty().getValue().toString());
-        cbTaskPriority.getItems().addAll(taskPriorityList);
+        cbTaskPriority.getItems().addAll(ConstantValuesHelper.TASK_PRIORITIES);
         cbTaskPriority.setValue(taskToEdit.getTaskPriority());
         txtNotes.setText(taskToEdit.getTaskNotes());
     }
 
+    /**
+     * Initializes combobox with task names.
+     */
     private void initializeCBTasks(){
         ObservableList<String> taskNames = FXCollections.observableArrayList(TaskModelProcessor.getAllTaskNames());
         cbTasks.getItems().addAll(taskNames);

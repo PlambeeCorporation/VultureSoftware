@@ -15,6 +15,10 @@ public class RecordMotorDetailsViewController {
     @FXML
     private TextField txtEstimatedYear;
 
+    /**
+     * Creates new motor model.
+     * @return motor model.
+     */
     @FXML
     public IMotorModel createMotorModel(){
         if(validateMotorModelInput()){
@@ -28,6 +32,10 @@ public class RecordMotorDetailsViewController {
         return null;
     }
 
+    /**
+     * Validates motor details.
+     * @return true if details are valid, false otherwise.
+     */
     private boolean validateMotorModelInput(){
         boolean isValid = true;
 

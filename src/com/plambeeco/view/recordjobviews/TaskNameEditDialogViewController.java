@@ -16,14 +16,26 @@ public class TaskNameEditDialogViewController {
     private Stage dialogStage;
     private String oldTaskName;
 
+    /**
+     * Current that name that will be updated.
+     * @param oldTaskName current that name that will be updated.
+     */
     public void setOldTaskName(String oldTaskName){
         this.oldTaskName = oldTaskName;
     }
 
+    /**
+     * Sets reference to its self.
+     * @param dialogStage reference to its self.
+     */
     public void setDialogStage(Stage dialogStage){
         this.dialogStage = dialogStage;
     }
 
+    /**
+     * Sets list of all currents task names.
+     * @param taskNames list of all current task names.
+     */
     public void setTaskNames(ObservableSet<String> taskNames){
         this.taskNames = taskNames;
     }

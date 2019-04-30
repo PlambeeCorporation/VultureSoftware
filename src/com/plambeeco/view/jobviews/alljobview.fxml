@@ -9,12 +9,12 @@
    <children>
       <TableView fx:id="tvJobs" layoutX="13.0" layoutY="27.0" prefHeight="428.0" prefWidth="622.0">
         <columns>
-          <TableColumn fx:id="tbJobId" prefWidth="75.0" text="Job Id" />
-            <TableColumn fx:id="tbClient" prefWidth="160.0" text="Client" />
-          <TableColumn fx:id="tbEstimatedLabourTime" prefWidth="94.0" text="Estimated &#10;Labour Time" />
-            <TableColumn fx:id="tbCollectedDate" maxWidth="4000.0" prefWidth="90.0" text="Date Collected" />
-            <TableColumn fx:id="tbReturnDate" maxWidth="4000.0" prefWidth="90.0" text="Return Date" />
-            <TableColumn fx:id="tbJobApproved" prefWidth="111.0" text="Inspection &#10;Approved" />
+          <TableColumn fx:id="tcJobId" prefWidth="75.0" text="Job Id" />
+            <TableColumn fx:id="tcClient" prefWidth="160.0" text="Client" />
+          <TableColumn fx:id="tcEstimatedLabourTime" prefWidth="94.0" text="Estimated &#10;Labour Time" />
+            <TableColumn fx:id="tcCollectedDate" maxWidth="4000.0" prefWidth="90.0" text="Date Collected" />
+            <TableColumn fx:id="tcReturnDate" maxWidth="4000.0" prefWidth="90.0" text="Return Date" />
+            <TableColumn fx:id="tcJobApproved" prefWidth="111.0" text="Inspection &#10;Approved" />
         </columns>
       </TableView>
       <Button layoutX="269.0" layoutY="466.0" mnemonicParsing="false" onAction="#loadJob" prefHeight="25.0" prefWidth="138.0" text="View Job In details" />
