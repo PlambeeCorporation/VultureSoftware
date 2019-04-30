@@ -4,14 +4,16 @@ import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.models.ITaskModel;
+import com.plambeeco.models.JobModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+
+import java.time.LocalDate;
 
 public class TechnicianTaskViewController {
     @FXML
@@ -30,6 +32,8 @@ public class TechnicianTaskViewController {
     private TableColumn<ITaskModel, String> tcAssignedTechnicians;
     @FXML
     private TableColumn<ITaskModel, Boolean> tcTaskCompleted;
+    @FXML
+    private TableColumn<JobModel, LocalDate> tcReturnDate;
 
     private IAccountModel loggedInTechnician;
 

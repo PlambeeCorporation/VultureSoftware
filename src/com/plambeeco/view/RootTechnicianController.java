@@ -5,17 +5,15 @@ import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.loginviews.LoginViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
 import com.plambeeco.view.tasksview.TechnicianTaskViewController;
+import com.plambeeco.view.tasksview.UnassignedTasksViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class RootTechnicianController {
     private static Stage primaryStage;
@@ -76,6 +74,8 @@ public class RootTechnicianController {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource("tasksview/unassignedtasksview.fxml"));
             AnchorPane stage = loader.load();
+            UnassignedTasksViewController unassignedTasksViewController = loader.getController();
+            unassignedTasksViewController.setRootScene(rootScene);
             rootScene.setCenter(stage);
         }catch(IOException e){
             e.printStackTrace();

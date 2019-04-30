@@ -9,8 +9,6 @@ package com.plambeeco.view.loginviews;
 import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.AccountModelProcessor;
 import com.plambeeco.helper.AlertHelper;
-import com.plambeeco.models.AccountModel;
-import com.plambeeco.models.AccountModel.AccountType;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
@@ -19,8 +17,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 
@@ -64,8 +62,8 @@ public class LoginViewController
     private void login(){
         String username = txtLogin.getText();
         String password = pfPassword.getText();
-        username = "testTechnician";
-        password = "password";
+//        username = "testTechnician";
+//        password = "password";
 
         if(validateLogin(username, password)){
             IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);

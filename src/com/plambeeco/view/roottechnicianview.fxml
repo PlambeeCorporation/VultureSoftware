@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.Font?>
-
+<?import javafx.scene.text.*?>
 <BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="290.0" BorderPane.alignment="CENTER">
@@ -77,6 +74,11 @@
             </Label>
             <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="648.0" prefWidth="13.0" />
             <Label layoutX="70.0" layoutY="614.0" onMouseClicked="#logOut" text="Logout">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="70.0" layoutY="411.0" onMouseClicked="#openUnassignedTasksView" text="View Unfinished Tasks">
                <font>
                   <Font size="18.0" />
                </font>
