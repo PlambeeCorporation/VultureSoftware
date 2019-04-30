@@ -1,12 +1,9 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
-import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
-import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.TaskModel;
-import com.plambeeco.models.TechnicianModel;
 
 import java.sql.*;
 import java.util.*;
@@ -409,7 +406,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         "FROM " + JOB_TASKS_TABLE_NAME +
                         " INNER JOIN " + TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY + " = " +
                         TABLE_NAME + "." + ID_COLUMN +
-                        " INNER JOIN " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " on " + TABLE_NAME + "." + ID_COLUMN +
+                        " LEFT JOIN " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " on " + TABLE_NAME + "." + ID_COLUMN +
                         " = " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
                         " WHERE " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + "."  + TECHNICIAN_ID + " IS NULL";
 
