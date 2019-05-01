@@ -1,10 +1,12 @@
 package com.plambeeco.models;
 
+import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -174,6 +176,22 @@ public class TaskModel implements ITaskModel {
     @Override
     public void setTaskCompleted(boolean taskCompleted) {
         this.taskCompleted = taskCompleted;
+    }
+
+    @Override
+    public LocalDate getTaskFinishDate(){
+        JobModel job = JobModelProcessor.getById(jobId.get());
+        return job.getJobDetails().getReturnDate();
+    }
+
+    @Override
+    public boolean isTaskOverdue(){
+        if(!taskCompleted){
+            LocalDate currentDate = LocalDate.now();
+            return getTaskFinishDate().isAfter(currentDate);
+        }
+
+        return false;
     }
 
     @Override

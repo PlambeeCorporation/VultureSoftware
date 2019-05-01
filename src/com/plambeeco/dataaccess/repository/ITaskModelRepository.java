@@ -1,7 +1,6 @@
 package com.plambeeco.dataaccess.repository;
 
 import com.plambeeco.models.ITaskModel;
-import com.plambeeco.models.ITechnicianModel;
 
 import java.util.Collection;
 import java.util.List;

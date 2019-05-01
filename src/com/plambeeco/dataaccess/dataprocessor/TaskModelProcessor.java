@@ -3,7 +3,6 @@ package com.plambeeco.dataaccess.dataprocessor;
 import com.plambeeco.dataaccess.repository.ITaskModelRepository;
 import com.plambeeco.dataaccess.repository.TaskModelRepository;
 import com.plambeeco.models.ITaskModel;
-import com.plambeeco.models.ITechnicianModel;
 
 import java.util.Collection;
 import java.util.List;
@@ -107,6 +106,10 @@ public class TaskModelProcessor {
         }
     }
 
+    public static List<ITaskModel> getAllOverdueTasks() {
+        return null;
+    }
+
     public ITaskModel getById(final int id){
         if(id > 0){
             ITaskModelRepository taskModelRepository = new TaskModelRepository();
@@ -134,11 +137,6 @@ public class TaskModelProcessor {
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         Set<String> taskNames = taskModelRepository.getAllTaskNames();
 
-        for (String taskName: taskNames) {
-            if(!validateTaskName(taskName)){
-                taskNames.remove(taskName);
-            }
-        }
 
         return taskNames;
     }
@@ -147,26 +145,12 @@ public class TaskModelProcessor {
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getAllCompletedTasks();
 
-        for(ITaskModel task : tasks){
-            if(!validateTaskModel(task)){
-                System.out.println("Invalid task was loaded, when loading all parts.");
-                return null;
-            }
-        }
-
         return tasks;
     }
 
     public static List<ITaskModel> getAllNotCompletedTasks(){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getAllNotCompletedTasks();
-
-        for(ITaskModel task : tasks){
-            if(!validateTaskModel(task)){
-                System.out.println("Invalid task was loaded, when loading all parts.");
-                return null;
-            }
-        }
 
         return tasks;
     }
@@ -175,26 +159,12 @@ public class TaskModelProcessor {
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getAllUnassignedTasks();
 
-        for(ITaskModel task : tasks){
-            if(!validateTaskModel(task)){
-                System.out.println("Invalid task was loaded, when loading all parts.");
-                return null;
-            }
-        }
-
         return tasks;
     }
 
     public static List<ITaskModel> getJobTasksNeeded(int jobId){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getJobTasksNeeded(jobId);
-
-        for(ITaskModel task : tasks){
-            if(!validateTaskModel(task)){
-                System.out.println("Invalid task was loaded, when loading all parts.");
-                tasks.remove(task);
-            }
-        }
 
         return tasks;
     }
@@ -207,13 +177,6 @@ public class TaskModelProcessor {
     public static List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getTechniciansCurrentlyAssignedTasks(technicianId);
-
-        for(ITaskModel task : tasks){
-            if(!validateTaskModel(task)){
-                System.out.println("Invalid task was loaded, when loading all parts.");
-                tasks.remove(task);
-            }
-        }
 
         return tasks;
     }

@@ -5,7 +5,11 @@ import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.AlertHelper;
-import com.plambeeco.models.*;
+import com.plambeeco.helper.ViewHelper;
+import com.plambeeco.models.ITaskModel;
+import com.plambeeco.models.ITechnicianModel;
+import com.plambeeco.models.JobDetailsModel;
+import com.plambeeco.models.JobModel;
 import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.jobviews.JobViewController;
 import javafx.collections.FXCollections;
@@ -13,14 +17,20 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AssignTaskViewController {
     @FXML
@@ -63,6 +73,7 @@ public class AssignTaskViewController {
     private List<ITaskModel> tasksToRemove = new ArrayList<>();
     private Map<ITechnicianModel, Integer> techniciansToRemove = new HashMap<>();
     private List<ITaskModel> tasksToUpdate = new ArrayList<>();
+
 
     public AssignTaskViewController(JobModel currentJob, BorderPane rootScene) {
         this.currentJob = currentJob;
@@ -278,14 +289,19 @@ public class AssignTaskViewController {
         JobModel job = JobModelProcessor.getById(currentJob.getJobId());
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource("jobviews/jobview.fxml"));
-            JobViewController controller = new JobViewController(rootScene, job);
-            loader.setController(controller);
+            String callingView = ViewHelper.getViewsResourcesStack().pop();
+            loader.setLocation(RootTechnicianController.class.getResource(callingView));
+
+            if(callingView.equals(ViewHelper.JOB_VIEW_RESOURCE)){
+                JobViewController controller = new JobViewController(rootScene, job);
+                loader.setController(controller);
+            }
+
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
 
-
         }catch(IOException e){
+            e.getMessage();
             e.printStackTrace();
         }
     }

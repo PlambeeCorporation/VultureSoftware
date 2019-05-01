@@ -4,8 +4,8 @@ import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.models.ITaskModel;
-import com.plambeeco.models.JobModel;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -33,7 +33,7 @@ public class TechnicianTaskViewController {
     @FXML
     private TableColumn<ITaskModel, Boolean> tcTaskCompleted;
     @FXML
-    private TableColumn<JobModel, LocalDate> tcReturnDate;
+    private TableColumn<ITaskModel, LocalDate> tcDeadline;
 
     private IAccountModel loggedInTechnician;
 
@@ -69,6 +69,7 @@ public class TechnicianTaskViewController {
                         item ? "Completed" : "Not Completed");
             }
         });
+        tcDeadline.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaskFinishDate()));
     }
 
     @FXML

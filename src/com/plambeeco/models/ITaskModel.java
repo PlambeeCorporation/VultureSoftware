@@ -3,6 +3,7 @@ package com.plambeeco.models;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ITaskModel {
@@ -51,4 +52,8 @@ public interface ITaskModel {
     boolean isTaskCompleted();
 
     void setTaskCompleted(boolean taskCompleted);
+
+    LocalDate getTaskFinishDate();
+
+    boolean isTaskOverdue();
 }

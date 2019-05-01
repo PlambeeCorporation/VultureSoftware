@@ -62,8 +62,8 @@ public class LoginViewController
     private void login(){
         String username = txtLogin.getText();
         String password = pfPassword.getText();
-//        username = "testTechnician";
-//        password = "password";
+        username = "testTechnician";
+        password = "password";
 
         if(validateLogin(username, password)){
             IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);

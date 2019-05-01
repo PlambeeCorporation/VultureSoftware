@@ -2,9 +2,9 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane prefHeight="477.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="477.0" prefWidth="1052.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tvTasks" layoutX="27.0" layoutY="24.0" prefHeight="397.0" prefWidth="889.0">
+      <TableView fx:id="tvTasks" layoutX="27.0" layoutY="24.0" prefHeight="397.0" prefWidth="996.0">
         <columns>
           <TableColumn fx:id="tcJobId" prefWidth="75.0" text="Job Id" />
           <TableColumn fx:id="tcTaskName" prefWidth="116.0" text="Task Name" />
@@ -13,6 +13,7 @@
             <TableColumn fx:id="tcHoursNeeded" minWidth="5.0" prefWidth="88.0" text="Hours Needed" />
             <TableColumn fx:id="tcAssignedTechnicians" prefWidth="184.0" text="Assigned Technicians" />
             <TableColumn fx:id="tcTaskCompleted" prefWidth="156.0" text="Task Completed" />
+            <TableColumn fx:id="tcDeadline" prefWidth="108.0" text="Deadline" />
         </columns>
       </TableView>
       <Button layoutX="423.0" layoutY="438.0" mnemonicParsing="false" onAction="#completeTask" prefHeight="25.0" prefWidth="108.0" text="Task Completed" />
