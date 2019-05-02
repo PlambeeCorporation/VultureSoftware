@@ -86,7 +86,21 @@ public class LoginViewController
 
     private boolean validateLogin(String username, String password){
         boolean isValid = true;
+        String errorMessage = "";
 
+        if(username.length() < 1){
+            isValid = false;
+            errorMessage += "Enter username\n";
+        }
+
+        if(password.length() < 1){
+            isValid = false;
+            errorMessage += "Enter password\n";
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(primaryStage, "Wrong login details", errorMessage);
+        }
         return isValid;
     }
 }
