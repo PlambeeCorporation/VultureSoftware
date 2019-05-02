@@ -2,6 +2,7 @@ package com.plambeeco.view.tasksview;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.JobModel;
@@ -54,6 +55,11 @@ public class UnfinishedTasksViewController {
 
     @FXML
     private void openJobView(){
+        if(tvTasks.getSelectionModel().getSelectedItem() == null){
+            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job not selected", "Select a job!");
+            return;
+        }
+
         JobModel job = JobModelProcessor.getById(tvTasks.getSelectionModel().getSelectedItem().getJobId());
 
         try{

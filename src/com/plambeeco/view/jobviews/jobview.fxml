@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
 <AnchorPane prefHeight="750.0" prefWidth="791.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="145.0" layoutY="21.0" text="Job Id" />
@@ -58,9 +49,9 @@
             <Font size="14.0" />
          </font></Label>
       <DatePicker fx:id="dpDateCollected" layoutX="184.0" layoutY="107.0" prefHeight="25.0" prefWidth="149.0" />
-      <DatePicker fx:id="dpReturnDate" editable="false" layoutX="505.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" />
-      <DatePicker fx:id="dpCheckingDate" editable="false" layoutX="504.0" layoutY="173.0" prefHeight="25.0" prefWidth="150.0" />
-      <DatePicker fx:id="dpInspectionDate" editable="false" layoutX="289.0" layoutY="723.0" prefHeight="25.0" prefWidth="149.0" />
+      <DatePicker fx:id="dpReturnDate" layoutX="505.0" layoutY="137.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpCheckingDate" layoutX="504.0" layoutY="173.0" prefHeight="25.0" prefWidth="150.0" />
+      <DatePicker fx:id="dpInspectionDate" layoutX="289.0" layoutY="723.0" prefHeight="25.0" prefWidth="149.0" />
       <ButtonBar layoutX="467.0" layoutY="774.0" prefHeight="25.0" prefWidth="233.0">
         <buttons>
             <Button mnemonicParsing="false" onAction="#confirmChanges" prefHeight="25.0" prefWidth="167.0" text="Confirm" />
@@ -68,11 +59,11 @@
         </buttons>
       </ButtonBar>
       <ComboBox fx:id="cbInspectingTechnicians" layoutX="97.0" layoutY="720.0" prefWidth="150.0" />
-      <Button layoutX="30.0" layoutY="666.0" mnemonicParsing="false" onAction="#openAssignTaskView" text="Assign Tasks to Technicians &amp; Edit Task Details" />
-      <Button layoutX="564.0" layoutY="666.0" mnemonicParsing="false" onAction="#completeTask" prefHeight="25.0" prefWidth="136.0" text="Task Completed" />
-      <Button layoutX="145.0" layoutY="387.0" mnemonicParsing="false" onAction="#addPart" prefHeight="25.0" prefWidth="128.0" text="Add Part" />
-      <Button layoutX="337.0" layoutY="387.0" mnemonicParsing="false" onAction="#editPart" prefHeight="25.0" prefWidth="128.0" text="Edit Part" />
-      <Button layoutX="527.0" layoutY="387.0" mnemonicParsing="false" onAction="#removePart" prefHeight="25.0" prefWidth="128.0" text="Remove Part" />
+      <Button fx:id="btnOpenAssignTasksView" layoutX="30.0" layoutY="666.0" mnemonicParsing="false" onAction="#openAssignTaskView" text="Assign Tasks to Technicians &amp; Edit Task Details" />
+      <Button fx:id="btnTaskCompleted" layoutX="564.0" layoutY="666.0" mnemonicParsing="false" onAction="#completeTask" prefHeight="25.0" prefWidth="136.0" text="Task Completed" />
+      <Button fx:id="btnAddPart" layoutX="145.0" layoutY="387.0" mnemonicParsing="false" onAction="#addPart" prefHeight="25.0" prefWidth="128.0" text="Add Part" />
+      <Button fx:id="btnEditPart" layoutX="337.0" layoutY="387.0" mnemonicParsing="false" onAction="#editPart" prefHeight="25.0" prefWidth="128.0" text="Edit Part" />
+      <Button fx:id="btnRemovePart" layoutX="527.0" layoutY="387.0" mnemonicParsing="false" onAction="#removePart" prefHeight="25.0" prefWidth="128.0" text="Remove Part" />
       <ComboBox fx:id="cbCheckingTechnician" layoutX="184.0" layoutY="173.0" prefWidth="150.0" />
       <ComboBox fx:id="cbClient" layoutX="504.0" layoutY="17.0" prefWidth="150.0" />
    </children>

@@ -80,6 +80,18 @@ public class JobViewController {
     @FXML
     private TableColumn<ITaskModel, Boolean> tcComplete;
 
+    //Buttons
+    @FXML
+    private Button btnAddPart;
+    @FXML
+    private Button btnEditPart;
+    @FXML
+    private Button btnRemovePart;
+    @FXML
+    private Button btnOpenAssignTasksView;
+    @FXML
+    private Button btnTaskCompleted;
+
     private BorderPane rootScene;
     private JobModel currentJob;
 
@@ -98,6 +110,7 @@ public class JobViewController {
         initializePartTable();
         initializeApproveCheckBoxes();
         initializeInspectingTechniciansCheckBox();
+        initializeEditability();
     }
 
     /**
@@ -201,6 +214,46 @@ public class JobViewController {
         }
     }
 
+    private void initializeEditability(){
+        if(currentJob.isJobApproved()){
+            txtJobId.setDisable(true);
+            txtMotor.setDisable(true);
+            txtEstimatedYearOfManufacture.setDisable(true);
+            dpDateCollected.setDisable(true);
+            txtEstimatedLabourTime.setDisable(true);
+            cbClient.setDisable(true);
+            txtManufacturer.setDisable(true);
+            dpReturnDate.setDisable(true);
+            cbCheckingTechnician.setDisable(true);
+            dpCheckingDate.setDisable(true);
+            cbInspectingTechnicians.setDisable(true);
+            dpInspectionDate.setDisable(true);
+            btnAddPart.setDisable(true);
+            btnEditPart.setDisable(true);
+            btnRemovePart.setDisable(true);
+            btnOpenAssignTasksView.setDisable(true);
+            btnTaskCompleted.setDisable(true);
+        }else{
+            txtJobId.setDisable(false);
+            txtMotor.setDisable(false);
+            txtEstimatedYearOfManufacture.setDisable(false);
+            dpDateCollected.setDisable(false);
+            txtEstimatedLabourTime.setDisable(false);
+            cbClient.setDisable(false);
+            txtManufacturer.setDisable(false);
+            dpReturnDate.setDisable(false);
+            cbCheckingTechnician.setDisable(false);
+            dpCheckingDate.setDisable(false);
+            cbInspectingTechnicians.setDisable(false);
+            dpInspectionDate.setDisable(false);
+            btnAddPart.setDisable(false);
+            btnEditPart.setDisable(false);
+            btnRemovePart.setDisable(false);
+            btnOpenAssignTasksView.setDisable(false);
+            btnTaskCompleted.setDisable(false);
+        }
+    }
+
     /**
      * Sets the task as complete or not complete.
      */
@@ -292,6 +345,15 @@ public class JobViewController {
      */
     @FXML
     private void jobApproved(){
+        for (ITaskModel task : currentJob.getJobTasks()) {
+            if (!task.isTaskCompleted()) {
+                ckbApproved.setSelected(false);
+                AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Not all tasks are completed",
+                        "Ensure all tasks are marked as complete, before approving the inspection!");
+
+                return;
+            }
+        }
         ckbNotApproved.setSelected(false);
     }
 
@@ -312,11 +374,14 @@ public class JobViewController {
             JobModel jobModel = jobWithUpdatedInspectionDetails();
             if(jobModel != null){
                 JobModelProcessor.update(jobModel);
+                currentJob = jobModel;
             }
         }else{
             updateJobModel();
             JobModelProcessor.update(currentJob);
         }
+
+        initializeEditability();
     }
 
     /**
@@ -328,23 +393,26 @@ public class JobViewController {
             FXMLLoader loader = new FXMLLoader();
             String previousScreen = ViewHelper.getViewsResourcesStack().pop();
             loader.setLocation(RootTechnicianController.class.getResource(previousScreen));
-
+            AnchorPane stage = null;
             switch (previousScreen) {
                 case ViewHelper.ALL_JOBS_VIEW_RESOURCE:
+                    stage = loader.load();
                     AllJobViewController controller = loader.getController();
                     controller.setRootScene(rootScene);
                     break;
                 case ViewHelper.UNFINISHED_TASKS_VIEW_RESOURCE:
                     UnfinishedTasksViewController unfinishedTasksViewController = new UnfinishedTasksViewController(rootScene);
                     loader.setController(unfinishedTasksViewController);
+                    stage = loader.load();
                     break;
                 case ViewHelper.OVERDUE_TASKS_VIEW_RESOURCE:
                     OverdueTasksViewController overdueTasksViewController = new OverdueTasksViewController(rootScene);
                     loader.setController(overdueTasksViewController);
+                    stage = loader.load();
                     break;
             }
 
-            AnchorPane stage = loader.load();
+
             rootScene.setCenter(stage);
         }catch(IOException e){
             e.printStackTrace();
@@ -418,6 +486,10 @@ public class JobViewController {
      * @return True if any of inspection details fields have a value. False otherwise.
      */
     private boolean wasInspected(){
+        if(ckbApproved.isSelected()){
+            return true;
+        }
+
         if(!cbInspectingTechnicians.getSelectionModel().getSelectedItem().getForename().equals("None")){
             return true;
         }
@@ -437,13 +509,9 @@ public class JobViewController {
         boolean inspectionValid = true;
         String errorMessage = "";
 
-        if(!ckbApproved.isSelected() && !ckbNotApproved.isSelected()){
-            errorMessage += "Click on approved or not approved checkbox.\n";
-            inspectionValid = false;
-        }
-
-        if(cbInspectingTechnicians.getSelectionModel().getSelectedItem() == null){
-            errorMessage += "Select inspecting technician";
+        if(cbInspectingTechnicians.getSelectionModel().getSelectedItem() == null ||
+                cbInspectingTechnicians.getSelectionModel().getSelectedItem().getForename().equals("None")){
+            errorMessage += "Select inspecting technician\n";
             inspectionValid = false;
         }
 
