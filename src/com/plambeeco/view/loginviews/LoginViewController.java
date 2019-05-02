@@ -10,6 +10,7 @@ import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.AccountModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.IAccountModel;
+import com.plambeeco.view.RootHumanResourcesController;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -62,8 +63,6 @@ public class LoginViewController
     private void login(){
         String username = txtLogin.getText();
         String password = pfPassword.getText();
-        username = "testTechnician";
-        password = "password";
 
         if(validateLogin(username, password)){
             IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);
@@ -72,6 +71,9 @@ public class LoginViewController
                 switch(currentAccount.getAccountType()){
                     case Technician:
                         new RootTechnicianController(primaryStage, currentAccount);
+                        break;
+                    case HumanResources:
+                        new RootHumanResourcesController(primaryStage, currentAccount);
                         break;
                 }
             }else{

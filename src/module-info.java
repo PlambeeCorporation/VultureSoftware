@@ -8,6 +8,7 @@ module Vulture {
 
     opens com.plambeeco;
     opens com.plambeeco.view;
+    opens com.plambeeco.view.accountviews;
     opens com.plambeeco.view.recordjobviews;
     opens com.plambeeco.view.tasksview;
     opens com.plambeeco.view.loginviews;

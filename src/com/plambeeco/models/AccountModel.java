@@ -1,8 +1,12 @@
 package com.plambeeco.models;
 
+import java.util.Objects;
+
 public class AccountModel implements IAccountModel {
     public enum AccountType {
         Technician,
+        HumanResources,
+        Client,
     }
 
     private String username;
@@ -52,5 +56,29 @@ public class AccountModel implements IAccountModel {
     @Override
     public void setAccountType(AccountType accountType) {
         this.accountType = accountType;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AccountModel that = (AccountModel) o;
+        return Objects.equals(username, that.username) &&
+                Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, password);
+    }
+
+    @Override
+    public String toString() {
+        return
+                "Username: " + username + '\'' +
+                "\nPassword: " + password +
+                "\nAccountType: " + accountType +
+                "\nAccountOwner: \n" + accountOwner.toString();
+
     }
 }

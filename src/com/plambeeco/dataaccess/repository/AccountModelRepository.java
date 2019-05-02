@@ -46,10 +46,9 @@ public class AccountModelRepository implements IAccountModelRepository {
                 if(affectedRows == 0){
                     throw new SQLException("Adding task failed, no rows affected");
                 }
-
             }else{
                 AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Error creating new account",
-                        "AccountModel with this username already exists");
+                        "Account with this username already exists");
             }
         }catch(SQLException e){
             System.out.println("Failed to add to database: " + e.getMessage());
@@ -77,10 +76,9 @@ public class AccountModelRepository implements IAccountModelRepository {
             ps.setString(2, password);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
-                    IAccountModel accountModel = new AccountModel(rs.getString(USERNAME_COLUMN),
+                    return new AccountModel(rs.getString(USERNAME_COLUMN),
                                                                   rs.getString(ACCOUNT_TYPE_COLUMN),
                             PersonModelProcessor.getById(rs.getInt(ACCOUNT_OWNER_ID)));
-                    return accountModel;
                 }
             }
         }catch(SQLException e){
