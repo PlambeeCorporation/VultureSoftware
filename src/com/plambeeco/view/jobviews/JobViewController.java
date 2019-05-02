@@ -2,14 +2,14 @@ package com.plambeeco.view.jobviews;
 
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
-import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.*;
 import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.jobviews.partsview.PartDetailsViewController;
 import com.plambeeco.view.tasksview.AssignTaskViewController;
-import com.plambeeco.view.tasksview.OverdueOrUnfinishedTasksViewController;
+import com.plambeeco.view.tasksview.OverdueTasksViewController;
+import com.plambeeco.view.tasksview.UnfinishedTasksViewController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -328,16 +328,24 @@ public class JobViewController {
             FXMLLoader loader = new FXMLLoader();
             String previousScreen = ViewHelper.getViewsResourcesStack().pop();
             loader.setLocation(RootTechnicianController.class.getResource(previousScreen));
+
+            switch (previousScreen) {
+                case ViewHelper.ALL_JOBS_VIEW_RESOURCE:
+                    AllJobViewController controller = loader.getController();
+                    controller.setRootScene(rootScene);
+                    break;
+                case ViewHelper.UNFINISHED_TASKS_VIEW_RESOURCE:
+                    UnfinishedTasksViewController unfinishedTasksViewController = new UnfinishedTasksViewController(rootScene);
+                    loader.setController(unfinishedTasksViewController);
+                    break;
+                case ViewHelper.OVERDUE_TASKS_VIEW_RESOURCE:
+                    OverdueTasksViewController overdueTasksViewController = new OverdueTasksViewController(rootScene);
+                    loader.setController(overdueTasksViewController);
+                    break;
+            }
+
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
-            if(previousScreen.equals(ViewHelper.ALL_JOBS_VIEW_RESOURCE)){
-                AllJobViewController controller = loader.getController();
-                controller.setRootScene(rootScene);
-            }else if(previousScreen.equals(ViewHelper.OVERDUE_OR_UNFINISHED_TASKS_VIEW_RESOURCE)){
-                OverdueOrUnfinishedTasksViewController overdueOrUnfinishedTasksViewController = new OverdueOrUnfinishedTasksViewController(
-                        TaskModelProcessor.getAllNotCompletedTasks(), rootScene);
-                loader.setController(overdueOrUnfinishedTasksViewController);
-            }
         }catch(IOException e){
             e.printStackTrace();
         }

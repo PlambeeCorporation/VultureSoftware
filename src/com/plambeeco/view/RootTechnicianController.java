@@ -1,14 +1,14 @@
 package com.plambeeco.view;
 
-import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.loginviews.LoginViewController;
 import com.plambeeco.view.recordjobviews.RootJobRecordController;
-import com.plambeeco.view.tasksview.OverdueOrUnfinishedTasksViewController;
+import com.plambeeco.view.tasksview.OverdueTasksViewController;
 import com.plambeeco.view.tasksview.TechnicianTaskViewController;
 import com.plambeeco.view.tasksview.UnassignedTasksViewController;
+import com.plambeeco.view.tasksview.UnfinishedTasksViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -89,10 +89,9 @@ public class RootTechnicianController {
     private void openOverdueTasksView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.OVERDUE_OR_UNFINISHED_TASKS_VIEW_RESOURCE));
-            OverdueOrUnfinishedTasksViewController overdueOrUnfinishedTasksViewController = new OverdueOrUnfinishedTasksViewController(
-                    TaskModelProcessor.getAllOverdueTasks(), rootScene);
-            loader.setController(overdueOrUnfinishedTasksViewController);
+            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.OVERDUE_TASKS_VIEW_RESOURCE));
+            OverdueTasksViewController overdueTasksViewController = new OverdueTasksViewController(rootScene);
+            loader.setController(overdueTasksViewController);
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
         }catch(IOException e){
@@ -118,10 +117,9 @@ public class RootTechnicianController {
     private void openUnfinishedTasksView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.OVERDUE_OR_UNFINISHED_TASKS_VIEW_RESOURCE));
-            OverdueOrUnfinishedTasksViewController overdueOrUnfinishedTasksViewController = new OverdueOrUnfinishedTasksViewController(
-                    TaskModelProcessor.getAllNotCompletedTasks(), rootScene);
-            loader.setController(overdueOrUnfinishedTasksViewController);
+            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.UNFINISHED_TASKS_VIEW_RESOURCE));
+            UnfinishedTasksViewController unfinishedTasksViewController = new UnfinishedTasksViewController(rootScene);
+            loader.setController(unfinishedTasksViewController);
             AnchorPane stage = loader.load();
             rootScene.setCenter(stage);
         }catch(IOException e){

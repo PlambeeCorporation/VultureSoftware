@@ -106,10 +106,6 @@ public class TaskModelProcessor {
         }
     }
 
-    public static List<ITaskModel> getAllOverdueTasks() {
-        return null;
-    }
-
     public ITaskModel getById(final int id){
         if(id > 0){
             ITaskModelRepository taskModelRepository = new TaskModelRepository();
@@ -158,6 +154,13 @@ public class TaskModelProcessor {
     public static List<ITaskModel> getAllUnassignedTasks(){
         ITaskModelRepository taskModelRepository = new TaskModelRepository();
         List<ITaskModel> tasks = taskModelRepository.getAllUnassignedTasks();
+
+        return tasks;
+    }
+
+    public static List<ITaskModel> getAllOverdueTasks(){
+        ITaskModelRepository taskModelRepository = new TaskModelRepository();
+        List<ITaskModel> tasks = taskModelRepository.getAllOverdueTasks();
 
         return tasks;
     }

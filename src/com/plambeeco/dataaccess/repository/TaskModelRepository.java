@@ -18,9 +18,16 @@ public class TaskModelRepository implements ITaskModelRepository {
     private static final String TASK_COMPLETED_COLUMN = "TaskCompleted";
     private static final String TASK_ID_FOREIGN_KEY = "TaskId";
 
-    private static final String JOB_TASKS_TABLE_NAME = "JobTasks";
-    private static final String JOB_ID_COLUMN = "JobId";
+    private static final String JOB_TABLE = "Job";
+    private static final String JOB_ID_COLUMN = "Id";
+    private static final String JOB_DETAILS_FOREIGN_ID_COLUMN = "JobDetailsId";
 
+    private static final String JOB_TASKS_TABLE_NAME = "JobTasks";
+    private static final String JOB_ID_FOREIGN_KEY_COLUMN = "JobId";
+
+    private static final String JOB_DETAILS_TABLE = "JobDetails";
+    private static final String JOB_DETAILS_ID_COLUMN = "Id";
+    private static final String JOB_DETAILS_RETURN_DATE_COLUMN = "ReturnDate";
 
     private static final String TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME = "TechnicianAssignedTasks";
     private static final String TECHNICIAN_ID = "TechnicianId";
@@ -71,7 +78,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     @Override
     public void addTasksNeeded(int jobId, Collection<ITaskModel> tasks) {
         final String insertSQL =
-                "INSERT INTO " + JOB_TASKS_TABLE_NAME + "(" + JOB_ID_COLUMN + "," + TASK_ID_FOREIGN_KEY + ")" +
+                "INSERT INTO " + JOB_TASKS_TABLE_NAME + "(" + JOB_ID_FOREIGN_KEY_COLUMN + "," + TASK_ID_FOREIGN_KEY + ")" +
                         "VALUES(?,?)";
 
         try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
@@ -243,7 +250,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     @Override
     public void removeJobTask(int jobId, int taskId) {
         final String sql = "DELETE FROM " + JOB_TASKS_TABLE_NAME +
-                    " WHERE " + JOB_ID_COLUMN + " =?" + " AND " +
+                    " WHERE " + JOB_ID_FOREIGN_KEY_COLUMN + " =?" + " AND " +
                 TASK_ID_FOREIGN_KEY + " =?";
 
         try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
@@ -338,7 +345,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     public List<ITaskModel> getAllCompletedTasks() {
         List<ITaskModel> tasks = new ArrayList<>();
         final String sql =
-                "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
+                "SELECT " + JOB_ID_FOREIGN_KEY_COLUMN + ", " + TABLE_NAME + ".* " +
                         "FROM " + JOB_TASKS_TABLE_NAME +
                         " LEFT JOIN " + TABLE_NAME + " on " + TASK_ID_FOREIGN_KEY + " = " +
                         TABLE_NAME + "." + ID_COLUMN +
@@ -369,7 +376,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     public List<ITaskModel> getAllNotCompletedTasks() {
         List<ITaskModel> tasks = new ArrayList<>();
         final String sql =
-                "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
+                "SELECT " + JOB_ID_FOREIGN_KEY_COLUMN + ", " + TABLE_NAME + ".* " +
                         "FROM " + JOB_TASKS_TABLE_NAME +
                         " LEFT JOIN " + TABLE_NAME + " on " + TASK_ID_FOREIGN_KEY + " = " +
                         TABLE_NAME + "." + ID_COLUMN +
@@ -387,7 +394,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                             PersonModelProcessor.getAssignedTechnicians(rs.getInt(ID_COLUMN)),
                             rs.getBoolean(TASK_COMPLETED_COLUMN));
                     taskModel.setTaskId(rs.getInt(ID_COLUMN));
-                    taskModel.setJobId(rs.getInt(JOB_ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_FOREIGN_KEY_COLUMN));
                     tasks.add(taskModel);
                 }
             }
@@ -402,7 +409,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     public List<ITaskModel> getAllUnassignedTasks() {
         List<ITaskModel> tasks = new ArrayList<>();
         final String sql =
-                "SELECT " + JOB_ID_COLUMN + ", " + TABLE_NAME + ".* " +
+                "SELECT " + JOB_ID_FOREIGN_KEY_COLUMN + ", " + TABLE_NAME + ".* " +
                         "FROM " + JOB_TASKS_TABLE_NAME +
                         " INNER JOIN " + TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY + " = " +
                         TABLE_NAME + "." + ID_COLUMN +
@@ -421,7 +428,44 @@ public class TaskModelRepository implements ITaskModelRepository {
                             rs.getInt(HOURS_NEEDED_COLUMN),
                             rs.getBoolean(TASK_COMPLETED_COLUMN));
                     taskModel.setTaskId(rs.getInt(ID_COLUMN));
-                    taskModel.setJobId(rs.getInt(JOB_ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_FOREIGN_KEY_COLUMN));
+                    tasks.add(taskModel);
+                }
+            }
+        }catch(SQLException e){
+            System.out.println("Failed to retrieve from the database: " + e.getMessage());
+        }
+
+        return tasks;
+    }
+
+    @Override
+    public List<ITaskModel> getAllOverdueTasks() {
+        List<ITaskModel> tasks = new ArrayList<>();
+        final String sql =
+                "SELECT " + JOB_ID_FOREIGN_KEY_COLUMN + ", " + TABLE_NAME + ".* " +
+                        "FROM " + JOB_TABLE +
+                        " INNER JOIN " + JOB_DETAILS_TABLE + " on " + JOB_TABLE + "." + JOB_DETAILS_FOREIGN_ID_COLUMN + " = " +
+                        JOB_DETAILS_TABLE + "." + JOB_DETAILS_ID_COLUMN +
+                        " INNER JOIN " + JOB_TASKS_TABLE_NAME + " on " + JOB_TABLE + "." + JOB_ID_COLUMN + " = " +
+                        JOB_TASKS_TABLE_NAME + "." + JOB_ID_FOREIGN_KEY_COLUMN +
+                        " INNER JOIN " + TABLE_NAME + " on " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY + " = " +
+                        TABLE_NAME + "." + ID_COLUMN +
+                        " WHERE " + JOB_DETAILS_TABLE + "."  + JOB_DETAILS_RETURN_DATE_COLUMN + " < CURRENT_DATE AND " +
+                        TABLE_NAME + "." + TASK_COMPLETED_COLUMN + " IS FALSE";
+
+
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    ITaskModel taskModel = new TaskModel(rs.getString(TASK_NAME_COLUMN),
+                            rs.getString(TASK_PRIORITY_COLUMN),
+                            rs.getString(TASK_NOTES_COLUMN),
+                            rs.getInt(HOURS_NEEDED_COLUMN),
+                            rs.getBoolean(TASK_COMPLETED_COLUMN));
+                    taskModel.setTaskId(rs.getInt(ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_FOREIGN_KEY_COLUMN));
                     tasks.add(taskModel);
                 }
             }
@@ -463,7 +507,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                         " FROM " + TABLE_NAME +
                         " LEFT JOIN " + JOB_TASKS_TABLE_NAME + " ON " + TABLE_NAME + "." + ID_COLUMN +
                         " = " + JOB_TASKS_TABLE_NAME + "." + TASK_ID_FOREIGN_KEY +
-                        " WHERE "  + JOB_ID_COLUMN + " =?";
+                        " WHERE "  + JOB_ID_FOREIGN_KEY_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
@@ -492,7 +536,7 @@ public class TaskModelRepository implements ITaskModelRepository {
     public List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId) {
         List<ITaskModel> tasks = new ArrayList<>();
         final String sql =
-                "SELECT " + TABLE_NAME + ".*, " + JOB_TASKS_TABLE_NAME + "." + JOB_ID_COLUMN +
+                "SELECT " + TABLE_NAME + ".*, " + JOB_TASKS_TABLE_NAME + "." + JOB_ID_FOREIGN_KEY_COLUMN +
                         " FROM " + TABLE_NAME +
                         " LEFT JOIN " + TECHNICIAN_TASKS_ASSIGNED_TABLE_NAME + " on " +
                         TABLE_NAME + "." + ID_COLUMN + " = " +
@@ -515,7 +559,7 @@ public class TaskModelRepository implements ITaskModelRepository {
                             rs.getInt(HOURS_NEEDED_COLUMN),
                             rs.getBoolean(TASK_COMPLETED_COLUMN));
                     taskModel.setTaskId(rs.getInt(ID_COLUMN));
-                    taskModel.setJobId(rs.getInt(JOB_ID_COLUMN));
+                    taskModel.setJobId(rs.getInt(JOB_ID_FOREIGN_KEY_COLUMN));
                     tasks.add(taskModel);
                 }
             }

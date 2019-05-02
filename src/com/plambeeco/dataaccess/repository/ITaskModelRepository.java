@@ -17,6 +17,7 @@ public interface ITaskModelRepository extends IRepository<ITaskModel> {
     List<ITaskModel> getAllCompletedTasks();
     List<ITaskModel> getAllNotCompletedTasks();
     List<ITaskModel> getAllUnassignedTasks();
+    List<ITaskModel> getAllOverdueTasks();
     Set<String> getAllTaskNames();
     List<ITaskModel> getJobTasksNeeded(int jobId);
     List<ITaskModel> getTechniciansCurrentlyAssignedTasks(int technicianId);

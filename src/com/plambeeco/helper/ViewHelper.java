@@ -9,7 +9,8 @@ public class ViewHelper {
     public static final String UNASSIGNED_TASKS_VIEW_RESOURCE = "tasksview/unassignedtasksview.fxml";
     public static final String ALL_JOBS_VIEW_RESOURCE = "jobviews/alljobview.fxml";
     public static final String ROOT_TECHNICIAN_VIEW_RESOURCE = "roottechnicianview.fxml";
-    public static final String OVERDUE_OR_UNFINISHED_TASKS_VIEW_RESOURCE = "tasksview/overdueorunfinishedtasksview.fxml";
+    public static final String UNFINISHED_TASKS_VIEW_RESOURCE = "tasksview/unfinishedtasksview.fxml";
+    public static final String OVERDUE_TASKS_VIEW_RESOURCE = "tasksview/overduetasksview.fxml";
 
     private static Stack<String> viewsResourcesStack = new Stack<>();
 
