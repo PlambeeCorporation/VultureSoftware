@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<AnchorPane prefHeight="250.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="24.0" layoutY="14.0" text="Edit Account Details">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="87.0" text="Surname" />
+      <TextField fx:id="txtForename" layoutX="109.0" layoutY="52.0" />
+      <Label layoutX="24.0" layoutY="116.0" text="Email Address" />
+      <Label layoutX="24.0" layoutY="149.0" text="Phone Number" />
+      <Label layoutX="24.0" layoutY="56.0" text="Forename" />
+      <Label layoutX="301.0" layoutY="56.0" text="Username" />
+      <TextField fx:id="txtSurname" layoutX="109.0" layoutY="83.0" />
+      <TextField fx:id="txtEmailAddress" layoutX="109.0" layoutY="112.0" />
+      <TextField fx:id="txtPhoneNumber" layoutX="109.0" layoutY="145.0" />
+      <Label layoutX="300.0" layoutY="87.0" text="Old Password" />
+      <TextField fx:id="txtUsername" layoutX="410.0" layoutY="52.0" />
+      <PasswordField fx:id="pfNewPassword" layoutX="410.0" layoutY="112.0" />
+      <Button layoutX="231.0" layoutY="211.0" mnemonicParsing="false" onAction="#confirm" prefHeight="25.0" prefWidth="111.0" text="Confirm Changes" />
+      <Label layoutX="301.0" layoutY="149.0" text="Confirm Password" />
+      <PasswordField fx:id="pfOldPassword" layoutX="410.0" layoutY="83.0" />
+      <PasswordField fx:id="pfConfirmPassword" layoutX="410.0" layoutY="145.0" />
+      <Label layoutX="300.0" layoutY="116.0" text="New Password" />
+   </children>
+</AnchorPane>

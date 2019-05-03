@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -35,10 +34,8 @@ public class LoginViewController
     @FXML
     private PasswordField pfPassword;
 
-    private Stage primaryStage;
 
-    public LoginViewController(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public LoginViewController() {
         initLoginLayout();
     }
 
@@ -51,8 +48,8 @@ public class LoginViewController
             AnchorPane loginScene = loader.load();
 
             Scene scene = new Scene(loginScene);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            VultureApplication.getPrimaryStage().setScene(scene);
+            VultureApplication.getPrimaryStage().show();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -63,6 +60,8 @@ public class LoginViewController
     private void login(){
         String username = txtLogin.getText();
         String password = pfPassword.getText();
+        username = "TestTechnician";
+        password = "password";
 
         if(validateLogin(username, password)){
             IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);
@@ -70,14 +69,14 @@ public class LoginViewController
             if(currentAccount != null){
                 switch(currentAccount.getAccountType()){
                     case Technician:
-                        new RootTechnicianController(primaryStage, currentAccount);
+                        new RootTechnicianController(currentAccount);
                         break;
                     case HumanResources:
-                        new RootHumanResourcesController(primaryStage, currentAccount);
+                        new RootHumanResourcesController(currentAccount);
                         break;
                 }
             }else{
-                AlertHelper.showAlert(primaryStage, "Wrong login details", "You have entered wrong username or password!");
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Wrong login details", "You have entered wrong username or password!");
             }
         }
 
@@ -99,7 +98,7 @@ public class LoginViewController
         }
 
         if(!isValid){
-            AlertHelper.showAlert(primaryStage, "Wrong login details", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Wrong login details", errorMessage);
         }
         return isValid;
     }

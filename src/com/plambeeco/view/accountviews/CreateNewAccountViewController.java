@@ -1,5 +1,6 @@
 package com.plambeeco.view.accountviews;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.AccountModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
@@ -9,7 +10,6 @@ import com.plambeeco.models.AccountModel;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.models.IPersonModel;
 import com.plambeeco.models.PersonModel;
-import com.plambeeco.view.RootHumanResourcesController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 import static com.plambeeco.models.AccountModel.AccountType;
 
-public class CreateNewAccountController {
+public class CreateNewAccountViewController {
     @FXML
     private TextField txtForename;
     @FXML
@@ -59,7 +59,15 @@ public class CreateNewAccountController {
             AccountModelProcessor.add(account);
 
             if(account.getUsername().equals(AccountModelProcessor.getAccount(username, password).getUsername())){
-                AlertHelper.showAlert(RootHumanResourcesController.getPrimaryStage(), "New account created successfully", account.toString());
+                String message = "Username: " + username +
+                                "\nPassword: " + password +
+                                "\nAccountType: " + accountType +
+                                "\nForename: " + forename +
+                                "\nSurname: " + surname +
+                                "\nEmailAddress: " + emailAddress +
+                                "\nPhoneNumber: " + phoneNumber;
+
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "New account created successfully", message);
             }
 
         }
@@ -94,7 +102,7 @@ public class CreateNewAccountController {
         }
 
         if(!isValid){
-            AlertHelper.showAlert(RootHumanResourcesController.getPrimaryStage(), "Invalid Details", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Invalid Details", errorMessage);
         }
 
         return isValid;

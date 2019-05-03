@@ -1,13 +1,13 @@
 package com.plambeeco.view.recordjobviews;
 
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.IJobDetailsModel;
 import com.plambeeco.models.IPersonModel;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.JobDetailsModel;
-import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -85,7 +85,7 @@ public class RecordJobDetailsViewController {
         }
 
         if(!isValid){
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Job Details", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Invalid Job Details", errorMessage);
         }
 
         return isValid;

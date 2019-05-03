@@ -1,8 +1,13 @@
 package com.plambeeco.dataaccess.repository;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
-import com.plambeeco.models.*;
+import com.plambeeco.models.IPersonModel;
+import com.plambeeco.models.ITechnicianModel;
+import com.plambeeco.models.PersonModel;
+import com.plambeeco.models.TechnicianModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -68,7 +73,7 @@ public class PersonModelRepository implements IPersonModelRepository {
         String sql =
                 "Update " + TABLE_NAME +
                         " SET( " + FORENAME_COLUMN + ", " + SURNAME_COLUMN + ", " + EMAIL_ADDRESS_COLUMN +
-                        PHONE_NUMBER_COLUMN +
+                        ", " + PHONE_NUMBER_COLUMN +
                         ")=" + "(?,?,?,?)" +
                         " WHERE " +
                         ID_COLUMN + " =?;";
@@ -82,7 +87,8 @@ public class PersonModelRepository implements IPersonModelRepository {
             ps.setInt(5, personModel.getPersonId());
 
             ps.execute();
-
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Personal details updated",
+                    "Personal details have been updated");
         }catch(SQLException e){
             System.out.println("Failed to update the person details: " + e.getMessage());
         }

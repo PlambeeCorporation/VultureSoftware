@@ -47,7 +47,7 @@
                   </ImageView>
                </children>
             </AnchorPane>
-            <Label layoutX="70.0" layoutY="20.0" text="Options">
+            <Label layoutX="70.0" layoutY="20.0" onMouseClicked="#openEditOwnAccountView" text="Options">
                <font>
                   <Font size="18.0" />
                </font>
@@ -83,7 +83,7 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="150.0" onMouseClicked="#openAllJobsView" prefHeight="27.0" prefWidth="194.0" text="Edit Technician Account">
+            <Label layoutX="70.0" layoutY="153.0" onMouseClicked="#openAllJobsView" prefHeight="27.0" prefWidth="114.0" text="Edit Accounts">
                <font>
                   <Font size="18.0" />
                </font>

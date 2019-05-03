@@ -14,4 +14,14 @@ public class AccountModelProcessor {
         IAccountModelRepository accountModelRepository = new AccountModelRepository();
         return accountModelRepository.getAccount(username, password);
     }
+
+    public static void update(IAccountModel accountModel){
+        IAccountModelRepository accountModelRepository = new AccountModelRepository();
+        accountModelRepository.update(accountModel);
+    }
+
+    public static void updatePassword(IAccountModel accountModel){
+        IAccountModelRepository accountModelRepository = new AccountModelRepository();
+        accountModelRepository.updatePassword(accountModel);
+    }
 }

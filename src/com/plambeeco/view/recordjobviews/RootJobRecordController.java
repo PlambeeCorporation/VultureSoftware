@@ -1,8 +1,8 @@
 package com.plambeeco.view.recordjobviews;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.*;
 import com.plambeeco.models.*;
-import com.plambeeco.view.RootTechnicianController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -25,7 +25,7 @@ public class RootJobRecordController {
 
     public RootJobRecordController(BorderPane rootScene) {
         this.rootScene = rootScene;
-        RootTechnicianController.getPrimaryStage().setTitle("Record new Job");
+        VultureApplication.getPrimaryStage().setTitle("Record new Job");
 
         initRootLayout();
         initRecordDetailsView();
@@ -71,7 +71,7 @@ public class RootJobRecordController {
             rootJobScene.setRight(partsNeededView);
 
             recordPartsNeededController = loader.getController();
-            recordPartsNeededController.setPrimaryStage(RootTechnicianController.getPrimaryStage());
+            recordPartsNeededController.setPrimaryStage(VultureApplication.getPrimaryStage());
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -86,7 +86,7 @@ public class RootJobRecordController {
             rootJobScene.setLeft(taskView);
 
             recordTasksDetailsViewController = loader.getController();
-            recordTasksDetailsViewController.setRootScene(RootTechnicianController.getPrimaryStage());
+            recordTasksDetailsViewController.setRootScene(VultureApplication.getPrimaryStage());
         }catch(IOException e){
             e.printStackTrace();
         }

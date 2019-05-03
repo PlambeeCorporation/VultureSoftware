@@ -111,11 +111,6 @@ public class PersonModel implements IPersonModel {
 
     @Override
     public String toString() {
-        return
-                "Forename: " + forename.get() +
-                "\nSurname: " + surname.get() +
-                "\nEmailAddress: " + emailAddress.get() +
-                "\nPhoneNumber: " + phoneNumber.get() +
-                '\n';
+        return forename.get() + " " + surname.get();
     }
 }

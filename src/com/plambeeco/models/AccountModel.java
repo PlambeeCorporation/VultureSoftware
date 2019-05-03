@@ -9,6 +9,7 @@ public class AccountModel implements IAccountModel {
         Client,
     }
 
+    private int id;
     private String username;
     private String password;
     private AccountType accountType;
@@ -26,6 +27,14 @@ public class AccountModel implements IAccountModel {
         this.username = username;
         this.accountType = AccountType.valueOf(accountType);
         this.accountOwner = accountOwner;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -51,6 +60,11 @@ public class AccountModel implements IAccountModel {
     @Override
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override

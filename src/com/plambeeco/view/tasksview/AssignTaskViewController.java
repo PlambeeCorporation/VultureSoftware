@@ -1,5 +1,6 @@
 package com.plambeeco.view.tasksview;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.JobDetailsModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
@@ -121,7 +122,7 @@ public class AssignTaskViewController {
             Stage taskAddView = new Stage();
             taskAddView.setTitle("Add Task");
             taskAddView.initModality(Modality.WINDOW_MODAL);
-            taskAddView.initOwner(RootTechnicianController.getPrimaryStage());
+            taskAddView.initOwner(VultureApplication.getPrimaryStage());
             controller.setAddTaskStage(taskAddView);
 
             Scene scene = new Scene(editTaskView);
@@ -149,7 +150,7 @@ public class AssignTaskViewController {
                 Stage taskEditView = new Stage();
                 taskEditView.setTitle("Edit Task");
                 taskEditView.initModality(Modality.WINDOW_MODAL);
-                taskEditView.initOwner(RootTechnicianController.getPrimaryStage());
+                taskEditView.initOwner(VultureApplication.getPrimaryStage());
                 controller.setEditTaskStage(taskEditView);
 
                 Scene scene = new Scene(editTaskView);
@@ -171,7 +172,7 @@ public class AssignTaskViewController {
                 e.printStackTrace();
             }
         }else{
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Task not selected", "Select a task!");
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Task not selected", "Select a task!");
         }
     }
 
@@ -202,7 +203,7 @@ public class AssignTaskViewController {
                         initializeTaskTableView();
                         initializeTechnicianTableView();
                     } else {
-                        AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Technician already assigned!",
+                        AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Technician already assigned!",
                                 technicianModel.getFullName().get() + " has been already assigned to this task");
                     }
                 }
@@ -232,7 +233,7 @@ public class AssignTaskViewController {
         updateTasksInDatabase();
         addNewTasksToDatabase();
         updateJobDetails();
-        AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Updating Tasks successfull", "Tasks have been updated!");
+        AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Updating Tasks successfull", "Tasks have been updated!");
     }
 
     private void removeTasksFromDatabase(){

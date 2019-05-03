@@ -1,7 +1,9 @@
 package com.plambeeco.view;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.IAccountModel;
+import com.plambeeco.view.accountviews.EditOwnAccountViewController;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.loginviews.LoginViewController;
 import com.plambeeco.view.tasksview.OverdueTasksViewController;
@@ -12,25 +14,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class RootHumanResourcesController {
-    private static Stage primaryStage;
     private BorderPane rootScene;
     private IAccountModel loggedInAccount;
 
-    public RootHumanResourcesController(Stage primaryStage, IAccountModel loggedInAccount) {
-        this.primaryStage = primaryStage;
+    public RootHumanResourcesController(IAccountModel loggedInAccount) {
         this.loggedInAccount = loggedInAccount;
-        primaryStage.setTitle(loggedInAccount.getAccountOwner().getFullName().get());
+        VultureApplication.getPrimaryStage().setTitle(loggedInAccount.getAccountOwner().getFullName().get());
         initRootLayout();
     }
 
-    public static Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     @FXML
     private void initRootLayout()
@@ -44,9 +40,23 @@ public class RootHumanResourcesController {
 
             //Show the scene
             Scene scene = new Scene(rootScene);
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            VultureApplication.getPrimaryStage().setScene(scene);
+            VultureApplication.getPrimaryStage().show();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void openEditOwnAccountView(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.EDIT_OWN_ACCOUNT_VIEW_RESOURCE));
+            EditOwnAccountViewController technicianTaskViewController = new EditOwnAccountViewController(loggedInAccount);
+            loader.setController(technicianTaskViewController);
+            AnchorPane stage = loader.load();
+            rootScene.setCenter(stage);
+        }catch(IOException e){
             e.printStackTrace();
         }
     }
@@ -121,6 +131,6 @@ public class RootHumanResourcesController {
 
     @FXML
     private void logOut(){
-        new LoginViewController(primaryStage);
+        new LoginViewController();
     }
 }

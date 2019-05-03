@@ -1,10 +1,10 @@
 package com.plambeeco.view.tasksview;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
-import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.recordjobviews.RecordPartsNeededController;
 import com.plambeeco.view.recordjobviews.TaskNameEditDialogViewController;
 import javafx.collections.FXCollections;
@@ -95,7 +95,7 @@ public class EditTaskViewController {
                 Stage dialogStage = new Stage();
                 dialogStage.setTitle("Add New Task Name");
                 dialogStage.initModality(Modality.WINDOW_MODAL);
-                dialogStage.initOwner(RootTechnicianController.getPrimaryStage());
+                dialogStage.initOwner(VultureApplication.getPrimaryStage());
 
                 Scene scene = new Scene(taskEditDialogView);
                 dialogStage.setScene(scene);

@@ -1,16 +1,17 @@
 package com.plambeeco.dataaccess.repository;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.AccountModel;
 import com.plambeeco.models.IAccountModel;
-import com.plambeeco.view.RootTechnicianController;
 
 import java.sql.*;
 import java.util.List;
 
 public class AccountModelRepository implements IAccountModelRepository {
+    private static final String ID_COLUMN = "Id";
     private static final String TABLE_NAME = "Account";
     private static final String USERNAME_COLUMN = "Username";
     private static final String PASSWORD_COLUMN = "Password";
@@ -47,7 +48,7 @@ public class AccountModelRepository implements IAccountModelRepository {
                     throw new SQLException("Adding task failed, no rows affected");
                 }
             }else{
-                AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Error creating new account",
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Error creating new account",
                         "Account with this username already exists");
             }
         }catch(SQLException e){
@@ -56,8 +57,60 @@ public class AccountModelRepository implements IAccountModelRepository {
     }
 
     @Override
-    public void update(IAccountModel item) {
+    public void update(IAccountModel accountModel) {
+        final String checkSQL = "SELECT * FROM " + TABLE_NAME +
+                " WHERE " + USERNAME_COLUMN + " =?";
 
+        String sql =
+                "Update " + TABLE_NAME +
+                        " SET( " + USERNAME_COLUMN +
+                        ")=" + "(?)" +
+                        " WHERE " +
+                        ID_COLUMN + " =?;";
+
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
+             PreparedStatement psCheck = con.prepareStatement(checkSQL);
+             PreparedStatement ps = con.prepareStatement(sql)){
+
+            psCheck.setString(1, accountModel.getUsername());
+            ResultSet resultAlreadyExists = psCheck.executeQuery();
+
+            if(!resultAlreadyExists.next()) {
+                ps.setString(1, accountModel.getUsername());
+                ps.setInt(2, accountModel.getId());
+
+                ps.execute();
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Account details updated",
+                        "Account username has been updated!");
+            }else{
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Error updating account details",
+                        "Account with this username already exists");
+            }
+
+        }catch(SQLException e){
+            System.out.println("Failed to update the account details: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void updatePassword(IAccountModel accountModel) {
+        String sql =
+                "Update " + TABLE_NAME +
+                        " SET( "  + PASSWORD_COLUMN +
+                        ")=" + "(?)" +
+                        " WHERE " +
+                        ID_COLUMN + " =?;";
+
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+                ps.setString(1, accountModel.getPassword());
+                ps.setInt(2, accountModel.getId());
+                ps.execute();
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Account details updated",
+                    "Account password has been updated!");
+        }catch(SQLException e){
+            System.out.println("Failed to update the password  " + e.getMessage());
+        }
     }
 
     @Override
@@ -68,7 +121,7 @@ public class AccountModelRepository implements IAccountModelRepository {
     @Override
     public IAccountModel getAccount(String username, String password) {
         final String sql = "SELECT * FROM " + TABLE_NAME +
-            " WHERE " + USERNAME_COLUMN + " =? AND " + PASSWORD_COLUMN + " =?";
+                " WHERE " + USERNAME_COLUMN + " =? AND " + PASSWORD_COLUMN + " =?";
 
         try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
              PreparedStatement ps = con.prepareStatement(sql)){
@@ -76,9 +129,14 @@ public class AccountModelRepository implements IAccountModelRepository {
             ps.setString(2, password);
             try(ResultSet rs = ps.executeQuery()){
                 if(rs.next()){
-                    return new AccountModel(rs.getString(USERNAME_COLUMN),
-                                                                  rs.getString(ACCOUNT_TYPE_COLUMN),
+                    IAccountModel accountModel = new AccountModel(
+                            rs.getString(USERNAME_COLUMN),
+                            rs.getString(PASSWORD_COLUMN),
+                            rs.getString(ACCOUNT_TYPE_COLUMN),
                             PersonModelProcessor.getById(rs.getInt(ACCOUNT_OWNER_ID)));
+                    accountModel.setId(rs.getInt(ID_COLUMN));
+
+                    return accountModel;
                 }
             }
         }catch(SQLException e){

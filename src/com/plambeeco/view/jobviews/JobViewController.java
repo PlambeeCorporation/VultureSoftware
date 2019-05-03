@@ -1,5 +1,6 @@
 package com.plambeeco.view.jobviews;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
@@ -312,7 +313,7 @@ public class JobViewController {
             Stage partStage = new Stage();
             partStage.setTitle(sceneTitle);
             partStage.initModality(Modality.WINDOW_MODAL);
-            partStage.initOwner(RootTechnicianController.getPrimaryStage());
+            partStage.initOwner(VultureApplication.getPrimaryStage());
 
             PartDetailsViewController partDetailsViewController =
                     new PartDetailsViewController(partStage, partModel, currentJob);
@@ -348,7 +349,7 @@ public class JobViewController {
         for (ITaskModel task : currentJob.getJobTasks()) {
             if (!task.isTaskCompleted()) {
                 ckbApproved.setSelected(false);
-                AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Not all tasks are completed",
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Not all tasks are completed",
                         "Ensure all tasks are marked as complete, before approving the inspection!");
 
                 return;
@@ -436,7 +437,7 @@ public class JobViewController {
             currentJob.getMotor().setManufacturer(txtManufacturer.getText());
 
 
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
         }
     }
 
@@ -473,7 +474,7 @@ public class JobViewController {
                         .setJobApproved(ckbApproved.isSelected())
                         .build();
 
-                AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
+                AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Job Details Updated!", "Job Details have been successfully updated!");
                 return jobModel;
             }
         }
@@ -521,7 +522,7 @@ public class JobViewController {
         }
 
         if(!inspectionValid){
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid inspection details!", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Invalid inspection details!", errorMessage);
         }
         return inspectionValid;
     }
@@ -575,7 +576,7 @@ public class JobViewController {
         }
 
         if(!isValid){
-            AlertHelper.showAlert(RootTechnicianController.getPrimaryStage(), "Invalid Job Details", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Invalid Job Details", errorMessage);
         }
 
         return isValid;
