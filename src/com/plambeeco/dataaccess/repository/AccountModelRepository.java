@@ -8,6 +8,7 @@ import com.plambeeco.models.AccountModel;
 import com.plambeeco.models.IAccountModel;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AccountModelRepository implements IAccountModelRepository {
@@ -152,6 +153,28 @@ public class AccountModelRepository implements IAccountModelRepository {
 
     @Override
     public List<IAccountModel> getAll() {
-        return null;
+        List<IAccountModel> accounts = new ArrayList<>();
+        final String sql =
+                "SELECT * FROM " + TABLE_NAME;
+
+
+        try (Connection con = DriverManager.getConnection(ConstantValuesHelper.CONNECTION_STRING);
+             PreparedStatement ps = con.prepareStatement(sql)){
+            try(ResultSet rs = ps.executeQuery()){
+                while(rs.next()){
+                    IAccountModel accountModel = new AccountModel(
+                            rs.getString(USERNAME_COLUMN),
+                            rs.getString(PASSWORD_COLUMN),
+                            rs.getString(ACCOUNT_TYPE_COLUMN),
+                            PersonModelProcessor.getById(rs.getInt(ACCOUNT_OWNER_ID)));
+                    accountModel.setId(rs.getInt(ID_COLUMN));
+                    accounts.add(accountModel);
+                }
+            }
+        }catch(SQLException e){
+            System.out.println("Failed to retrieve all accounts from the database: " + e.getMessage());
+        }
+
+        return accounts;
     }
 }

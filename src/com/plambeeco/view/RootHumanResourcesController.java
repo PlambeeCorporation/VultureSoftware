@@ -62,6 +62,18 @@ public class RootHumanResourcesController {
     }
 
     @FXML
+    private void openEditAccountsView(){
+        try{
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.EDIT_ACCOUNTS_VIEW_RESOURCE));
+            AnchorPane stage = loader.load();
+            rootScene.setCenter(stage);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
     private void openCreateNewAccountView(){
         try{
             FXMLLoader loader = new FXMLLoader();

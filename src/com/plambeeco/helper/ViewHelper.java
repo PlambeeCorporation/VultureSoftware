@@ -14,6 +14,7 @@ public class ViewHelper {
     public static final String OVERDUE_TASKS_VIEW_RESOURCE = "tasksview/overduetasksview.fxml";
     public static final String CREATE_NEW_ACCOUNT_VIEW_RESOURCE = "accountviews/createnewaccountview.fxml";
     public static final String EDIT_OWN_ACCOUNT_VIEW_RESOURCE = "accountviews/editownaccountview.fxml";
+    public static final String EDIT_ACCOUNTS_VIEW_RESOURCE = "accountviews/editaccountsview.fxml";
 
     private static Stack<String> viewsResourcesStack = new Stack<>();
 

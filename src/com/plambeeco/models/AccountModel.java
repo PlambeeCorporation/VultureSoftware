@@ -88,11 +88,7 @@ public class AccountModel implements IAccountModel {
 
     @Override
     public String toString() {
-        return
-                "Username: " + username + '\'' +
-                "\nPassword: " + password +
-                "\nAccountType: " + accountType +
-                "\nAccountOwner: \n" + accountOwner.toString();
+        return accountOwner.toString() + " | " + accountType;
 
     }
 }

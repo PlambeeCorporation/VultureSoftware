@@ -4,6 +4,8 @@ import com.plambeeco.dataaccess.repository.AccountModelRepository;
 import com.plambeeco.dataaccess.repository.IAccountModelRepository;
 import com.plambeeco.models.IAccountModel;
 
+import java.util.List;
+
 public class AccountModelProcessor {
     public static void add(IAccountModel accountModel){
         IAccountModelRepository accountModelRepository = new AccountModelRepository();
@@ -23,5 +25,10 @@ public class AccountModelProcessor {
     public static void updatePassword(IAccountModel accountModel){
         IAccountModelRepository accountModelRepository = new AccountModelRepository();
         accountModelRepository.updatePassword(accountModel);
+    }
+
+    public static List<IAccountModel> getAll(){
+        IAccountModelRepository accountModelRepository = new AccountModelRepository();
+        return accountModelRepository.getAll();
     }
 }

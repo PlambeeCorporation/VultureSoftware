@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.plambeeco.view.loginviews;
 
 
@@ -21,12 +16,6 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-
-
-/**
- *
- * @author Neville Bulmer
- */
 public class LoginViewController
 {
     @FXML
@@ -60,8 +49,6 @@ public class LoginViewController
     private void login(){
         String username = txtLogin.getText();
         String password = pfPassword.getText();
-        username = "TestTechnician";
-        password = "password";
 
         if(validateLogin(username, password)){
             IAccountModel currentAccount = AccountModelProcessor.getAccount(username, password);
