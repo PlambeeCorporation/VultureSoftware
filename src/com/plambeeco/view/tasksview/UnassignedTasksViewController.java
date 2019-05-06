@@ -7,11 +7,13 @@ import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.JobModel;
+import com.plambeeco.view.RootHumanResourcesController;
 import com.plambeeco.view.RootTechnicianController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -19,6 +21,8 @@ import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
 import java.time.LocalDate;
+
+import static com.plambeeco.models.AccountModel.AccountType;
 
 
 public class UnassignedTasksViewController {
@@ -36,14 +40,13 @@ public class UnassignedTasksViewController {
     private TableColumn<ITaskModel, Number> tcHoursNeeded;
     @FXML
     private TableColumn<ITaskModel, LocalDate> tcDeadline;
+    @FXML
+    private Button btnAssignTasks;
 
     private BorderPane rootScene;
 
-    public void setRootScene(BorderPane rootScene) {
+    public UnassignedTasksViewController(BorderPane rootScene) {
         this.rootScene = rootScene;
-    }
-
-    public UnassignedTasksViewController() {
     }
 
     @FXML
@@ -55,6 +58,14 @@ public class UnassignedTasksViewController {
         tcTaskNotes.setCellValueFactory(cellData -> cellData.getValue().taskNotesProperty());
         tcHoursNeeded.setCellValueFactory(cellData -> cellData.getValue().hoursNeededProperty());
         tcDeadline.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getTaskFinishDate()));
+        disableButton();
+    }
+
+    private void disableButton(){
+        if(RootHumanResourcesController.getLoggedInAccountType() == null ||
+            RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician){
+            btnAssignTasks.setVisible(false);
+        }
     }
 
     @FXML

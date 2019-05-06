@@ -6,6 +6,7 @@ import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.*;
+import com.plambeeco.view.RootHumanResourcesController;
 import com.plambeeco.view.RootTechnicianController;
 import com.plambeeco.view.jobviews.partsview.PartDetailsViewController;
 import com.plambeeco.view.tasksview.AssignTaskViewController;
@@ -25,6 +26,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+
+import static com.plambeeco.models.AccountModel.AccountType;
 
 
 public class JobViewController {
@@ -92,6 +95,8 @@ public class JobViewController {
     private Button btnOpenAssignTasksView;
     @FXML
     private Button btnTaskCompleted;
+    @FXML
+    private Button btnConfirm;
 
     private BorderPane rootScene;
     private JobModel currentJob;
@@ -216,7 +221,8 @@ public class JobViewController {
     }
 
     private void initializeEditability(){
-        if(currentJob.isJobApproved()){
+        if((RootHumanResourcesController.getLoggedInAccountType() != null &&
+                RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician) || currentJob.isJobApproved()){
             txtJobId.setDisable(true);
             txtMotor.setDisable(true);
             txtEstimatedYearOfManufacture.setDisable(true);
@@ -251,7 +257,30 @@ public class JobViewController {
             btnEditPart.setDisable(false);
             btnRemovePart.setDisable(false);
             btnOpenAssignTasksView.setDisable(false);
+            btnTaskCompleted.setDisable(false);txtJobId.setDisable(false);
+            txtMotor.setDisable(false);
+            txtEstimatedYearOfManufacture.setDisable(false);
+            dpDateCollected.setDisable(false);
+            txtEstimatedLabourTime.setDisable(false);
+            cbClient.setDisable(false);
+            txtManufacturer.setDisable(false);
+            dpReturnDate.setDisable(false);
+            cbCheckingTechnician.setDisable(false);
+            dpCheckingDate.setDisable(false);
+            cbInspectingTechnicians.setDisable(false);
+            dpInspectionDate.setDisable(false);
+            btnAddPart.setDisable(false);
+            btnEditPart.setDisable(false);
+            btnRemovePart.setDisable(false);
+            btnOpenAssignTasksView.setDisable(false);
             btnTaskCompleted.setDisable(false);
+        }
+
+        if(RootHumanResourcesController.getLoggedInAccountType() != null &&
+                RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician){
+            ckbApproved.setDisable(true);
+            ckbNotApproved.setDisable(true);
+            btnConfirm.setDisable(true);
         }
     }
 

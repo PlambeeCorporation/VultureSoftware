@@ -23,12 +23,6 @@ public class AccountModel implements IAccountModel {
         this.accountOwner = accountOwner;
     }
 
-    public AccountModel(String username, String accountType, IPersonModel accountOwner) {
-        this.username = username;
-        this.accountType = AccountType.valueOf(accountType);
-        this.accountOwner = accountOwner;
-    }
-
     public int getId() {
         return id;
     }

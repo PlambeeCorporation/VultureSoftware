@@ -2,6 +2,7 @@ package com.plambeeco.view;
 
 import com.plambeeco.VultureApplication;
 import com.plambeeco.helper.ViewHelper;
+import com.plambeeco.models.AccountModel.AccountType;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.accountviews.EditOwnAccountViewController;
 import com.plambeeco.view.jobviews.AllJobViewController;
@@ -19,7 +20,7 @@ import java.io.IOException;
 
 public class RootHumanResourcesController {
     private BorderPane rootScene;
-    private IAccountModel loggedInAccount;
+    private static IAccountModel loggedInAccount;
 
     public RootHumanResourcesController(IAccountModel loggedInAccount) {
         this.loggedInAccount = loggedInAccount;
@@ -27,6 +28,9 @@ public class RootHumanResourcesController {
         initRootLayout();
     }
 
+    public static AccountType getLoggedInAccountType(){
+        return loggedInAccount.getAccountType();
+    }
 
     @FXML
     private void initRootLayout()
@@ -118,9 +122,9 @@ public class RootHumanResourcesController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.UNASSIGNED_TASKS_VIEW_RESOURCE));
+            UnassignedTasksViewController unassignedTasksViewController = new UnassignedTasksViewController(rootScene);
+            loader.setController(unassignedTasksViewController);
             AnchorPane stage = loader.load();
-            UnassignedTasksViewController unassignedTasksViewController = loader.getController();
-            unassignedTasksViewController.setRootScene(rootScene);
             rootScene.setCenter(stage);
         }catch(IOException e){
             e.printStackTrace();
@@ -143,6 +147,7 @@ public class RootHumanResourcesController {
 
     @FXML
     private void logOut(){
+        VultureApplication.getPrimaryStage().setTitle("Login");
         new LoginViewController();
     }
 }

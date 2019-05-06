@@ -114,9 +114,9 @@ public class RootTechnicianController {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.UNASSIGNED_TASKS_VIEW_RESOURCE));
+            UnassignedTasksViewController unassignedTasksViewController = new UnassignedTasksViewController(rootScene);
+            loader.setController(unassignedTasksViewController);
             AnchorPane stage = loader.load();
-            UnassignedTasksViewController unassignedTasksViewController = loader.getController();
-            unassignedTasksViewController.setRootScene(rootScene);
             rootScene.setCenter(stage);
         }catch(IOException e){
             e.printStackTrace();
@@ -139,6 +139,7 @@ public class RootTechnicianController {
 
     @FXML
     private void logOut(){
+        VultureApplication.getPrimaryStage().setTitle("Login");
         new LoginViewController();
     }
 }
