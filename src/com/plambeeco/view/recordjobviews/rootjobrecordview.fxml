@@ -6,9 +6,9 @@
 
 <BorderPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
-      <Button mnemonicParsing="false" onAction="#createJob" text="Add Job" BorderPane.alignment="BOTTOM_CENTER">
+      <Button mnemonicParsing="false" onAction="#createJob" prefHeight="25.0" prefWidth="81.0" text="Add Job" BorderPane.alignment="BOTTOM_CENTER">
          <BorderPane.margin>
-            <Insets bottom="20.0" />
+            <Insets bottom="200.0" right="813.0" />
          </BorderPane.margin></Button>
    </bottom>
    <top>
