@@ -2,6 +2,7 @@ package com.plambeeco.view.tasksview;
 
 import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.helper.TextFieldHelper;
 import com.plambeeco.models.ITaskModel;
@@ -92,18 +93,55 @@ public class AddNewTaskViewController {
 
     @FXML
     private void handleOK(){
-        String taskName = cbTaskNames.getValue();
-        String taskNotes = txtaNotes.getText();
-        int hours = Integer.valueOf(txtHours.getText());
-        String taskPriority = cbPriority.getValue();
-        ITaskModel taskModel = new TaskModel(taskName,taskPriority, taskNotes, hours);
-        taskModel.setJobId(currentJob.getJobId());
-        currentJob.getJobTasks().add(taskModel);
-        addTaskStage.close();
+        if(validateTaskDetails()){
+            String taskName = cbTaskNames.getValue();
+            String taskNotes = txtaNotes.getText();
+            int hours = Integer.valueOf(txtHours.getText());
+            String taskPriority = cbPriority.getValue();
+            ITaskModel taskModel = new TaskModel(taskName,taskPriority, taskNotes, hours);
+            taskModel.setJobId(currentJob.getJobId());
+            currentJob.getJobTasks().add(taskModel);
+            addTaskStage.close();
+        }
     }
 
     @FXML
     private void handleCancel(){
         addTaskStage.close();
+    }
+
+    private boolean validateTaskDetails(){
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(cbTaskNames.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a task name!\n";
+        }
+
+        if(cbPriority.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a priority!\n";
+        }
+
+        if(txtHours.getLength() < 1){
+            isValid = false;
+            errorMessage += "Enter hours needed!\n";
+        }
+
+        for (ITaskModel task: currentJob.getJobTasks()) {
+            if(cbTaskNames.getValue() != null &&
+                    cbTaskNames.getValue().equals(task.getTaskName())){
+                isValid = false;
+                errorMessage = cbTaskNames.getValue() + " has been already added!\n";
+                break;
+            }
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Incorrrect Task Details", errorMessage);
+        }
+
+        return isValid;
     }
 }

@@ -310,6 +310,8 @@ public class JobViewController {
             taskModel.setTaskCompleted(true);
         }else{
             taskModel.setTaskCompleted(false);
+            ckbApproved.setSelected(false);
+            ckbNotApproved.setSelected(true);
         }
         initializeTaskTable();
     }

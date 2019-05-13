@@ -1,5 +1,6 @@
 package com.plambeeco.view.recordjobviews;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
@@ -41,12 +42,6 @@ public class RecordTasksDetailsViewController {
 
     private ObservableList<ITaskModel> tasksNeeded = FXCollections.observableArrayList();
 
-    private Stage primaryStage;
-
-    public void setRootScene(Stage primaryStage){
-        this.primaryStage = primaryStage;
-    }
-
     public List<ITaskModel> getTasksNeeded(){
         return tasksNeeded;
     }
@@ -87,7 +82,6 @@ public class RecordTasksDetailsViewController {
      * Initializes table view and columns.
      */
     private void initializeTableViewAndColumns(){
-        //TODO - Add wrapper to tbNotes.
         tvTasksToDo.setItems(tasksNeeded);
         tbTask.setCellValueFactory(cellData -> cellData.getValue().taskNameProperty());
         tbNotes.setCellValueFactory(cellData -> cellData.getValue().taskNotesProperty());
@@ -163,7 +157,7 @@ public class RecordTasksDetailsViewController {
             Stage dialogStage = new Stage();
             dialogStage.setTitle("Edit Task");
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
+            dialogStage.initOwner(VultureApplication.getPrimaryStage());
 
             Scene scene = new Scene(taskEditDialogView);
             dialogStage.setScene(scene);
@@ -189,7 +183,7 @@ public class RecordTasksDetailsViewController {
             Stage dialogStage = new Stage();
             dialogStage.setTitle(title);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
+            dialogStage.initOwner(VultureApplication.getPrimaryStage());
 
             Scene scene = new Scene(taskEditDialogView);
             dialogStage.setScene(scene);
@@ -236,7 +230,7 @@ public class RecordTasksDetailsViewController {
         }
 
         if(!isValid){
-            AlertHelper.showAlert(primaryStage, "Incorrrect Task Details", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Incorrrect Task Details", errorMessage);
         }
 
         return isValid;

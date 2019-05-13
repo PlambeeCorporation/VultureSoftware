@@ -1,6 +1,9 @@
 package com.plambeeco.view.jobviews.partsview;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.PartModelProcessor;
+import com.plambeeco.helper.AlertHelper;
+import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.IPartModel;
 import com.plambeeco.models.JobModel;
 import com.plambeeco.models.PartModel;
@@ -89,19 +92,19 @@ public class PartDetailsViewController {
 
     @FXML
     private void handleOK(){
-        if(isInputValid()){
-            String partName = cbPartNames.getValue();
-            int quantity = Integer.valueOf(txtQuantity.getText());
-            if(partModel != null){
-                partModel.setPartName(partName);
-                partModel.setPartQuantity(quantity);
-            }else{
+        String partName = cbPartNames.getValue();
+        int quantity = Integer.valueOf(txtQuantity.getText());
+        if(partModel != null){
+            partModel.setPartName(partName);
+            partModel.setPartQuantity(quantity);
+            partDetailsStage.close();
+        }else{
+            if(validatePartModel()){
                 IPartModel newPartModel = new PartModel(partName, quantity);
                 currentJob.getPartsNeeded().add(newPartModel);
+                partDetailsStage.close();
             }
         }
-
-        partDetailsStage.close();
     }
 
     @FXML
@@ -109,7 +112,36 @@ public class PartDetailsViewController {
         partDetailsStage.close();
     }
 
-    private boolean isInputValid() {
-        return true;
+    private boolean validatePartModel(){
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(cbPartNames.getSelectionModel().isEmpty() || cbPartNames.getValue().equals(ConstantValuesHelper.ADD_NEW_PART_NAME)){
+            isValid = false;
+            errorMessage += "You need to choose a part!\n";
+        }
+
+        if(txtQuantity.getText() == null || txtQuantity.getLength() <= 0){
+            isValid = false;
+            errorMessage += "You need to enter part quantity!\n";
+
+        }else if(Integer.valueOf(txtQuantity.getText()) <= 0){
+            isValid = false;
+            errorMessage += "The part quantity must be bigger than 0!\n";
+        }
+
+        for (IPartModel part : currentJob.getPartsNeeded()) {
+            if(cbPartNames.getValue().equals(part.getPartName())){
+                isValid = false;
+                errorMessage += cbPartNames.getValue() + " has been already added!";
+                break;
+            }
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Error Adding New Part!", errorMessage);
+        }
+
+        return isValid;
     }
 }

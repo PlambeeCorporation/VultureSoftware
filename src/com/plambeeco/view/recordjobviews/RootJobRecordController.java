@@ -2,6 +2,7 @@ package com.plambeeco.view.recordjobviews;
 
 import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.*;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -69,9 +70,6 @@ public class RootJobRecordController {
             AnchorPane partsNeededView = loader.load();
 
             rootJobScene.setRight(partsNeededView);
-
-            recordPartsNeededController = loader.getController();
-            recordPartsNeededController.setPrimaryStage(VultureApplication.getPrimaryStage());
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -84,9 +82,6 @@ public class RootJobRecordController {
             AnchorPane taskView = loader.load();
 
             rootJobScene.setLeft(taskView);
-
-            recordTasksDetailsViewController = loader.getController();
-            recordTasksDetailsViewController.setRootScene(VultureApplication.getPrimaryStage());
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -101,7 +96,7 @@ public class RootJobRecordController {
             borderPaneInsideTopBorderPane.setLeft(jobView);
 
             recordJobDetailsViewController = loader.getController();
-            recordJobDetailsViewController.setrootJobRecordController(this);
+            recordJobDetailsViewController.setrootJobRecordController();
         }catch(IOException e){
             e.printStackTrace();
         }
@@ -127,6 +122,7 @@ public class RootJobRecordController {
                     .build();
 
             addJobToDatabase(job);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Job Created", "Job Created successfully!");
         }
     }
 

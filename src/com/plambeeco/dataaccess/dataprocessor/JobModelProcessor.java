@@ -2,11 +2,8 @@ package com.plambeeco.dataaccess.dataprocessor;
 
 import com.plambeeco.dataaccess.repository.IJobModelRepository;
 import com.plambeeco.dataaccess.repository.JobModelRepository;
-import com.plambeeco.models.JobDetailsModel;
 import com.plambeeco.models.JobModel;
-import com.plambeeco.models.PartModel;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public class JobModelProcessor {
@@ -45,23 +42,5 @@ public class JobModelProcessor {
     public static List<JobModel> getAll() {
         IJobModelRepository jobModelRepository = new JobModelRepository();
         return jobModelRepository.getAll();
-    }
-
-
-    public static List<JobModel> getAllFinishedJobs() {
-        IJobModelRepository jobModelRepository = new JobModelRepository();
-        return jobModelRepository.getAllFinishedJobs();
-    }
-
-
-    public static List<JobModel> getAllUnfinishedJobs() {
-        IJobModelRepository jobModelRepository = new JobModelRepository();
-        return jobModelRepository.getAllUnfinishedJobs();
-    }
-
-
-    public static List<JobModel> getJobsByDate(LocalDate from, LocalDate to) {
-        IJobModelRepository jobModelRepository = new JobModelRepository();
-        return jobModelRepository.getJobsByDate(from, to);
     }
 }

@@ -158,7 +158,8 @@ public class AssignTaskViewController {
                 taskEditView.showAndWait();
                 techniciansToRemove.putAll(removeMap);
                 //This loops is used to update the assigned tasks in technicians table view.
-                for (ITechnicianModel technician : technicians) {
+                for (int i = 0; i < technicians.size(); i++) {
+                    ITechnicianModel technician = technicians.get(i);
                     for (ITechnicianModel technicianToRemove : removeMap.keySet()) {
                         if (technician.getPersonId() == technicianToRemove.getPersonId()) {
                             technicians.remove(technician);
@@ -296,6 +297,9 @@ public class AssignTaskViewController {
             if(callingView.equals(ViewHelper.JOB_VIEW_RESOURCE)){
                 JobViewController controller = new JobViewController(rootScene, job);
                 loader.setController(controller);
+            }else if(callingView.equals(ViewHelper.UNASSIGNED_TASKS_VIEW_RESOURCE)){
+                UnassignedTasksViewController unassignedTasksViewController = new UnassignedTasksViewController(rootScene);
+                loader.setController(unassignedTasksViewController);
             }
 
             AnchorPane stage = loader.load();

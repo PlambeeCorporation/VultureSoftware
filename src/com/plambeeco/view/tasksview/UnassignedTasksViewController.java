@@ -62,9 +62,15 @@ public class UnassignedTasksViewController {
     }
 
     private void disableButton(){
-        if(RootHumanResourcesController.getLoggedInAccountType() == null ||
-            RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician){
-            btnAssignTasks.setVisible(false);
+        try{
+            AccountType accountType = RootHumanResourcesController.getLoggedInAccountType();
+            if(accountType == AccountType.HumanResources){
+                btnAssignTasks.setVisible(false);
+            }
+        }catch(NullPointerException e){
+            //This is just so it runs the view if accounttype is null.
+            //Sadly in java if(accountType == null) doesn't work, so this is work around using
+            //try catch.
         }
     }
 

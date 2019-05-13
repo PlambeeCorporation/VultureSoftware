@@ -1,5 +1,6 @@
 package com.plambeeco.view.recordjobviews;
 
+import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.PartModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
@@ -39,22 +40,12 @@ public class RecordPartsNeededController {
 
     private ObservableList<IPartModel> partsNeeded;
 
-    private Stage primaryStage;
-
     /**
      * Parts needed for the job.
      * @return parts needed for the job.
      */
     public List<IPartModel> getPartsNeeded(){
         return partsNeeded;
-    }
-
-    /**
-     * Sets the primary stage.
-     * @param primaryStage
-     */
-    public void setPrimaryStage(Stage primaryStage){
-        this.primaryStage = primaryStage;
     }
 
     /**
@@ -122,7 +113,7 @@ public class RecordPartsNeededController {
         if(selectedIndex >= 0){
             tvPartsView.getItems().remove(selectedIndex);
         }else{
-            AlertHelper.showAlert(primaryStage, "Error Removing Part", "Select a part to remove!");
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Error Removing Part", "Select a part to remove!");
         }
     }
 
@@ -170,7 +161,7 @@ public class RecordPartsNeededController {
             Stage dialogStage = new Stage();
             dialogStage.setTitle(title);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
+            dialogStage.initOwner(VultureApplication.getPrimaryStage());
 
             Scene scene = new Scene(partEditDialogView);
             dialogStage.setScene(scene);
@@ -219,9 +210,8 @@ public class RecordPartsNeededController {
         }
 
         if(!isValid){
-            AlertHelper.showAlert(primaryStage, "Error Adding New Part!", errorMessage);
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Error Adding New Part!", errorMessage);
         }
-
 
         return isValid;
     }
