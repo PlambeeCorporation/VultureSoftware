@@ -5,8 +5,8 @@ import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.AccountModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.IAccountModel;
-import com.plambeeco.view.RootHumanResourcesController;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootHumanResourcesViewController;
+import com.plambeeco.view.RootTechnicianViewController;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -56,10 +56,10 @@ public class LoginViewController
             if(currentAccount != null){
                 switch(currentAccount.getAccountType()){
                     case Technician:
-                        new RootTechnicianController(currentAccount);
+                        new RootTechnicianViewController(currentAccount);
                         break;
                     case HumanResources:
-                        new RootHumanResourcesController(currentAccount);
+                        new RootHumanResourcesViewController(currentAccount);
                         break;
                 }
             }else{

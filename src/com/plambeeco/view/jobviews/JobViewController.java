@@ -6,8 +6,8 @@ import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.*;
-import com.plambeeco.view.RootHumanResourcesController;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootHumanResourcesViewController;
+import com.plambeeco.view.RootTechnicianViewController;
 import com.plambeeco.view.jobviews.partsview.PartDetailsViewController;
 import com.plambeeco.view.tasksview.AssignTaskViewController;
 import com.plambeeco.view.tasksview.OverdueTasksViewController;
@@ -224,7 +224,7 @@ public class JobViewController {
 
     private void initializeEditability(){
         try{
-            AccountType accountType = RootHumanResourcesController.getLoggedInAccountType();
+            AccountType accountType = RootHumanResourcesViewController.getLoggedInAccountType();
             if(accountType == AccountType.HumanResources){
                 disableComponents();
             }
@@ -256,8 +256,8 @@ public class JobViewController {
         btnOpenAssignTasksView.setDisable(true);
         btnTaskCompleted.setDisable(true);
 
-        if(RootHumanResourcesController.getLoggedInAccountType() != null &&
-                RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician){
+        if(RootHumanResourcesViewController.getLoggedInAccountType() != null &&
+                RootHumanResourcesViewController.getLoggedInAccountType() != AccountType.Technician){
             ckbApproved.setDisable(true);
             ckbNotApproved.setDisable(true);
             btnConfirm.setDisable(true);
@@ -323,7 +323,7 @@ public class JobViewController {
     private void openAssignTaskView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.ASSIGN_TASKS_VIEW_RESOURCE));
+            loader.setLocation(RootTechnicianViewController.class.getResource(ViewHelper.ASSIGN_TASKS_VIEW_RESOURCE));
             AssignTaskViewController controller = new AssignTaskViewController(currentJob, rootScene);
             loader.setController(controller);
             ViewHelper.getViewsResourcesStack().push(ViewHelper.JOB_VIEW_RESOURCE);
@@ -440,7 +440,7 @@ public class JobViewController {
         try{
             FXMLLoader loader = new FXMLLoader();
             String previousScreen = ViewHelper.getViewsResourcesStack().pop();
-            loader.setLocation(RootTechnicianController.class.getResource(previousScreen));
+            loader.setLocation(RootTechnicianViewController.class.getResource(previousScreen));
             AnchorPane stage = null;
             switch (previousScreen) {
                 case ViewHelper.ALL_JOBS_VIEW_RESOURCE:

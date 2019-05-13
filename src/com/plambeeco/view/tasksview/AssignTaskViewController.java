@@ -11,7 +11,7 @@ import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
 import com.plambeeco.models.JobDetailsModel;
 import com.plambeeco.models.JobModel;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootTechnicianViewController;
 import com.plambeeco.view.jobviews.JobViewController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -114,7 +114,7 @@ public class AssignTaskViewController {
     private void addTask(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource("tasksview/addnewtaskview.fxml"));
+            loader.setLocation(RootTechnicianViewController.class.getResource("tasksview/addnewtaskview.fxml"));
             AddNewTaskViewController controller = new AddNewTaskViewController(currentJob);
             loader.setController(controller);
             AnchorPane editTaskView = loader.load();
@@ -142,7 +142,7 @@ public class AssignTaskViewController {
             try{
                 Map<ITechnicianModel, Integer> removeMap = new HashMap<>();
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(RootTechnicianController.class.getResource("tasksview/edittaskview.fxml"));
+                loader.setLocation(RootTechnicianViewController.class.getResource("tasksview/edittaskview.fxml"));
                 EditTaskViewController controller = new EditTaskViewController(selectedTask, removeMap);
                 loader.setController(controller);
                 AnchorPane editTaskView = loader.load();
@@ -292,7 +292,7 @@ public class AssignTaskViewController {
         try{
             FXMLLoader loader = new FXMLLoader();
             String callingView = ViewHelper.getViewsResourcesStack().pop();
-            loader.setLocation(RootTechnicianController.class.getResource(callingView));
+            loader.setLocation(RootTechnicianViewController.class.getResource(callingView));
 
             if(callingView.equals(ViewHelper.JOB_VIEW_RESOURCE)){
                 JobViewController controller = new JobViewController(rootScene, job);

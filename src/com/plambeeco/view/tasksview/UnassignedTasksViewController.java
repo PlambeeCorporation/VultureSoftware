@@ -7,8 +7,8 @@ import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.JobModel;
-import com.plambeeco.view.RootHumanResourcesController;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootHumanResourcesViewController;
+import com.plambeeco.view.RootTechnicianViewController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -63,7 +63,7 @@ public class UnassignedTasksViewController {
 
     private void disableButton(){
         try{
-            AccountType accountType = RootHumanResourcesController.getLoggedInAccountType();
+            AccountType accountType = RootHumanResourcesViewController.getLoggedInAccountType();
             if(accountType == AccountType.HumanResources){
                 btnAssignTasks.setVisible(false);
             }
@@ -85,7 +85,7 @@ public class UnassignedTasksViewController {
 
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.ASSIGN_TASKS_VIEW_RESOURCE));
+            loader.setLocation(RootTechnicianViewController.class.getResource(ViewHelper.ASSIGN_TASKS_VIEW_RESOURCE));
             AssignTaskViewController controller = new AssignTaskViewController(job, rootScene);
             loader.setController(controller);
             ViewHelper.getViewsResourcesStack().push(ViewHelper.UNASSIGNED_TASKS_VIEW_RESOURCE);

@@ -3,7 +3,7 @@ package com.plambeeco.view.jobviews;
 import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.JobModel;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootTechnicianViewController;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -71,7 +71,7 @@ public class AllJobViewController {
 
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.JOB_VIEW_RESOURCE));
+            loader.setLocation(RootTechnicianViewController.class.getResource(ViewHelper.JOB_VIEW_RESOURCE));
             JobViewController controller = new JobViewController(rootScene, job);
             loader.setController(controller);
             ViewHelper.getViewsResourcesStack().push(ViewHelper.ALL_JOBS_VIEW_RESOURCE);

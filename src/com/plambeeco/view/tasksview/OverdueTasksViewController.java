@@ -7,7 +7,7 @@ import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ViewHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.JobModel;
-import com.plambeeco.view.RootTechnicianController;
+import com.plambeeco.view.RootTechnicianViewController;
 import com.plambeeco.view.jobviews.JobViewController;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -65,7 +65,7 @@ public class OverdueTasksViewController {
 
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootTechnicianController.class.getResource(ViewHelper.JOB_VIEW_RESOURCE));
+            loader.setLocation(RootTechnicianViewController.class.getResource(ViewHelper.JOB_VIEW_RESOURCE));
             JobViewController controller = new JobViewController(rootScene, job);
             loader.setController(controller);
             ViewHelper.getViewsResourcesStack().push(ViewHelper.OVERDUE_TASKS_VIEW_RESOURCE);
