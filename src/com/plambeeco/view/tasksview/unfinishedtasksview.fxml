@@ -9,7 +9,7 @@
 
 <AnchorPane prefHeight="488.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tvTasks" layoutX="11.0" layoutY="44.0" prefHeight="397.0" prefWidth="739.0">
+      <TableView fx:id="tvTasks" layoutX="10.0" layoutY="36.0" prefHeight="397.0" prefWidth="739.0">
          <columns>
             <TableColumn fx:id="tcJobId" prefWidth="75.0" text="Job Id" />
             <TableColumn fx:id="tcTaskName" prefWidth="158.0" text="Task Name" />
@@ -19,7 +19,7 @@
             <TableColumn fx:id="tcDeadline" prefWidth="111.0" text="Deadline" />
          </columns>
       </TableView>
-      <Button layoutX="329.0" layoutY="449.0" mnemonicParsing="false" onAction="#openJobView" text="View Job Details" />
+      <Button layoutX="329.0" layoutY="444.0" mnemonicParsing="false" onAction="#openJobView" text="View Job Details" />
       <Label layoutX="10.0" layoutY="10.0" text="Unfinished Tasks">
          <font>
             <Font name="System Bold" size="14.0" />

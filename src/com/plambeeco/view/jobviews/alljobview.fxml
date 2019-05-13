@@ -5,9 +5,9 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="504.0" prefWidth="647.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.AllJobViewController">
+<AnchorPane prefHeight="504.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.jobviews.AllJobViewController">
    <children>
-      <TableView fx:id="tvJobs" layoutX="13.0" layoutY="27.0" prefHeight="428.0" prefWidth="622.0">
+      <TableView fx:id="tvJobs" layoutX="10.0" layoutY="27.0" prefHeight="428.0" prefWidth="622.0">
         <columns>
           <TableColumn fx:id="tcJobId" prefWidth="75.0" text="Job Id" />
             <TableColumn fx:id="tcClient" prefWidth="160.0" text="Client" />
@@ -17,6 +17,6 @@
             <TableColumn fx:id="tcJobApproved" prefWidth="111.0" text="Inspection &#10;Approved" />
         </columns>
       </TableView>
-      <Button layoutX="269.0" layoutY="466.0" mnemonicParsing="false" onAction="#loadJob" prefHeight="25.0" prefWidth="138.0" text="View Job In details" />
+      <Button layoutX="252.0" layoutY="465.0" mnemonicParsing="false" onAction="#loadJob" prefHeight="25.0" prefWidth="138.0" text="View Job In details" />
    </children>
 </AnchorPane>

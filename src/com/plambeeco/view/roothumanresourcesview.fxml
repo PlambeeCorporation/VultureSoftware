@@ -9,94 +9,94 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="648.0" minWidth="1095.0" prefHeight="815.0" prefWidth="1095.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="290.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="824.0" prefWidth="290.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutY="-1.0" prefHeight="660.0" prefWidth="50.0" style="-fx-background-color: #e5e6e8;">
+            <AnchorPane prefHeight="825.0" prefWidth="50.0" style="-fx-background-color: #e5e6e8;">
                <effect>
                   <DropShadow />
                </effect>
                <children>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/options-cog.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="15.0" layoutY="96.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="15.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/my-task.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="256.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/all-jobs.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="11.0" layoutY="346.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="11.0" layoutY="363.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/unasigned-task.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="190.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/new-job.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="615.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="761.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/logout.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="442.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/unasigned-task.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="535.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="10.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/unasigned-task.png" />
                      </image>
                   </ImageView>
                </children>
             </AnchorPane>
-            <Label layoutX="70.0" layoutY="20.0" onMouseClicked="#openEditOwnAccountView" text="Options">
+            <Label layoutX="70.0" layoutY="40.0" onMouseClicked="#openEditOwnAccountView" text="Options">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="252.0" onMouseClicked="#openAllJobsView" prefHeight="17.0" prefWidth="104.0" text="View All Jobs">
+            <Label layoutX="70.0" layoutY="272.0" onMouseClicked="#openAllJobsView" prefHeight="17.0" prefWidth="104.0" text="View All Jobs">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="444.0" onMouseClicked="#openUnassignedTasksView" text="View Unnasigned tasks">
+            <Label layoutX="70.0" layoutY="464.0" onMouseClicked="#openUnassignedTasksView" text="View Unnasigned tasks">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="648.0" prefWidth="13.0" />
-            <Label layoutX="70.0" layoutY="614.0" onMouseClicked="#logOut" text="Logout">
+            <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="822.0" prefWidth="13.0" />
+            <Label layoutX="70.0" layoutY="761.0" onMouseClicked="#logOut" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="535.0" onMouseClicked="#openUnfinishedTasksView" text="View Unfinished Tasks">
+            <Label layoutX="70.0" layoutY="555.0" onMouseClicked="#openUnfinishedTasksView" text="View Unfinished Tasks">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="348.0" onMouseClicked="#openOverdueTasksView" text="View Overdue Tasks">
+            <Label layoutX="70.0" layoutY="368.0" onMouseClicked="#openOverdueTasksView" text="View Overdue Tasks">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="96.0" onMouseClicked="#openCreateNewAccountView" prefHeight="27.0" prefWidth="170.0" text="Create New Account">
+            <Label layoutX="70.0" layoutY="116.0" onMouseClicked="#openCreateNewAccountView" prefHeight="27.0" prefWidth="170.0" text="Create New Account">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="170.0" onMouseClicked="#openEditAccountsView" prefHeight="27.0" prefWidth="114.0" text="Edit Accounts">
+            <Label layoutX="70.0" layoutY="190.0" onMouseClicked="#openEditAccountsView" prefHeight="27.0" prefWidth="114.0" text="Edit Accounts">
                <font>
                   <Font size="18.0" />
                </font>

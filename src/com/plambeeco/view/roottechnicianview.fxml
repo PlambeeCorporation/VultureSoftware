@@ -9,11 +9,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1316.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane minHeight="648.0" minWidth="1085.0" prefHeight="815.0" prefWidth="1208.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="290.0" BorderPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="819.0" prefWidth="290.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutY="-1.0" prefHeight="660.0" prefWidth="50.0" style="-fx-background-color: #e5e6e8;">
+            <AnchorPane layoutY="-1.0" prefHeight="824.0" prefWidth="50.0" style="-fx-background-color: #e5e6e8;">
                <effect>
                   <DropShadow />
                </effect>
@@ -43,7 +43,7 @@
                         <Image url="@../assets/images/new-job.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="615.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="13.0" layoutY="758.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../assets/images/logout.png" />
                      </image>
@@ -85,8 +85,8 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="648.0" prefWidth="13.0" />
-            <Label layoutX="70.0" layoutY="614.0" onMouseClicked="#logOut" text="Logout">
+            <Separator layoutX="285.0" layoutY="1.0" orientation="VERTICAL" prefHeight="823.0" prefWidth="13.0" />
+            <Label layoutX="70.0" layoutY="756.0" onMouseClicked="#logOut" text="Logout">
                <font>
                   <Font size="18.0" />
                </font>
