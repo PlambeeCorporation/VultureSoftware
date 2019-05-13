@@ -105,7 +105,7 @@ public class RecordPartsNeededController {
      */
     @FXML
     private void createPart(){
-        if(validatePartModelInput()){
+        if(validatePartModel()){
             String partName = cbPartsNeeded.getValue();
             int partQuantity = Integer.valueOf(txtPartsQuantity.getText());
             partsNeeded.add(new PartModel(partName, partQuantity));
@@ -192,7 +192,7 @@ public class RecordPartsNeededController {
      * Validates part model details.
      * @return true if part model details are valid, false otherwise.
      */
-    private boolean validatePartModelInput(){
+    private boolean validatePartModel(){
         boolean isValid = true;
         String errorMessage = "";
 

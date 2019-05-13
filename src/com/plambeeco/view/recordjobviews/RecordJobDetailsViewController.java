@@ -30,10 +30,8 @@ public class RecordJobDetailsViewController {
     @FXML
     private DatePicker dpCheckingDate;
 
-    private RootJobRecordController rootJobRecordController;
 
-    public void setrootJobRecordController(RootJobRecordController rootJobRecordController){
-        this.rootJobRecordController = rootJobRecordController;
+    void setrootJobRecordController(){
     }
 
     @FXML
@@ -42,7 +40,7 @@ public class RecordJobDetailsViewController {
         cbTechnicians.getItems().addAll(PersonModelProcessor.getAllTechnicians());
     }
 
-    IJobDetailsModel getJobDetails(){
+    IJobDetailsModel createJobDetails(){
         if(validateJobDetails()){
             IPersonModel client = cbClient.getValue();
             ITechnicianModel checkingTechnician = cbTechnicians.getValue();

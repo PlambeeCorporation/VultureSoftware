@@ -21,7 +21,7 @@ public class RecordMotorDetailsViewController {
      */
     @FXML
     public IMotorModel createMotorModel(){
-        if(validateMotorModelInput()){
+        if(validateMotorModel()){
             String motorType = txtMotorType.getText();
             String manufacturer = txtManufacturer.getText();
             int estimatedYear = Integer.valueOf(txtEstimatedYear.getText());
@@ -36,7 +36,7 @@ public class RecordMotorDetailsViewController {
      * Validates motor details.
      * @return true if details are valid, false otherwise.
      */
-    private boolean validateMotorModelInput(){
+    private boolean validateMotorModel(){
         boolean isValid = true;
 
         String errorMessage = "";

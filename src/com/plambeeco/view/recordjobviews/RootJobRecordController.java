@@ -112,7 +112,7 @@ public class RootJobRecordController {
         IMotorModel motor = recordMotorDetailsViewController.createMotorModel();
         List<IPartModel> partsNeeded = recordPartsNeededController.getPartsNeeded();
         List<ITaskModel> tasksNeeded = recordTasksDetailsViewController.getTasksNeeded();
-        IJobDetailsModel jobDetails = recordJobDetailsViewController.getJobDetails();
+        IJobDetailsModel jobDetails = recordJobDetailsViewController.createJobDetails();
         jobDetails.setEstimatedLabourTime(JobDetailsModel.calculateEstimatedLabourTime(tasksNeeded));
 
         if(motor != null && jobDetails != null){

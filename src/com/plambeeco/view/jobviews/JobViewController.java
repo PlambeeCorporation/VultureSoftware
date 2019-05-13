@@ -223,15 +223,18 @@ public class JobViewController {
     }
 
     private void initializeEditability(){
-//        if(RootHumanResourcesController.getLoggedInAccountType() == null){
-//            if(currentJob.isJobApproved()){
-//                disableComponents();
-//            }else{
-//                enableComponents();
-//            }
-//        }else{
-//            disableComponents();
-//        }
+        try{
+            AccountType accountType = RootHumanResourcesController.getLoggedInAccountType();
+            if(accountType == AccountType.HumanResources){
+                disableComponents();
+            }
+        }catch(NullPointerException e){
+            if(currentJob.isJobApproved()){
+                disableComponents();
+            }else{
+                enableComponents();
+            }
+        }
     }
 
     private void disableComponents(){
