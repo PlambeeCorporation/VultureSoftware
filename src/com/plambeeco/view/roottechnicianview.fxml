@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.text.*?>
-<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.text.Font?>
+
+<BorderPane minHeight="648.0" minWidth="1250.0" prefHeight="648.0" prefWidth="1316.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <left>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="290.0" BorderPane.alignment="CENTER">
          <children>
@@ -45,6 +48,16 @@
                         <Image url="@../assets/images/logout.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="11.0" layoutY="446.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/unasigned-task.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="11.0" layoutY="540.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/images/unasigned-task.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
             <Label layoutX="70.0" layoutY="20.0" onMouseClicked="#openEditOwnAccountView" text="Options">
@@ -52,22 +65,22 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="150.0" onMouseClicked="#openRecordNewJobView" text="Record New Job">
+            <Label layoutX="70.0" layoutY="171.0" onMouseClicked="#openRecordNewJobView" text="Record New Job">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="85.0" onMouseClicked="#openTechnicianTasksView" text="My Tasks">
+            <Label layoutX="70.0" layoutY="98.0" onMouseClicked="#openTechnicianTasksView" text="My Tasks">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="215.0" onMouseClicked="#openAllJobsView" prefHeight="17.0" prefWidth="104.0" text="View All Jobs">
+            <Label layoutX="70.0" layoutY="254.0" onMouseClicked="#openAllJobsView" prefHeight="17.0" prefWidth="104.0" text="View All Jobs">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="345.0" onMouseClicked="#openUnassignedTasksView" text="View Unnasigned tasks">
+            <Label layoutX="70.0" layoutY="448.0" onMouseClicked="#openUnassignedTasksView" text="View Unnasigned tasks">
                <font>
                   <Font size="18.0" />
                </font>
@@ -78,12 +91,12 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="410.0" onMouseClicked="#openUnfinishedTasksView" text="View Unfinished Tasks">
+            <Label layoutX="70.0" layoutY="541.0" onMouseClicked="#openUnfinishedTasksView" text="View Unfinished Tasks">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <Label layoutX="70.0" layoutY="280.0" onMouseClicked="#openOverdueTasksView" text="View Overdue Tasks">
+            <Label layoutX="70.0" layoutY="349.0" onMouseClicked="#openOverdueTasksView" text="View Overdue Tasks">
                <font>
                   <Font size="18.0" />
                </font>

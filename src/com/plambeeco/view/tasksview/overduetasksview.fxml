@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="512.0" prefWidth="808.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="512.0" prefWidth="760.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TableView fx:id="tvTasks" layoutX="37.0" layoutY="54.0" prefHeight="397.0" prefWidth="739.0">
+      <TableView fx:id="tvTasks" layoutX="10.0" layoutY="54.0" prefHeight="397.0" prefWidth="739.0">
          <columns>
             <TableColumn fx:id="tcJobId" prefWidth="75.0" text="Job Id" />
             <TableColumn fx:id="tcTaskName" prefWidth="158.0" text="Task Name" />
@@ -15,8 +19,8 @@
             <TableColumn fx:id="tcDeadline" prefWidth="111.0" text="Deadline" />
          </columns>
       </TableView>
-      <Button layoutX="353.0" layoutY="464.0" mnemonicParsing="false" onAction="#openJobView" text="View Job Details" />
-      <Label layoutX="37.0" layoutY="24.0" text="Overdue Tasks">
+      <Button layoutX="329.0" layoutY="462.0" mnemonicParsing="false" onAction="#openJobView" text="View Job Details" />
+      <Label layoutX="11.0" layoutY="11.0" text="Overdue Tasks">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>

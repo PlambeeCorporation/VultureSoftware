@@ -1,41 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<AnchorPane fx:id="AnchorPane" prefHeight="496.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.accountviews.CreateNewAccountViewController">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="248.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.plambeeco.view.accountviews.CreateNewAccountViewController">
     <children>
-        <StackPane layoutX="184.0" layoutY="100.0" prefHeight="550.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox prefHeight="200.0" prefWidth="100.0">
-                    <children>
-                        <Pane prefHeight="246.0" prefWidth="600.0" style="-fx-background-color: #3b70a5;" />
-                        <Pane prefHeight="440.0" prefWidth="600.0" style="-fx-background-color: #EDE7F6;" />
-                    </children>
-                </VBox>
-                <AnchorPane prefHeight="487.0" prefWidth="600.0" style="-fx-background-color: transparent;">
-                    <children>
-                        <AnchorPane layoutX="66.0" layoutY="53.0" prefHeight="381.0" prefWidth="469.0" style="-fx-background-color: WHITE; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-border-radius: 4; -fx-padding: 8;">
-                            <children>
-                                <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="185.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-<!--                                        <Image url="@/com/plambeeco/assets/vulture-logo.png" />-->
-                                    </image>
-                                </ImageView>
-                                    <TextField fx:id="txtForename" layoutX="86.0" layoutY="30.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Forename" />
-                                    <TextField fx:id="txtSurname" layoutX="86.0" layoutY="90.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Surname" />
-                                    <TextField fx:id="txtEmailAddress" layoutX="86.0" layoutY="150.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Email Address" />
-                                    
-                                                <Button layoutX="158.0" layoutY="315.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="37.0" prefWidth="135.0" style="-fx-background-color: #3b70a5; -fx-text-fill: #ffffff; -fx-background-radius: 10px;" text="Create Account" />
-                        <ComboBox fx:id="cbAccountType" layoutX="167.0" layoutY="266.0" prefHeight="25.0" prefWidth="217.0" />
-                        <Label layoutX="86.0" layoutY="270.0" text="Account Type" />
-                        <TextField fx:id="txtPhoneNumber" layoutX="86.0" layoutY="210.0" prefHeight="37.0" prefWidth="298.0" promptText="Enter Phone Number" />
-                                
-                                        </children>
-                        </AnchorPane>
-                    </children>
-                </AnchorPane>
-            </children>
-        </StackPane>
+
+        <Label layoutX="11.0" layoutY="11.0" text="Create New Account">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Label>
+          <TextField fx:id="txtForename" layoutX="94.0" layoutY="46.0" prefHeight="25.0" prefWidth="158.0" />
+          <TextField fx:id="txtSurname" layoutX="94.0" layoutY="81.0" prefHeight="25.0" prefWidth="158.0" />
+          <TextField fx:id="txtEmailAddress" layoutX="94.0" layoutY="116.0" prefHeight="25.0" prefWidth="324.0" />
+                  
+        <Button layoutX="94.0" layoutY="226.0" mnemonicParsing="false" onAction="#createAccount" prefHeight="25.0" prefWidth="107.0" text="Create Account" />
+        <ComboBox fx:id="cbAccountType" layoutX="95.0" layoutY="187.0" prefHeight="25.0" prefWidth="217.0" />
+        <Label layoutX="11.0" layoutY="191.0" text="Account Type" />
+        <TextField fx:id="txtPhoneNumber" layoutX="94.0" layoutY="152.0" prefHeight="25.0" prefWidth="324.0" />
+        <Label layoutX="10.0" layoutY="50.0" text="Firstname" />
+        <Label layoutX="10.0" layoutY="85.0" text="Surname" />
+        <Label layoutX="10.0" layoutY="156.0" text="Phone Num" />
+        <Label layoutX="10.0" layoutY="120.0" text="Email Add" />
+
     </children>
 </AnchorPane>
