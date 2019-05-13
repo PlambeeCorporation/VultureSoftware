@@ -83,6 +83,5 @@ public class AccountModel implements IAccountModel {
     @Override
     public String toString() {
         return accountOwner.toString() + " | " + accountType;
-
     }
 }

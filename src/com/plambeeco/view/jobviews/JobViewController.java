@@ -223,60 +223,35 @@ public class JobViewController {
     }
 
     private void initializeEditability(){
-        if((RootHumanResourcesController.getLoggedInAccountType() != null &&
-                RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician) || currentJob.isJobApproved()){
-            txtJobId.setDisable(true);
-            txtMotor.setDisable(true);
-            txtEstimatedYearOfManufacture.setDisable(true);
-            dpDateCollected.setDisable(true);
-            txtEstimatedLabourTime.setDisable(true);
-            cbClient.setDisable(true);
-            txtManufacturer.setDisable(true);
-            dpReturnDate.setDisable(true);
-            cbCheckingTechnician.setDisable(true);
-            dpCheckingDate.setDisable(true);
-            cbInspectingTechnicians.setDisable(true);
-            dpInspectionDate.setDisable(true);
-            btnAddPart.setDisable(true);
-            btnEditPart.setDisable(true);
-            btnRemovePart.setDisable(true);
-            btnOpenAssignTasksView.setDisable(true);
-            btnTaskCompleted.setDisable(true);
-        }else{
-            txtJobId.setDisable(false);
-            txtMotor.setDisable(false);
-            txtEstimatedYearOfManufacture.setDisable(false);
-            dpDateCollected.setDisable(false);
-            txtEstimatedLabourTime.setDisable(false);
-            cbClient.setDisable(false);
-            txtManufacturer.setDisable(false);
-            dpReturnDate.setDisable(false);
-            cbCheckingTechnician.setDisable(false);
-            dpCheckingDate.setDisable(false);
-            cbInspectingTechnicians.setDisable(false);
-            dpInspectionDate.setDisable(false);
-            btnAddPart.setDisable(false);
-            btnEditPart.setDisable(false);
-            btnRemovePart.setDisable(false);
-            btnOpenAssignTasksView.setDisable(false);
-            btnTaskCompleted.setDisable(false);txtJobId.setDisable(false);
-            txtMotor.setDisable(false);
-            txtEstimatedYearOfManufacture.setDisable(false);
-            dpDateCollected.setDisable(false);
-            txtEstimatedLabourTime.setDisable(false);
-            cbClient.setDisable(false);
-            txtManufacturer.setDisable(false);
-            dpReturnDate.setDisable(false);
-            cbCheckingTechnician.setDisable(false);
-            dpCheckingDate.setDisable(false);
-            cbInspectingTechnicians.setDisable(false);
-            dpInspectionDate.setDisable(false);
-            btnAddPart.setDisable(false);
-            btnEditPart.setDisable(false);
-            btnRemovePart.setDisable(false);
-            btnOpenAssignTasksView.setDisable(false);
-            btnTaskCompleted.setDisable(false);
-        }
+//        if(RootHumanResourcesController.getLoggedInAccountType() == null){
+//            if(currentJob.isJobApproved()){
+//                disableComponents();
+//            }else{
+//                enableComponents();
+//            }
+//        }else{
+//            disableComponents();
+//        }
+    }
+
+    private void disableComponents(){
+        txtJobId.setDisable(true);
+        txtMotor.setDisable(true);
+        txtEstimatedYearOfManufacture.setDisable(true);
+        dpDateCollected.setDisable(true);
+        txtEstimatedLabourTime.setDisable(true);
+        cbClient.setDisable(true);
+        txtManufacturer.setDisable(true);
+        dpReturnDate.setDisable(true);
+        cbCheckingTechnician.setDisable(true);
+        dpCheckingDate.setDisable(true);
+        cbInspectingTechnicians.setDisable(true);
+        dpInspectionDate.setDisable(true);
+        btnAddPart.setDisable(true);
+        btnEditPart.setDisable(true);
+        btnRemovePart.setDisable(true);
+        btnOpenAssignTasksView.setDisable(true);
+        btnTaskCompleted.setDisable(true);
 
         if(RootHumanResourcesController.getLoggedInAccountType() != null &&
                 RootHumanResourcesController.getLoggedInAccountType() != AccountType.Technician){
@@ -284,6 +259,42 @@ public class JobViewController {
             ckbNotApproved.setDisable(true);
             btnConfirm.setDisable(true);
         }
+    }
+
+    private void enableComponents(){
+        txtJobId.setDisable(false);
+        txtMotor.setDisable(false);
+        txtEstimatedYearOfManufacture.setDisable(false);
+        dpDateCollected.setDisable(false);
+        txtEstimatedLabourTime.setDisable(false);
+        cbClient.setDisable(false);
+        txtManufacturer.setDisable(false);
+        dpReturnDate.setDisable(false);
+        cbCheckingTechnician.setDisable(false);
+        dpCheckingDate.setDisable(false);
+        cbInspectingTechnicians.setDisable(false);
+        dpInspectionDate.setDisable(false);
+        btnAddPart.setDisable(false);
+        btnEditPart.setDisable(false);
+        btnRemovePart.setDisable(false);
+        btnOpenAssignTasksView.setDisable(false);
+        btnTaskCompleted.setDisable(false);txtJobId.setDisable(false);
+        txtMotor.setDisable(false);
+        txtEstimatedYearOfManufacture.setDisable(false);
+        dpDateCollected.setDisable(false);
+        txtEstimatedLabourTime.setDisable(false);
+        cbClient.setDisable(false);
+        txtManufacturer.setDisable(false);
+        dpReturnDate.setDisable(false);
+        cbCheckingTechnician.setDisable(false);
+        dpCheckingDate.setDisable(false);
+        cbInspectingTechnicians.setDisable(false);
+        dpInspectionDate.setDisable(false);
+        btnAddPart.setDisable(false);
+        btnEditPart.setDisable(false);
+        btnRemovePart.setDisable(false);
+        btnOpenAssignTasksView.setDisable(false);
+        btnTaskCompleted.setDisable(false);
     }
 
     /**
