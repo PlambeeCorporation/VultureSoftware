@@ -1,9 +1,13 @@
 package com.plambeeco.view.tasksview;
 
+import com.plambeeco.VultureApplication;
+import com.plambeeco.dataaccess.dataprocessor.JobModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.PersonModelProcessor;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.models.IAccountModel;
 import com.plambeeco.models.ITaskModel;
+import com.plambeeco.models.JobModel;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -75,13 +79,18 @@ public class TechnicianTaskViewController {
     @FXML
     private void completeTask(){
         ITaskModel taskModel = tvTasks.getSelectionModel().getSelectedItem();
-        if(!taskModel.isTaskCompleted()){
-            taskModel.setTaskCompleted(true);
-        }else{
-            taskModel.setTaskCompleted(false);
-        }
+        JobModel job = JobModelProcessor.getById(taskModel.getJobId());
 
-        TaskModelProcessor.update(taskModel);
-        initializeTable();
+        if(!job.isJobApproved()){
+            if(!taskModel.isTaskCompleted()){
+                taskModel.setTaskCompleted(true);
+            }else{
+                taskModel.setTaskCompleted(false);
+            }
+            TaskModelProcessor.update(taskModel);
+            initializeTable();
+        }else{
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Cannot change the task completion", "The job for this task is marked as approved");
+        }
     }
 }

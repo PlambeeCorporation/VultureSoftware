@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import java.io.IOException;
 import java.util.List;
 
-public class RootJobRecordController {
+public class RootJobRecordViewController {
     private BorderPane rootScene;
     @FXML
     private BorderPane rootJobScene;
@@ -24,7 +24,7 @@ public class RootJobRecordController {
     private RecordTasksDetailsViewController recordTasksDetailsViewController;
     private RecordJobDetailsViewController recordJobDetailsViewController;
 
-    public RootJobRecordController(BorderPane rootScene) {
+    public RootJobRecordViewController(BorderPane rootScene) {
         this.rootScene = rootScene;
         VultureApplication.getPrimaryStage().setTitle("Record new Job");
 
@@ -39,7 +39,7 @@ public class RootJobRecordController {
         try{
             //Load record job layout
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootJobRecordController.class.getResource("rootjobrecordview.fxml"));
+            loader.setLocation(RootJobRecordViewController.class.getResource("rootjobrecordview.fxml"));
             loader.setController(this);
             rootJobScene = loader.load();
 
@@ -52,7 +52,7 @@ public class RootJobRecordController {
     private void initMotorModelView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootJobRecordController.class.getResource("recordmotordetailsview.fxml"));
+            loader.setLocation(RootJobRecordViewController.class.getResource("recordmotordetailsview.fxml"));
             AnchorPane motorModelView = loader.load();
 
             borderPaneInsideTopBorderPane.setRight(motorModelView);
@@ -66,7 +66,7 @@ public class RootJobRecordController {
     private void initPartsNeededView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootJobRecordController.class.getResource("recordpartsneededview.fxml"));
+            loader.setLocation(RootJobRecordViewController.class.getResource("recordpartsneededview.fxml"));
             AnchorPane partsNeededView = loader.load();
 
             rootJobScene.setRight(partsNeededView);
@@ -78,7 +78,7 @@ public class RootJobRecordController {
     private void initTaskView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootJobRecordController.class.getResource("recordtaskdetailsview.fxml"));
+            loader.setLocation(RootJobRecordViewController.class.getResource("recordtaskdetailsview.fxml"));
             AnchorPane taskView = loader.load();
 
             rootJobScene.setLeft(taskView);
@@ -90,7 +90,7 @@ public class RootJobRecordController {
     private void initRecordDetailsView(){
         try{
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(RootJobRecordController.class.getResource("recordjobdetailsview.fxml"));
+            loader.setLocation(RootJobRecordViewController.class.getResource("recordjobdetailsview.fxml"));
             AnchorPane jobView = loader.load();
 
             borderPaneInsideTopBorderPane.setLeft(jobView);

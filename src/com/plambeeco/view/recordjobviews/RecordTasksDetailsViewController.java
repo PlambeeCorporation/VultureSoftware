@@ -220,6 +220,11 @@ public class RecordTasksDetailsViewController {
             errorMessage += "Enter hours needed!\n";
         }
 
+        if(Integer.valueOf(txtHoursNeeded.getText()) > 48){
+            isValid = false;
+            errorMessage += "Surely, it will take you less than 48 hours to complete the task.\n";
+        }
+
         for (ITaskModel task: tasksNeeded) {
             if(cbTaskNames.getValue() != null &&
                     cbTaskNames.getValue().equals(task.getTaskName())){

@@ -2,9 +2,11 @@ package com.plambeeco.view.tasksview;
 
 import com.plambeeco.VultureApplication;
 import com.plambeeco.dataaccess.dataprocessor.TaskModelProcessor;
+import com.plambeeco.helper.AlertHelper;
 import com.plambeeco.helper.ConstantValuesHelper;
 import com.plambeeco.models.ITaskModel;
 import com.plambeeco.models.ITechnicianModel;
+import com.plambeeco.models.JobModel;
 import com.plambeeco.view.recordjobviews.RecordPartsNeededController;
 import com.plambeeco.view.recordjobviews.TaskNameEditDialogViewController;
 import javafx.collections.FXCollections;
@@ -42,14 +44,16 @@ public class EditTaskViewController {
 
     private Stage editTaskStage;
     private Map<ITechnicianModel, Integer> techniciansToRemove;
+    private JobModel currentJob;
 
     public void setEditTaskStage(Stage editTaskStage) {
         this.editTaskStage = editTaskStage;
     }
 
-    public EditTaskViewController(ITaskModel taskToEdit, Map<ITechnicianModel, Integer> techniciansToRemove) {
+    public EditTaskViewController(ITaskModel taskToEdit, Map<ITechnicianModel, Integer> techniciansToRemove, JobModel currentJob) {
         this.taskToEdit = taskToEdit;
         this.techniciansToRemove = techniciansToRemove;
+        this.currentJob = currentJob;
     }
 
     @FXML
@@ -142,7 +146,42 @@ public class EditTaskViewController {
     }
 
     private boolean validateTaskDetails(){
-        //TODO - Validate task details
-        return true;
+        boolean isValid = true;
+        String errorMessage = "";
+
+        if(cbTaskNames.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a task name!\n";
+        }
+
+        if(cbTaskPriority.getValue() == null){
+            isValid = false;
+            errorMessage += "Select a priority!\n";
+        }
+
+        if(txtHours.getLength() < 1){
+            isValid = false;
+            errorMessage += "Enter hours needed!\n";
+        }
+
+        if(Integer.valueOf(txtHours.getText()) > 48){
+            isValid = false;
+            errorMessage += "Surely, it will take you less than 48 hours to complete the task.\n";
+        }
+
+        for (ITaskModel task: currentJob.getJobTasks()) {
+            if(cbTaskNames.getValue() != null &&
+                    cbTaskNames.getValue().equals(task.getTaskName())){
+                isValid = false;
+                errorMessage = cbTaskNames.getValue() + " has been already added!\n";
+                break;
+            }
+        }
+
+        if(!isValid){
+            AlertHelper.showAlert(VultureApplication.getPrimaryStage(), "Incorrrect Task Details", errorMessage);
+        }
+
+        return isValid;
     }
 }

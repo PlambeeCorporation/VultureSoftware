@@ -227,6 +227,9 @@ public class JobViewController {
             AccountType accountType = RootHumanResourcesViewController.getLoggedInAccountType();
             if(accountType == AccountType.HumanResources){
                 disableComponents();
+                ckbApproved.setDisable(true);
+                ckbNotApproved.setDisable(true);
+                btnConfirm.setDisable(true);
             }
         }catch(NullPointerException e){
             if(currentJob.isJobApproved()){
@@ -255,13 +258,6 @@ public class JobViewController {
         btnRemovePart.setDisable(true);
         btnOpenAssignTasksView.setDisable(true);
         btnTaskCompleted.setDisable(true);
-
-        if(RootHumanResourcesViewController.getLoggedInAccountType() != null &&
-                RootHumanResourcesViewController.getLoggedInAccountType() != AccountType.Technician){
-            ckbApproved.setDisable(true);
-            ckbNotApproved.setDisable(true);
-            btnConfirm.setDisable(true);
-        }
     }
 
     private void enableComponents(){

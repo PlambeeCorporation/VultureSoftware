@@ -6,7 +6,7 @@ import com.plambeeco.models.IAccountModel;
 import com.plambeeco.view.accountviews.EditOwnAccountViewController;
 import com.plambeeco.view.jobviews.AllJobViewController;
 import com.plambeeco.view.loginviews.LoginViewController;
-import com.plambeeco.view.recordjobviews.RootJobRecordController;
+import com.plambeeco.view.recordjobviews.RootJobRecordViewController;
 import com.plambeeco.view.tasksview.OverdueTasksViewController;
 import com.plambeeco.view.tasksview.TechnicianTaskViewController;
 import com.plambeeco.view.tasksview.UnassignedTasksViewController;
@@ -78,7 +78,7 @@ public class RootTechnicianViewController {
 
     @FXML
     private void openRecordNewJobView(){
-        new RootJobRecordController(rootScene);
+        new RootJobRecordViewController(rootScene);
     }
 
     @FXML

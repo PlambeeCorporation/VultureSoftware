@@ -143,7 +143,7 @@ public class AssignTaskViewController {
                 Map<ITechnicianModel, Integer> removeMap = new HashMap<>();
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(RootTechnicianViewController.class.getResource("tasksview/edittaskview.fxml"));
-                EditTaskViewController controller = new EditTaskViewController(selectedTask, removeMap);
+                EditTaskViewController controller = new EditTaskViewController(selectedTask, removeMap, currentJob);
                 loader.setController(controller);
                 AnchorPane editTaskView = loader.load();
 
